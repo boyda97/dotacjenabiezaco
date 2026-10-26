@@ -6,4 +6,4 @@ aktualizacjami albo z jednorazowym dostępem tygodniowym.
 
 | Katalog | Co zawiera |
 |---|---|
-| `silnik/` | Pobieranie naborów ze źródeł i dopasowanie ich do profilu firmy (Python) |
+| `silnik/` | Pobieranie naborów ze źródeł i dopasowanie ich do profilu firmy (Python), instrukcja w [silnik/README.md](silnik/README.md) |
