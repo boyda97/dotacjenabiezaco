@@ -7,3 +7,4 @@ aktualizacjami albo z jednorazowym dostępem tygodniowym.
 | Katalog | Co zawiera |
 |---|---|
 | `silnik/` | Pobieranie naborów ze źródeł i dopasowanie ich do profilu firmy (Python) |
+| `konta-platnosci/` | Konta (logowanie linkiem z e-maila), płatności Stripe (abonament 49 zł/mies., tydzień 39 zł z BLIK/P24) i blokada płatnych treści (Node.js) |
