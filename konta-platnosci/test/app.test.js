@@ -122,6 +122,7 @@ test("checkout wymaga logowania i zgód; tydzień oferuje BLIK i P24", async () 
   assert.equal(p.mode, "payment");
   assert.deepEqual(p.payment_method_types, ["card", "blik", "p24"]);
   assert.equal(p.metadata.product, "week");
+  assert.match(p.invoice_creation.invoice_data.footer, /zwolniony z VAT/);
 
   await post("/api/billing/checkout", { product: "pro", acceptTerms: true, immediateAccess: true }, cookie);
   assert.equal(created.at(-1).mode, "subscription");

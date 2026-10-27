@@ -15,6 +15,7 @@ export function createBilling({ db, cfg, stripe, auth, log = console }) {
       email: user.email,
       metadata: { userId: String(user.id) },
       preferred_locales: ["pl"],
+      ...(cfg.invoiceFooter ? { invoice_settings: { footer: cfg.invoiceFooter } } : {}),
     });
     db.prepare("UPDATE users SET stripe_customer_id = ? WHERE id = ?").run(c.id, user.id);
     return c.id;
@@ -68,7 +69,10 @@ export function createBilling({ db, cfg, stripe, auth, log = console }) {
             mode: "payment",
             // BLIK i Przelewy24 działają w Stripe tylko przy płatnościach jednorazowych.
             payment_method_types: ["card", "blik", "p24"],
-            invoice_creation: { enabled: true },
+            invoice_creation: {
+              enabled: true,
+              ...(cfg.invoiceFooter ? { invoice_data: { footer: cfg.invoiceFooter } } : {}),
+            },
             payment_intent_data: { metadata: meta },
           }
         : {

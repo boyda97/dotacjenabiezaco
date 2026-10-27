@@ -6,7 +6,8 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const WEEK_PLN = Number(process.env.WEEK_PRICE_PLN || 39);
 
-// Ceny netto (tax_behavior: exclusive) – VAT doliczany przy włączonym Stripe Tax.
+// Ceny końcowe (tax_behavior: inclusive): sprzedawca jest zwolniony z VAT, więc klient płaci dokładnie tyle.
+// Po przejściu na VAT kwota zostaje ceną brutto, chyba że utworzysz nowe ceny (lookup_key _v2).
 const ITEMS = [
   { key: "start", name: "Dotacje na Bieżąco – abonament miesięczny", pln: 49, recurring: true },
   { key: "pro", name: "Dotacje na Bieżąco Pro", pln: 149, recurring: true },
@@ -24,7 +25,7 @@ for (const it of ITEMS) {
       product: product.id,
       currency: "pln",
       unit_amount: it.pln * 100,
-      tax_behavior: "exclusive",
+      tax_behavior: "inclusive",
       lookup_key,
       ...(it.recurring ? { recurring: { interval: "month" } } : {}),
     });

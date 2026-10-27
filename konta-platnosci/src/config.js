@@ -20,6 +20,9 @@ export function loadConfig(overrides = {}) {
     stripeSecretKey: env.STRIPE_SECRET_KEY || "",
     stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET || "",
     stripeAutomaticTax: env.STRIPE_AUTOMATIC_TAX === "1",
+    // Stopka faktur. Dopóki sprzedawca jest zwolniony z VAT, faktura musi podawać podstawę zwolnienia.
+    invoiceFooter:
+      env.INVOICE_FOOTER ?? "Sprzedawca zwolniony z VAT na podstawie art. 113 ust. 1 ustawy o VAT.",
     prices: {
       start: env.STRIPE_PRICE_START || "",
       pro: env.STRIPE_PRICE_PRO || "",
