@@ -1,0 +1,10 @@
+[Unit]
+Description=Dotacjo: Codzienne pobranie naborów
+
+[Timer]
+OnCalendar=*-*-* 06:00:00
+Persistent=true
+RandomizedDelaySec=10min
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,8 @@
+[Unit]
+Description=Dotacjo: Codzienne pobranie naborów
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/dotacjo-aktualizuj silnik

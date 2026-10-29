@@ -1,0 +1,33 @@
+# Serwer produkcyjny: aplikacja + Caddy (HTTPS z Let's Encrypt, odnawiany sam).
+services:
+  app:
+    build: ..
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - dane:/data
+      - /var/backups/dotacjo:/kopie
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/me').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  dane:
+  caddy_data:
+  caddy_config:
