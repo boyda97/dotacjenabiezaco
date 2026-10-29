@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -27,7 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="dotacjomat", description="Silnik dopasowania dotacji")
-    ap.add_argument("--db", default=str(ROOT / "dotacjomat.db"))
+    ap.add_argument("--db", default=os.environ.get("DOTACJOMAT_DB") or str(ROOT / "dotacjomat.db"))
     ap.add_argument("--sources", default=str(ROOT / "config" / "sources.json"))
     ap.add_argument("-v", "--verbose", action="store_true")
     sub = ap.add_subparsers(dest="cmd", required=True)

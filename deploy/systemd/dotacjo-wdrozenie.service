@@ -1,0 +1,8 @@
+[Unit]
+Description=Dotacjo: Wdrożenie nowej wersji z GitHuba
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/dotacjo-aktualizuj wdrozenie
