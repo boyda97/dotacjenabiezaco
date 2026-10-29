@@ -18,7 +18,7 @@ Dane (konta, subskrypcje, baza naborów) są w wolumenie Dockera `dane` (`/data`
 Po ustawieniu w DNS rekordów `A` dla `dotacjo.pl` i `www.dotacjo.pl` na adres serwera:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/boyda97/dotacjenabiezaco/main/deploy/instaluj.sh | sudo bash
+curl -fsSLo instaluj.sh https://raw.githubusercontent.com/boyda97/dotacjenabiezaco/main/deploy/instaluj.sh && sudo bash instaluj.sh
 ```
 
 Skrypt zapyta o klucz tajny Stripe (`sk_test_...` na próbę, później `sk_live_...`) i klucz API Resend.
