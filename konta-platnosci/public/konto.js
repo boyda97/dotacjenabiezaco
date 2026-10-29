@@ -96,8 +96,8 @@
     if (btn) {
       const fresh = btn.cloneNode(true); // usuwa demo-handler
       btn.replaceWith(fresh);
-      fresh.textContent = me.user ? "Wyloguj" : "Zaloguj";
-      fresh.onclick = () => (me.user ? Konto.logout() : Konto.login());
+      fresh.textContent = me.user ? "Mój profil" : "Zaloguj";
+      fresh.onclick = () => (me.user ? (location.href = "/profil") : Konto.login());
     }
     // Przyciski z panelu "Abonament"
     document.addEventListener("click", (e) => {

@@ -220,3 +220,56 @@ test("wylogowanie usuwa sesję", async () => {
   await post("/api/auth/logout", {}, cookie);
   assert.equal((await (await get("/api/me", cookie)).json()).user, null);
 });
+
+const put = (path, body, cookie) =>
+  fetch(base + path, { method: "PUT", headers: { "Content-Type": "application/json", Cookie: cookie }, body: JSON.stringify(body) });
+
+test("profil: ulubione wymagają logowania, zapis, etap, notatka, usuwanie", async () => {
+  assert.equal((await get("/api/profile/favorites")).status, 401);
+  const { cookie } = await login("ulubione@firma.pl");
+  assert.equal((await put("/api/profile/favorites/x", { status: "nowy" }, cookie)).status, 400); // nowy wpis bez karty
+  assert.equal((await put("/api/profile/favorites/x", { program: { name: "A" }, status: "zly" }, cookie)).status, 400);
+
+  const r = await put("/api/profile/favorites/bon-1", {
+    program: { name: "Bon na start", url: "javascript:alert(1)", max: "45000", deadline: "2026-11-30", hack: 1 },
+  }, cookie);
+  assert.equal(r.status, 200);
+  const { favorite } = await r.json();
+  assert.equal(favorite.status, "nowy");
+  assert.equal(favorite.program.url, undefined);
+  assert.equal(favorite.program.max, 45000);
+  assert.equal(favorite.program.hack, undefined);
+
+  await put("/api/profile/favorites/bon-1", { status: "przygotowuje", note: "zebrać oferty" }, cookie);
+  let favs = (await (await get("/api/profile/favorites", cookie)).json()).favorites;
+  assert.equal(favs.length, 1);
+  assert.equal(favs[0].status, "przygotowuje");
+  assert.equal(favs[0].note, "zebrać oferty");
+  assert.equal(favs[0].program.name, "Bon na start");
+
+  const ics = await get("/api/profile/favorites.ics", cookie);
+  assert.match(ics.headers.get("content-type"), /text\/calendar/);
+  const body = await ics.text();
+  assert.match(body, /DTSTART;VALUE=DATE:20261130/);
+  assert.match(body, /DTEND;VALUE=DATE:20261201/);
+  assert.match(body, /TRIGGER:-P14D/);
+  assert.ok(body.split("\r\n").every((l) => Buffer.byteLength(l) <= 75));
+
+  // cudze konto nie widzi ulubionych
+  const { cookie: other } = await login("inny@firma.pl");
+  assert.equal((await (await get("/api/profile/favorites", other)).json()).favorites.length, 0);
+
+  await fetch(base + "/api/profile/favorites/bon-1", { method: "DELETE", headers: { Cookie: cookie } });
+  favs = (await (await get("/api/profile/favorites", cookie)).json()).favorites;
+  assert.equal(favs.length, 0);
+});
+
+test("profil: zapisane wyszukiwanie", async () => {
+  const { cookie } = await login("szukam@firma.pl");
+  assert.equal((await (await get("/api/profile/search", cookie)).json()).search, null);
+  assert.equal((await put("/api/profile/search", { query: { region: "mazowieckie" } }, cookie)).status, 400);
+  await put("/api/profile/search", { query: { region: "mazowieckie", form: "jdg", size: "micro", goals: "digital", evil: "x" }, label: "Moja firma" }, cookie);
+  const { search } = await (await get("/api/profile/search", cookie)).json();
+  assert.deepEqual(search.query, { region: "mazowieckie", form: "jdg", size: "micro", goals: "digital" });
+  assert.equal(search.label, "Moja firma");
+});

@@ -56,6 +56,22 @@ CREATE TABLE IF NOT EXISTS stripe_events (
   type TEXT NOT NULL,
   processed_at INTEGER NOT NULL
 );
+CREATE TABLE IF NOT EXISTS favorites (
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  program_id TEXT NOT NULL,
+  program TEXT NOT NULL,             -- JSON: kopia karty programu z chwili zapisania
+  status TEXT NOT NULL DEFAULT 'nowy',
+  note TEXT,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY (user_id, program_id)
+);
+CREATE TABLE IF NOT EXISTS search_profiles (
+  user_id INTEGER PRIMARY KEY REFERENCES users(id),
+  query TEXT NOT NULL,               -- query string dla /api/programs
+  label TEXT,
+  updated_at INTEGER NOT NULL
+);
 CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
 CREATE INDEX IF NOT EXISTS idx_subs_user ON subscriptions(user_id);
 CREATE INDEX IF NOT EXISTS idx_passes_user ON passes(user_id);

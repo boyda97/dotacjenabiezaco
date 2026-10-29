@@ -10,7 +10,7 @@ COPY konta-platnosci/package.json konta-platnosci/package-lock.json ./
 RUN npm ci --omit=dev
 
 COPY konta-platnosci/ ./
-COPY strona/index.html ./public/index.html
+COPY strona/index.html strona/profil.html ./public/
 COPY silnik/ /app/silnik/
 COPY deploy/start.sh /app/start.sh
 COPY deploy/stripe-webhook.mjs ./scripts/stripe-webhook.mjs

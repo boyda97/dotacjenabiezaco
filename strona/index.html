@@ -121,6 +121,9 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--soft);color:var(--green)}
 .tag.cond{color:#8a5a00;background:#fbf3e2}
+.fav{margin-top:8px;font:700 12px/1 var(--font);padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--green);cursor:pointer}
+.fav:hover{border-color:var(--green)}
+.fav[aria-pressed=true]{background:var(--greenL);border-color:var(--greenL)}
 .empty{padding:20px 0;color:var(--mut);font-size:15px}
 .cal-foot{margin-top:10px;background:var(--greenL);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
 .cal-foot:has(#rMore:empty):has(a[hidden]){display:none}
@@ -490,7 +493,8 @@ footer a{color:var(--mut)}
     var name=p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.n)+'</a>':esc(p.n);
     var sub=[p.o?esc(p.o):"",when].filter(Boolean).join(" · ");
     var tags=(p.t||[]).length?'<div class="tags">'+p.t.map(function(x){return '<span class="tag '+x[0]+'">'+(x[0]==="ok"?"✓ ":"! ")+esc(x[1])+'</span>'}).join("")+'</div>':"";
-    return '<div class="ev'+(hot?" hot":"")+(p.lock?" lock":"")+'">'+date+'<div><h4>'+name+'</h4><p>'+sub+'</p>'+tags+'</div><div class="v">'+esc(p.a)+'<small>'+esc(p.k||"")+'</small></div></div>';
+    var fav=p.fid?'<button type="button" class="fav" data-fav="'+esc(p.fid)+'" aria-pressed="'+!!saved[p.fid]+'">'+(saved[p.fid]?"★ Zapisane":"☆ Zapisz")+'</button>':"";
+    return '<div class="ev'+(hot?" hot":"")+(p.lock?" lock":"")+'">'+date+'<div><h4>'+name+'</h4><p>'+sub+'</p>'+tags+fav+'</div><div class="v">'+esc(p.a)+'<small>'+esc(p.k||"")+'</small></div></div>';
   }
   function render(v){
     document.getElementById("rWho").innerHTML=v.who;
@@ -504,27 +508,54 @@ footer a{color:var(--mut)}
 
   // ---- prawdziwe wyniki z silnika: /api/programs, ułożone według terminu ----
   var STATUS={open:"nabór trwa",soon:"nabór wkrótce",closed:"nabór zamknięty"},TYPE={dotacja:"dotacja",pozyczka:"pożyczka",mieszane:"dotacja + pożyczka"};
-  var SHOW=6,last=null,showAll=false;
+  var SHOW=6,last=null,showAll=false,me=null,saved={},shown={},lastView=null;
   function item(p){
     var base={a:p.max?"do "+zl(p.max):"",k:TYPE[p.type]||"",d:p.deadline||null,c:p.status==="soon"?"wkrótce":"ciągły"};
     if(p.locked)return Object.assign(base,{lock:true,n:"🔒 "+(TYPE[p.type]?TYPE[p.type][0].toUpperCase()+TYPE[p.type].slice(1):"Wsparcie")+" · "+(STATUS[p.status]||""),o:p.score!=null?"dopasowanie "+p.score+"%":""});
     var tags=(p.why||[]).filter(function(w){return w.state!=="fail"}).slice(0,3).map(function(w){return[w.state==="ok"?"ok":"cond",w.t]});
-    return Object.assign(base,{n:p.name,o:p.op||p.level||"",t:tags,url:p.url});
+    if(p.id!=null)shown[p.id]=p;
+    return Object.assign(base,{n:p.name,o:p.op||p.level||"",t:tags,url:p.url,fid:p.id!=null?String(p.id):null});
   }
   function byDate(a,b){var x=parse(a.deadline),y=parse(b.deadline);if(x&&y)return x-y;if(x)return-1;if(y)return 1;return 0}
-  function search(q,who){
-    last={q:q,who:who};
+  function search(q,title,sub){
+    var who=esc(title)+"<small>"+esc(sub)+"</small>";
+    last={q:q,title:title,sub:sub};
     render({who:who,sum:"",n:"Szukam…",items:[],more:"",loading:true});
-    fetch("/api/programs?"+new URLSearchParams(q),{credentials:"same-origin"}).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
+    return fetch("/api/programs?"+new URLSearchParams(q),{credentials:"same-origin"}).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
       var ps=(d.programs||[]).slice().sort(byDate);
       var list=showAll||d.locked?ps:ps.slice(0,SHOW),hidden=ps.length-list.length;
-      render({who:who,sum:String(ps.length),n:ps.length===1?"pasujący program":"pasujących programów",items:list.map(item),
+      if(me&&me.user)fetch("/api/profile/search",{method:"PUT",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q,label:title+"\n"+sub})}).catch(function(){});
+      shown={};
+      render(lastView={who:who,sum:String(ps.length),n:ps.length===1?"pasujący program":"pasujących programów",items:list.map(item),
         more:d.locked&&ps.length>1?"Nazwy i warunki po wykupieniu dostępu":hidden>0?"+ "+hidden+" kolejnych terminów":"",
         footHref:d.locked&&ps.length>1?"#cennik":hidden>0?"#wyniki":"",footText:d.locked?"Odblokuj kalendarz →":"Pokaż wszystkie →"});
     }).catch(function(){render({who:who,sum:"",n:"",items:[],more:"Nie udało się pobrać wyników. Spróbuj za chwilę."})});
   }
-  if(foot)foot.addEventListener("click",function(e){if(foot.getAttribute("href")==="#wyniki"&&last){e.preventDefault();showAll=true;search(last.q,last.who)}});
-  document.addEventListener("konto:ready",function(){if(last)search(last.q,last.who)});
+  if(foot)foot.addEventListener("click",function(e){if(foot.getAttribute("href")==="#wyniki"&&last){e.preventDefault();showAll=true;search(last.q,last.title,last.sub)}});
+
+  // ---- ulubione: „☆ Zapisz” przy wyniku; bez logowania zapamiętujemy wybór i wracamy po zalogowaniu ----
+  function store(k,v){try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  function load(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(e){return null}}
+  function saveFav(id){
+    var p=shown[id];if(!p)return Promise.resolve();
+    saved[id]=true;if(lastView)render(lastView);
+    return fetch("/api/profile/favorites/"+encodeURIComponent(id),{method:"PUT",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({program:p})})
+      .then(function(r){if(!r.ok)throw r.status}).catch(function(){delete saved[id];if(lastView)render(lastView)});
+  }
+  rList.addEventListener("click",function(e){
+    var b=e.target.closest("[data-fav]");if(!b)return;var id=b.dataset.fav;
+    if(!me||!me.user){store("dotacjo:wroc",{q:last.q,title:last.title,sub:last.sub,fav:id});if(window.Konto)window.Konto.login("/?wroc=1#wyniki");return}
+    if(saved[id]){delete saved[id];render(lastView);fetch("/api/profile/favorites/"+encodeURIComponent(id),{method:"DELETE",credentials:"same-origin"});return}
+    saveFav(id);
+  });
+  document.addEventListener("konto:ready",function(e){
+    me=e.detail||{};
+    var params=new URLSearchParams(location.search),back=params.get("wroc")&&load("dotacjo:wroc");
+    if(me.user)fetch("/api/profile/favorites",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){(j.favorites||[]).forEach(function(f){saved[f.id]=true});if(lastView)render(lastView)}).catch(function(){});
+    if(back){store("dotacjo:wroc");search(back.q,back.title,back.sub).then(function(){if(me.user&&back.fav)saveFav(back.fav)});return}
+    if(params.get("profil")&&me.user){fetch("/api/profile/search",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){if(j.search){var l=String(j.search.label||"Moja firma").split("\n");search(j.search.query,l[0],l[1]||"")}});return}
+    if(last)search(last.q,last.title,last.sub);
+  });
   function label(sel){return sel.options[sel.selectedIndex].text}
   function reveal(){if(window.matchMedia("(max-width:960px)").matches)document.getElementById("wyniki").scrollIntoView({behavior:"smooth",block:"start"})}
 
@@ -545,7 +576,7 @@ footer a{color:var(--mut)}
     if(wiek==="mlody")person.push("do30");if(niep)person.push("niepelnosprawnosc");if(!byla)person.push("bez_dg_12m");
     showAll=false;
     search({region:woj.value,form:"none",size:"start",goals:"start",person:person.join(",")},
-      "Planowana działalność<small>"+(gm?esc(gm)+", ":"")+esc(label(woj))+" · "+(wiek==="mlody"?"do 29 lat":"30+")+(niep?" · z orzeczeniem":"")+"</small>");
+      "Planowana działalność",(gm?gm+", ":"")+label(woj)+" · "+(wiek==="mlody"?"do 29 lat":"30+")+(niep?" · z orzeczeniem":""));
     reveal();
   });
 
@@ -572,7 +603,7 @@ footer a{color:var(--mut)}
     var woj=document.getElementById("fWoj"),form=document.getElementById("fForm"),size=document.getElementById("fSize"),sec=document.getElementById("fSector"),goal=document.getElementById("fGoal");
     var q={region:woj.value,form:form.value,size:size.value};if(sec.value)q.sector=sec.value;if(goal.value)q.goals=goal.value;
     showAll=false;
-    search(q,esc(company&&company.name||label(form))+"<small>"+esc(label(size).split(" (")[0])+" · "+esc(label(woj))+(sec.value?" · "+esc(label(sec)):"")+"</small>");
+    search(q,company&&company.name||label(form),label(size).split(" (")[0]+" · "+label(woj)+(sec.value?" · "+label(sec):""));
     reveal();
   });
 })();
