@@ -1,0 +1,21 @@
+[
+ {"adapter": "seed", "name": "seed", "path": "data/programs_seed.json",
+  "note": "Programy wpisane ręcznie przez redakcję (na start: 19 programów ze strony). Format jak PROGRAMS na stronie."},
+ {"adapter": "parp", "name": "parp",
+  "note": "PARP – harmonogram naborów + karty programów. robots.txt pozwala."},
+ {"adapter": "govpl", "name": "nfosigw", "url": "https://www.gov.pl/web/nfosigw/harmonogram-naborow",
+  "op": "NFOŚiGW", "follow": false,
+  "note": "Tabela: numer, nazwa, tryb, daty, stan naboru, oznaczenie (dotacja/pożyczka)."},
+ {"adapter": "govpl", "name": "arimr", "url": "https://www.gov.pl/web/arimr/harmonogram-naborow",
+  "op": "ARiMR", "enabled": false,
+  "note": "Ten sam szablon gov.pl – adres strony z harmonogramem do potwierdzenia."},
+ {"adapter": "govpl", "name": "ncbr", "url": "https://www.gov.pl/web/ncbr/harmonogram-naborow",
+  "op": "NCBR", "enabled": false,
+  "note": "Adres do potwierdzenia."},
+ {"adapter": "rss", "name": "fe_lubelskie", "url": "https://funduszeue.lubelskie.pl/nabory/feed/",
+  "op": "FE dla Lubelskiego", "include": ".", "follow": true, "enabled": false,
+  "note": "Serwis ma RSS – dokładny adres kanału do potwierdzenia. Kolejne województwa dodawać analogicznie."},
+ {"adapter": "portal_fe", "name": "portal_fe", "url": "https://www.funduszeunijne.gov.pl/strony/skorzystaj/nabory/",
+  "pages": 5, "dump_dir": "var/portal_fe", "enabled": false,
+  "note": "Wymaga Playwright. Włączyć po pierwszym przejrzeniu zapisanego ruchu XHR (var/portal_fe)."}
+]
