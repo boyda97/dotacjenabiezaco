@@ -1,0 +1,4 @@
+# Rdzeń działa na czystym Pythonie 3.10+ (bez zależności).
+# Opcjonalnie:
+anthropic>=1.0        # ekstrakcja kryteriów i PKD z regulaminów (update --ai)
+playwright>=1.48      # Portal Funduszy Europejskich (adapter portal_fe)
