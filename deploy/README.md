@@ -18,7 +18,7 @@ Dane (konta, subskrypcje, baza naborów) są w wolumenie Dockera `dane` (`/data`
 Po ustawieniu w DNS rekordów `A` dla `dotacjo.pl` i `www.dotacjo.pl` na adres serwera:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/boyda97/dotacjenabiezaco/main/deploy/instaluj.sh | sudo bash
+curl -fsSLo instaluj.sh https://raw.githubusercontent.com/boyda97/dotacjenabiezaco/main/deploy/instaluj.sh && sudo bash instaluj.sh
 ```
 
 Skrypt zapyta o klucz tajny Stripe (`sk_test_...` na próbę, później `sk_live_...`) i klucz API Resend.
@@ -47,8 +47,8 @@ jest już wpisany do `.env`, więc po tym połączeniu wystarczy dopisać `diges
 | A | (puste) | IPv4 serwera | strona |
 | A | www | IPv4 serwera | przekierowanie www |
 | TXT | resend._domainkey | wartość z panelu Resend | DKIM dla maili logowania |
-| MX | send | `feedback-smtp.eu-west-1.amazonses.com`, priorytet 10 (sprawdź w panelu Resend) | Resend |
-| TXT | send | `v=spf1 include:amazonses.com ~all` (sprawdź w panelu Resend) | SPF dla Resend |
+| CNAME | rsend | wartość z panelu Resend | Resend (wysyłka) |
+| CNAME | send | wartość z panelu Resend | SPF dla Resend |
 | TXT | _dmarc | `v=DMARC1; p=none; rua=mailto:kontakt@dotacjo.pl` | DMARC |
 
 Istniejące domyślne rekordy `A`/`AAAA` dla `dotacjo.pl` i `www` (strona parkingowa OVH) trzeba usunąć. Rekordy `MX` i SPF
