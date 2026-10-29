@@ -27,7 +27,9 @@ const PROGRAMS = [
   { id: 1, name: "Bon na start", url: "https://x/1", type: "dotacja", max: 45000, deadline: "2026-11-30" },
   { id: 2, name: "Ekspansja", url: "https://x/2", type: "pozyczka", max: 300000, deadline: "2026-12-15" },
 ];
-const app = createApp({ db, cfg, stripe, mailer, loadPrograms: async () => PROGRAMS, log: {} });
+const lookupCompany = async (nip) =>
+  nip === "5260250995" ? { name: "Firma testowa", region: "mazowieckie", form: null } : null;
+const app = createApp({ db, cfg, stripe, mailer, loadPrograms: async () => PROGRAMS, lookupCompany, log: {} });
 let server, base;
 before(async () => {
   server = app.listen(0);
@@ -203,6 +205,14 @@ test("subskrypcja: aktywna daje dostęp, past_due ma 3 dni karencji, anulowana o
   assert.equal(me.access.cancelAtPeriodEnd, true);
   await webhook("customer.subscription.deleted", sub("canceled", inDays(20)));
   assert.equal((await (await get("/api/me", cookie)).json()).access.active, false);
+});
+
+test("dane firmy po NIP: zły NIP 400, brak w rejestrze null", async () => {
+  assert.equal((await get("/api/company?nip=1234567890")).status, 400);
+  assert.deepEqual(await (await get("/api/company?nip=526-025-09-95")).json(), {
+    company: { name: "Firma testowa", region: "mazowieckie", form: null },
+  });
+  assert.deepEqual(await (await get("/api/company?nip=8943235399")).json(), { company: null });
 });
 
 test("wylogowanie usuwa sesję", async () => {

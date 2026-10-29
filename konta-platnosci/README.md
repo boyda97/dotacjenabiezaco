@@ -62,6 +62,7 @@ Hosting: wystarczy jeden mały serwer z Node 22 (np. Mikrus, OVH VPS, Railway, R
 | POST | `/api/billing/checkout` | `{product:"start"\|"pro"\|"biuro"\|"week", acceptTerms:true, immediateAccess:true}` → `{url}` do Stripe |
 | POST | `/api/billing/portal` | → `{url}` panelu klienta Stripe |
 | POST | `/api/stripe/webhook` | zdarzenia Stripe (podpis weryfikowany) |
+| GET | `/api/company?nip=` | podpowiedź do formularza z Białej Listy MF: `{company:{name, region, form}}` albo `null` (firmy zwolnione z VAT) |
 | GET | `/api/programs` | wyniki dopasowania, przycięte dla nieopłaconych |
 | GET | `/api/programs/:id` | pełna karta programu, `402` bez dostępu |
 
