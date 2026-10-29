@@ -1,8 +1,8 @@
 {
-  "name": "dotacjenabiezaco-konta-platnosci",
+  "name": "dotacjo-konta-platnosci",
   "version": "0.1.0",
   "private": true,
-  "description": "Dotacje na Bieżąco: konta (logowanie linkiem z e-maila), subskrypcje Stripe i tygodniowy dostęp jednorazowy",
+  "description": "Dotacjo: konta (logowanie linkiem z e-maila), subskrypcje Stripe i tygodniowy dostęp jednorazowy",
   "type": "module",
   "engines": {
     "node": ">=22.13"

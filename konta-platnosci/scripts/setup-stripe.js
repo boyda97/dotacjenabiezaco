@@ -9,14 +9,14 @@ const WEEK_PLN = Number(process.env.WEEK_PRICE_PLN || 39);
 // Ceny końcowe (tax_behavior: inclusive): sprzedawca jest zwolniony z VAT, więc klient płaci dokładnie tyle.
 // Po przejściu na VAT kwota zostaje ceną brutto, chyba że utworzysz nowe ceny (lookup_key _v2).
 const ITEMS = [
-  { key: "start", name: "Dotacje na Bieżąco – abonament miesięczny", pln: 49, recurring: true },
-  { key: "pro", name: "Dotacje na Bieżąco Pro", pln: 149, recurring: true },
-  { key: "biuro", name: "Dotacje na Bieżąco Biuro", pln: 399, recurring: true },
-  { key: "week", name: "Dotacje na Bieżąco – dostęp na 7 dni", pln: WEEK_PLN, recurring: false },
+  { key: "start", name: "Dotacjo – abonament miesięczny", pln: 49, recurring: true },
+  { key: "pro", name: "Dotacjo Pro", pln: 149, recurring: true },
+  { key: "biuro", name: "Dotacjo Biuro", pln: 399, recurring: true },
+  { key: "week", name: "Dotacjo – dostęp na 7 dni", pln: WEEK_PLN, recurring: false },
 ];
 
 for (const it of ITEMS) {
-  const lookup_key = `dnb_${it.key}_v1`;
+  const lookup_key = `dotacjo_${it.key}_v1`;
   const found = await stripe.prices.list({ lookup_keys: [lookup_key], limit: 1 });
   let price = found.data[0];
   if (!price) {

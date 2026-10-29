@@ -5,7 +5,7 @@ export function loadConfig(overrides = {}) {
   const cfg = {
     port: Number(env.PORT || 3000),
     appUrl: (env.APP_URL || "http://localhost:3000").replace(/\/$/, ""),
-    dbPath: env.DB_PATH || "./data/dotacjenabiezaco.db",
+    dbPath: env.DB_PATH || "./data/dotacjo.db",
     production: env.NODE_ENV === "production",
 
     // Sesja i link logowania
@@ -14,7 +14,7 @@ export function loadConfig(overrides = {}) {
 
     // E-mail (Resend). Bez klucza linki logowania lądują w logach serwera (tryb dev).
     resendApiKey: env.RESEND_API_KEY || "",
-    mailFrom: env.MAIL_FROM || "Dotacje na Bieżąco <logowanie@dotacjenabiezaco.pl>",
+    mailFrom: env.MAIL_FROM || "Dotacjo <logowanie@dotacjo.pl>",
 
     // Stripe
     stripeSecretKey: env.STRIPE_SECRET_KEY || "",

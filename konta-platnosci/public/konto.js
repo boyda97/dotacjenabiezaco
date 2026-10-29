@@ -1,4 +1,4 @@
-// Klient kont i płatności dla strony Dotacje na Bieżąco.
+// Klient kont i płatności dla strony Dotacjo.
 // Dołącz na końcu strony: <script src="/konto.js"></script>
 // Udostępnia window.Konto oraz podmienia demo-funkcje login() i choosePlan() z obecnej strony.
 (() => {

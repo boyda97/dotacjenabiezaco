@@ -106,9 +106,9 @@ export function createAuth({ db, cfg, mailer, log = console }) {
   router.get("/verify", (req, res) => {
     const token = String(req.query.token || "").replace(/[^\w-]/g, "");
     res.type("html").send(`<!doctype html><html lang="pl"><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Logowanie – Dotacje na Bieżąco</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Logowanie – Dotacjo</title>
 <body style="font-family:system-ui;max-width:420px;margin:15vh auto;padding:0 16px;text-align:center">
-<h1 style="font-size:22px">Logowanie do serwisu Dotacje na Bieżąco</h1>
+<h1 style="font-size:22px">Logowanie do serwisu Dotacjo</h1>
 <form method="post" action="/api/auth/verify"><input type="hidden" name="token" value="${token}">
 <button style="font:inherit;font-size:16px;padding:12px 22px;border-radius:8px;border:0;background:#2f55ff;color:#fff;cursor:pointer">Zaloguj się</button></form>
 <script>document.forms[0].submit()</script></body></html>`);

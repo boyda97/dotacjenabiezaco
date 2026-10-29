@@ -26,4 +26,4 @@ setInterval(() => {
   db.prepare("DELETE FROM login_tokens WHERE expires_at < ?").run(now - 86400);
 }, 3600_000).unref();
 
-app.listen(cfg.port, () => console.log(`Dotacje na Bieżąco działa na ${cfg.appUrl} (port ${cfg.port})`));
+app.listen(cfg.port, () => console.log(`Dotacjo działa na ${cfg.appUrl} (port ${cfg.port})`));

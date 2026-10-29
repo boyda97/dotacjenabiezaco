@@ -2,11 +2,11 @@
 export function createMailer(cfg, log = console) {
   return {
     async sendLoginLink(email, link) {
-      const subject = "Twój link do logowania – Dotacje na Bieżąco";
+      const subject = "Twój link do logowania – Dotacjo";
       const text =
-        `Cześć!\n\nKliknij, aby zalogować się do serwisu Dotacje na Bieżąco:\n${link}\n\n` +
+        `Cześć!\n\nKliknij, aby zalogować się do serwisu Dotacjo:\n${link}\n\n` +
         `Link działa ${cfg.loginTokenMinutes} minut i tylko raz. ` +
-        `Jeśli to nie Ty prosiłeś o logowanie, zignoruj tę wiadomość.\n\nDotacje na Bieżąco · dotacjenabiezaco.pl\n`;
+        `Jeśli to nie Ty prosiłeś o logowanie, zignoruj tę wiadomość.\n\nDotacjo · dotacjo.pl\n`;
       if (!cfg.resendApiKey) {
         log.info?.(`[dev] link logowania dla ${email}: ${link}`);
         return;

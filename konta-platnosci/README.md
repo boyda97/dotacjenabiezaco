@@ -1,4 +1,4 @@
-# Dotacje na Bieżąco – konta i płatności
+# Dotacjo – konta i płatności
 
 Backend (Node.js 22 + Express + SQLite) obsługujący:
 
@@ -25,7 +25,7 @@ Na start Stripe daje najmniej kodu i najszybsze uruchomienie. Jeśli okaże się
 
 ## Nazwa na fakturach i wyciągach
 
-Nazwa „Dotacje na Bieżąco” w mailach, produktach i na stronie logowania jest już w kodzie. Na fakturach i wyciągach bankowych klientów Stripe bierze ją z ustawień konta: *Settings → Business → Public details* (nazwa publiczna „Dotacje na Bieżąco”, strona dotacjenabiezaco.pl) oraz *Statement descriptor* `DOTACJENABIEZACO` (maks. 22 znaki, bez polskich liter). Dane sprzedawcy na fakturze (firma, NIP, adres) uzupełnij w *Settings → Billing → Invoices*.
+Nazwa „Dotacjo” w mailach, produktach i na stronie logowania jest już w kodzie. Na fakturach i wyciągach bankowych klientów Stripe bierze ją z ustawień konta: *Settings → Business → Public details* (nazwa publiczna „Dotacjo”, strona dotacjo.pl) oraz *Statement descriptor* `DOTACJO` (maks. 22 znaki, bez polskich liter). Dane sprzedawcy na fakturze (firma, NIP, adres) uzupełnij w *Settings → Billing → Invoices*.
 
 ## Uruchomienie (ok. 30 min)
 
@@ -41,7 +41,7 @@ Nazwa „Dotacje na Bieżąco” w mailach, produktach i na stronie logowania je
 4. Webhook: w Stripe *Developers → Webhooks → Add endpoint* `https://twoja-domena/api/stripe/webhook` ze zdarzeniami:
    `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`, `charge.refunded`. Sekret `whsec_...` wpisz do `.env`.
    Lokalnie: `stripe listen --forward-to localhost:3000/api/stripe/webhook`.
-5. E-mail: załóż konto w [Resend](https://resend.com), zweryfikuj domenę, dodaj domenę dotacjenabiezaco.pl, wpisz `RESEND_API_KEY`. Bez klucza link logowania jest wypisywany w logach serwera (wygodne do testów).
+5. E-mail: załóż konto w [Resend](https://resend.com), zweryfikuj domenę, dodaj domenę dotacjo.pl, wpisz `RESEND_API_KEY`. Bez klucza link logowania jest wypisywany w logach serwera (wygodne do testów).
 6. `npm start`. Stronę główną wrzuć do `public/index.html` i dodaj przed `</body>`:
    ```html
    <script src="/konto.js"></script>
