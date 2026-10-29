@@ -195,11 +195,40 @@ footer a{color:var(--muted)}
 
       <form class="pane" id="paneFirm" role="tabpanel" aria-labelledby="tabFirm" novalidate>
         <div class="field">
-          <label for="nip">NIP firmy</label>
+          <label for="nip">NIP firmy <span style="font-weight:400;color:var(--muted)">(opcjonalnie, uzupełni województwo)</span></label>
           <input id="nip" name="nip" inputmode="numeric" autocomplete="off" maxlength="13" placeholder="np. 525-000-00-00" aria-describedby="nipHint">
         </div>
+        <p class="hint" id="nipHint"></p>
+        <div class="row2">
+          <div class="field">
+            <label for="fWoj">Województwo siedziby</label>
+            <select id="fWoj">
+              <option value="dolnoslaskie">dolnośląskie</option><option value="kujawsko">kujawsko-pomorskie</option><option value="lubelskie">lubelskie</option><option value="lubuskie">lubuskie</option>
+              <option value="lodzkie">łódzkie</option><option value="malopolskie">małopolskie</option><option value="mazowieckie" selected>mazowieckie</option><option value="opolskie">opolskie</option>
+              <option value="podkarpackie">podkarpackie</option><option value="podlaskie">podlaskie</option><option value="pomorskie">pomorskie</option><option value="slaskie">śląskie</option>
+              <option value="swietokrzyskie">świętokrzyskie</option><option value="warminsko">warmińsko-mazurskie</option><option value="wielkopolskie">wielkopolskie</option><option value="zachodniopomorskie">zachodniopomorskie</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fForm">Forma prawna</label>
+            <select id="fForm"><option value="jdg">jednoosobowa działalność</option><option value="sc">spółka cywilna / jawna / partnerska</option><option value="zoo">spółka z o.o. / PSA</option><option value="sa">spółka akcyjna / komandytowa</option><option value="rolne">gospodarstwo rolne</option><option value="ngo">fundacja / stowarzyszenie</option></select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="fSize">Wielkość firmy</label>
+            <select id="fSize"><option value="micro">mikro (do 9 osób)</option><option value="small">mała (10–49 osób)</option><option value="medium">średnia (50–249 osób)</option><option value="large">duża (250+ osób)</option></select>
+          </div>
+          <div class="field">
+            <label for="fSector">Branża</label>
+            <select id="fSector"><option value="">dowolna / nie wiem</option><option value="A">rolnictwo, leśnictwo, rybactwo</option><option value="C10">przetwórstwo rolno-spożywcze</option><option value="C">przetwórstwo przemysłowe, produkcja</option><option value="D">energetyka</option><option value="E">woda, ścieki, odpady</option><option value="F">budownictwo</option><option value="G">handel</option><option value="H">transport i logistyka</option><option value="I">zakwaterowanie i gastronomia</option><option value="J">IT, informacja i komunikacja</option><option value="M">usługi profesjonalne (doradztwo, marketing, projektowanie)</option><option value="N79">turystyka</option><option value="N">usługi administrowania</option><option value="P">edukacja</option><option value="Q">opieka zdrowotna i pomoc społeczna</option><option value="R">kultura, rozrywka, rekreacja</option><option value="S">pozostałe usługi</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="fGoal">Na co szukasz pieniędzy?</label>
+          <select id="fGoal"><option value="">dowolny</option><option value="sprzet">maszyny, urządzenia, sprzęt</option><option value="digital">oprogramowanie, IT, e-commerce</option><option value="marketing">marketing, promocja, www</option><option value="szkolenia">szkolenia i kompetencje</option><option value="oze">fotowoltaika, pompy ciepła, magazyny energii</option><option value="efektywnosc">efektywność energetyczna</option><option value="budowa">budowa, remont, adaptacja</option><option value="pojazdy">pojazdy, elektromobilność</option><option value="badania">badania i rozwój</option><option value="ai">AI, robotyzacja, Przemysł 4.0</option><option value="eksport">eksport, targi</option><option value="zatrudnienie">zatrudnienie, staże</option><option value="doradztwo">doradztwo, audyty</option><option value="plynnosc">kapitał obrotowy</option></select>
+        </div>
         <button class="btn primary" type="submit">Pokaż pasujące programy</button>
-        <p class="hint" id="nipHint">Dane firmy (forma prawna, PKD, wielkość, województwo) pobierzemy z rejestrów publicznych.</p>
       </form>
 
       <form class="pane" id="paneStart" role="tabpanel" aria-labelledby="tabStart" hidden novalidate>
@@ -207,10 +236,10 @@ footer a{color:var(--muted)}
           <div class="field">
             <label for="sWoj">Województwo</label>
             <select id="sWoj">
-              <option>dolnośląskie</option><option>kujawsko-pomorskie</option><option>lubelskie</option><option>lubuskie</option>
-              <option>łódzkie</option><option>małopolskie</option><option selected>mazowieckie</option><option>opolskie</option>
-              <option>podkarpackie</option><option>podlaskie</option><option>pomorskie</option><option>śląskie</option>
-              <option>świętokrzyskie</option><option>warmińsko-mazurskie</option><option>wielkopolskie</option><option>zachodniopomorskie</option>
+              <option value="dolnoslaskie">dolnośląskie</option><option value="kujawsko">kujawsko-pomorskie</option><option value="lubelskie">lubelskie</option><option value="lubuskie">lubuskie</option>
+              <option value="lodzkie">łódzkie</option><option value="malopolskie">małopolskie</option><option value="mazowieckie" selected>mazowieckie</option><option value="opolskie">opolskie</option>
+              <option value="podkarpackie">podkarpackie</option><option value="podlaskie">podlaskie</option><option value="pomorskie">pomorskie</option><option value="slaskie">śląskie</option>
+              <option value="swietokrzyskie">świętokrzyskie</option><option value="warminsko">warmińsko-mazurskie</option><option value="wielkopolskie">wielkopolskie</option><option value="zachodniopomorskie">zachodniopomorskie</option>
             </select>
           </div>
           <div class="field">
@@ -239,7 +268,7 @@ footer a{color:var(--muted)}
       </form>
     </div>
 
-    <aside class="result" aria-label="Przykładowy wynik" aria-live="polite">
+    <aside class="result" aria-label="Wyniki" aria-live="polite">
       <div class="result-top">
         <div class="who" id="rWho"></div>
         <div class="sum"><b id="rSum"></b><span id="rN"></span></div>
@@ -387,68 +416,103 @@ footer a{color:var(--muted)}
   auth.addEventListener("click",function(){if(window.Konto)window.Konto.login();else location.hash="cennik"});
 
 
-  // ---- dane przykładowe ----
+  // ---- przykład na start (zanim ktoś wypełni formularz) ----
   var today=new Date();today.setHours(0,0,0,0);
-  function days(iso){if(!iso)return"";var n=Math.round((new Date(iso+"T00:00:00")-today)/864e5);return n<0?"zakończony":n+(n===1?" dzień":" dni")+" do końca"}
-  var FIRM=[
+  function days(iso){if(!iso)return"";var t=new Date(String(iso).slice(0,10)+"T00:00:00");if(isNaN(t))return String(iso);var n=Math.round((t-today)/864e5);return n<0?"zakończony":n+(n===1?" dzień":" dni")+" do końca"}
+  var EXAMPLE={who:"Agencja marketingowa, JDG<small>PKD 73.11 · mikrofirma · dolnośląskie</small>",sum:"do 1,3 mln zł",n:"7 pasujących programów",more:"+ 4 kolejne programy",items:[
     {n:"Bony na innowacje dla MŚP",o:"DIP Wrocław · Fundusze Europejskie dla Dolnego Śląska",a:"do 250 tys. zł",d:"2026-11-14",t:[["ok","mikrofirma"],["ok","dolnośląskie"]]},
     {n:"Dig.IT: transformacja cyfrowa MŚP",o:"Agencja Rozwoju Przemysłu · FENG · do 70% kosztów",a:"do 850 tys. zł",d:"2026-12-10",t:[["ok","MŚP"],["ok","oprogramowanie, szkolenia"]]},
     {n:"Baza Usług Rozwojowych: szkolenia i doradztwo",o:"PARP i operatorzy regionalni · FERS",a:"do 100 tys. zł",c:"nabór ciągły",t:[["ok","JDG"],["","do 80% kosztu"]]}
-  ];
-  var WOJ_FE={"dolnośląskie":"FEDS","kujawsko-pomorskie":"FEdKP","lubelskie":"FEL","lubuskie":"FEWL","łódzkie":"FEŁ","małopolskie":"FEM","mazowieckie":"FEM","opolskie":"FEO","podkarpackie":"FEP","podlaskie":"FEPZ","pomorskie":"FEP","śląskie":"FE SL","świętokrzyskie":"FEŚ","warmińsko-mazurskie":"FEWiM","wielkopolskie":"FEW","zachodniopomorskie":"FEPZ"};
-  function startList(){
-    var woj=document.getElementById("sWoj").value,wiek=document.getElementById("sWiek").value,st=document.getElementById("sStatus").value,niep=document.getElementById("sNiep").checked,byla=document.getElementById("sByla").checked,gm=document.getElementById("sGmina").value.trim();
-    var X=["cond","wyklucza firma w ostatnich 12 mies."];
-    var L=[];
-    L.push({n:"Dotacja z urzędu pracy na założenie firmy",o:(gm?"PUP właściwy dla: "+gm:"powiatowy urząd pracy")+" · Fundusz Pracy",a:"do ok. 50 tys. zł",c:"nabory kilka razy w roku",
-      t:st==="pup"?[["ok","jesteś zarejestrowany(-a) w PUP"],["","przed założeniem firmy"]]:[["cond","wymaga rejestracji w PUP jako bezrobotny"],["","przed założeniem firmy"]]});
-    if(byla)L[0].t=[X];
-    L.push({n:"Dotacja na założenie firmy z Funduszy Europejskich",o:"operatorzy projektów · program regionalny ("+woj+")",a:"ok. 40 tys. zł + wsparcie pomostowe",d:"2026-12-05",
-      t:[["ok",woj],["ok",wiek==="mlody"?"projekty dla osób do 29 lat":"projekty dla osób 30+"],st==="praca"?["cond","często pierwszeństwo dla osób bez pracy"]:["ok","szkolenie i biznesplan w projekcie"]]});
-    if(byla)L[1].t=[X];
-    if(niep)L.push({n:"Środki z PFRON na podjęcie działalności",o:"PFRON przez powiatowy urząd pracy",a:"do ok. 50 tys. zł",c:"wnioski przez cały rok",t:[["ok","orzeczenie o niepełnosprawności"]]});
-    L.push({n:"Ulga na start w ZUS",o:"ZUS · dla nowych przedsiębiorców",a:"ok. 9 tys. zł mniej składek",c:"przez pierwsze 6 mies.",t:[["ok","bez wniosku o dotację"],["","potem preferencyjny ZUS 24 mies."]]});
-    return {who:"Planowana działalność<small>"+(gm?esc(gm)+", ":"")+woj+" · "+(wiek==="mlody"?"do 29 lat":"30+")+(niep?" · z orzeczeniem":"")+"</small>",sum:byla?"ok. 9 tys. zł":"do ok. "+(niep?"150":"100")+" tys. zł",n:L.length+" możliwości na start",more:"Lista projektów unijnych w Twoim powiecie w pełnej wersji",items:L};
-  }
-  var firmView={who:"Agencja marketingowa, JDG<small>PKD 73.11 · mikrofirma · dolnośląskie</small>",sum:"do 1,3 mln zł",n:"7 pasujących programów",more:"+ 4 kolejne programy",items:FIRM};
+  ]};
 
-  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function zl(n){if(!n)return"";if(n>=1e6)return(Math.round(n/1e5)/10).toString().replace(".",",")+" mln zł";if(n>=1e3)return Math.round(n/1e3)+" tys. zł";return n+" zł"}
+  var foot=document.querySelector(".result-foot a"),sample=document.querySelector(".result .sample"),rList=document.getElementById("rList");
   function render(v){
     document.getElementById("rWho").innerHTML=v.who;
     document.getElementById("rSum").textContent=v.sum;
     document.getElementById("rN").textContent=v.n;
-    document.getElementById("rMore").textContent=v.more;
-    document.getElementById("rList").innerHTML=v.items.map(function(p){
-      var dl=p.d?days(p.d):p.c,soon=p.d&&(new Date(p.d)-today)/864e5<30;
-      return '<div class="prog"><div><div class="n">'+esc(p.n)+'</div><div class="o">'+esc(p.o)+'</div></div>'+
+    document.getElementById("rMore").textContent=v.more||"";
+    rList.innerHTML=v.items.map(function(p){
+      var dl=p.d?days(p.d):p.c,soon=p.d&&(new Date(String(p.d).slice(0,10))-today)/864e5<30;
+      var name=p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.n)+'</a>':esc(p.n);
+      return '<div class="prog"><div><div class="n">'+name+'</div><div class="o">'+esc(p.o)+'</div></div>'+
         '<div class="meta"><b>'+esc(p.a)+'</b><span class="days'+(soon?" soon":"")+'">'+esc(dl)+'</span></div>'+
-        '<div class="tagline">'+p.t.map(function(t){return '<span class="tag '+t[0]+'">'+(t[0]==="ok"?"✓ ":t[0]==="cond"?"! ":"")+esc(t[1])+'</span>'}).join("")+'</div></div>';
-    }).join("");
+        '<div class="tagline">'+(p.t||[]).map(function(t){return '<span class="tag '+t[0]+'">'+(t[0]==="ok"?"✓ ":t[0]==="cond"?"! ":"")+esc(t[1])+'</span>'}).join("")+'</div></div>';
+    }).join("")||'<p class="o" style="padding:14px 0">Brak pasujących naborów dla tych danych. Zmień cel lub branżę na „dowolny”.</p>';
+    if(sample)sample.hidden=!v.example;
+    if(foot){foot.hidden=!v.footHref;if(v.footHref){foot.href=v.footHref;foot.textContent=v.footText}}
   }
+
+  // ---- prawdziwe wyniki z silnika: /api/programs ----
+  var STATUS={open:"nabór trwa",soon:"nabór wkrótce",closed:"nabór zamknięty"},TYPE={dotacja:"dotacja",pozyczka:"pożyczka",mieszane:"dotacja + pożyczka"};
+  var SHOW=6,last=null,showAll=false;
+  function item(p){
+    var dl=p.deadline?null:(p.status==="soon"?"nabór wkrótce":"nabór ciągły");
+    var base={a:p.max?"do "+zl(p.max):(TYPE[p.type]||""),d:p.deadline||null,c:dl};
+    if(p.locked)return Object.assign(base,{n:"🔒 Nazwa i warunki po wykupieniu dostępu",o:(TYPE[p.type]||"wsparcie")+" · "+(STATUS[p.status]||"")+(p.score!=null?" · dopasowanie "+p.score+"%":""),t:[]});
+    var tags=(p.why||[]).filter(function(w){return w.state!=="fail"}).slice(0,3).map(function(w){return[w.state==="ok"?"ok":"cond",w.t]});
+    return Object.assign(base,{n:p.name,o:[p.op,p.level].filter(Boolean).join(" · "),t:tags,url:p.url});
+  }
+  function search(q,who){
+    last={q:q,who:who};
+    render({who:who,sum:"",n:"Szukam…",items:[],more:""});
+    fetch("/api/programs?"+new URLSearchParams(q),{credentials:"same-origin"}).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
+      var ps=d.programs||[];
+      var list=showAll||d.locked?ps:ps.slice(0,SHOW),hidden=ps.length-list.length;
+      render({who:who,sum:String(ps.length),n:ps.length===1?"pasujący program":"pasujących programów",items:list.map(item),
+        more:d.locked&&ps.length>1?"Pełna lista po wykupieniu dostępu":hidden>0?"+ "+hidden+" kolejnych":"",
+        footHref:d.locked&&ps.length>1?"#cennik":hidden>0?"#wyniki":"",footText:d.locked?"Odblokuj pełną listę":"Pokaż wszystkie"});
+    }).catch(function(){render({who:who,sum:"",n:"",items:[],more:"Nie udało się pobrać wyników. Spróbuj za chwilę."})});
+  }
+  if(foot)foot.addEventListener("click",function(e){if(foot.getAttribute("href")==="#wyniki"&&last){e.preventDefault();showAll=true;search(last.q,last.who)}});
+  document.addEventListener("konto:ready",function(){if(last)search(last.q,last.who)});
+  function label(sel){return sel.options[sel.selectedIndex].text}
 
   // ---- zakładki ----
   var tabF=document.getElementById("tabFirm"),tabS=document.getElementById("tabStart"),pF=document.getElementById("paneFirm"),pS=document.getElementById("paneStart");
-  function mode(m){var s=m==="start";tabF.setAttribute("aria-selected",!s);tabS.setAttribute("aria-selected",s);pF.hidden=s;pS.hidden=!s;render(s?startList():firmView)}
+  function mode(m){var s=m==="start";tabF.setAttribute("aria-selected",!s);tabS.setAttribute("aria-selected",s);pF.hidden=s;pS.hidden=!s}
   tabF.addEventListener("click",function(){mode("firm")});
   tabS.addEventListener("click",function(){mode("start")});
   document.querySelectorAll("[data-go]").forEach(function(a){a.addEventListener("click",function(){mode(a.dataset.go)})});
-  ["sWoj","sWiek","sStatus","sNiep","sByla","sGmina"].forEach(function(id){document.getElementById(id).addEventListener("change",function(){render(startList())})});
-  pS.addEventListener("submit",function(e){e.preventDefault();render(startList())});
-  mode("firm");
+  mode("firm");render(Object.assign({example:true,footHref:"#cennik",footText:"Zobacz pełną listę"},EXAMPLE));
 
-  // ---- NIP: suma kontrolna, wagi 6,5,7,2,3,4,5,6,7 ----
-  var input=document.getElementById("nip"),hint=document.getElementById("nipHint"),W=[6,5,7,2,3,4,5,6,7],base=hint.textContent;
+  // ---- planuję założyć firmę ----
+  pS.addEventListener("submit",function(e){
+    e.preventDefault();
+    var woj=document.getElementById("sWoj"),wiek=document.getElementById("sWiek").value,st=document.getElementById("sStatus").value,niep=document.getElementById("sNiep").checked,byla=document.getElementById("sByla").checked,gm=document.getElementById("sGmina").value.trim();
+    var person=[];
+    if(st==="pup")person.push("bezrobotny");else if(st==="nauka")person.push("student");else if(st==="inne")person.push("bierny");
+    if(wiek==="mlody")person.push("do30");if(niep)person.push("niepelnosprawnosc");if(!byla)person.push("bez_dg_12m");
+    showAll=false;
+    search({region:woj.value,form:"none",size:"start",goals:"start",person:person.join(",")},
+      "Planowana działalność<small>"+(gm?esc(gm)+", ":"")+esc(label(woj))+" · "+(wiek==="mlody"?"do 29 lat":"30+")+(niep?" · z orzeczeniem":"")+"</small>");
+  });
+
+  // ---- mam firmę: NIP (opcjonalnie) podpowiada województwo i formę ----
+  var input=document.getElementById("nip"),hint=document.getElementById("nipHint"),W=[6,5,7,2,3,4,5,6,7],company=null;
   function validNip(s){if(!/^\d{10}$/.test(s))return false;var sum=0;for(var i=0;i<9;i++)sum+=W[i]*+s[i];var c=sum%11;return c!==10&&c===+s[9]}
   input.addEventListener("input",function(){
     var d=input.value.replace(/\D/g,"").slice(0,10),o=d;
     if(d.length>3)o=d.slice(0,3)+"-"+d.slice(3);if(d.length>6)o=o.slice(0,7)+"-"+d.slice(6);if(d.length>8)o=o.slice(0,10)+"-"+d.slice(8);
-    input.value=o;hint.className="hint";hint.textContent=base;
+    input.value=o;hint.className="hint";hint.textContent="";company=null;
+    if(d.length<10)return;
+    if(!validNip(d)){hint.className="hint err";hint.textContent="Ten NIP ma błędną cyfrę kontrolną. Sprawdź, czy nie ma literówki.";return}
+    hint.textContent="Sprawdzam w rejestrze…";
+    fetch("/api/company?nip="+d).then(function(r){return r.json()}).then(function(j){
+      company=j.company;
+      if(!company){hint.className="hint";hint.textContent="Nie ma tej firmy w wykazie VAT. Wybierz dane poniżej.";return}
+      if(company.region)document.getElementById("fWoj").value=company.region;
+      if(company.form)document.getElementById("fForm").value=company.form;
+      hint.className="hint ok";hint.textContent="✓ "+(company.name||"Firma znaleziona")+". Sprawdź dane poniżej.";
+    }).catch(function(){hint.textContent="Rejestr nie odpowiada. Wybierz dane poniżej."});
   });
   pF.addEventListener("submit",function(e){
-    e.preventDefault();var d=input.value.replace(/\D/g,"");
-    if(d.length!==10){hint.className="hint err";hint.textContent="NIP ma 10 cyfr. Wpisz go bez prefiksu PL.";input.focus();return}
-    if(!validNip(d)){hint.className="hint err";hint.textContent="Ten NIP ma błędną cyfrę kontrolną. Sprawdź, czy nie ma literówki.";input.focus();return}
-    hint.className="hint ok";hint.textContent="NIP poprawny. W gotowej wersji tu pojawi się wynik dla Twojej firmy; obok widzisz przykład.";
+    e.preventDefault();
+    var woj=document.getElementById("fWoj"),form=document.getElementById("fForm"),size=document.getElementById("fSize"),sec=document.getElementById("fSector"),goal=document.getElementById("fGoal");
+    var q={region:woj.value,form:form.value,size:size.value};if(sec.value)q.sector=sec.value;if(goal.value)q.goals=goal.value;
+    showAll=false;
+    search(q,esc(company&&company.name||label(form))+"<small>"+esc(label(size).split(" (")[0])+" · "+esc(label(woj))+(sec.value?" · "+esc(label(sec)):"")+"</small>");
   });
 })();
 </script>

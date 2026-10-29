@@ -2,13 +2,16 @@ import express from "express";
 import { createAuth } from "./auth.js";
 import { createBilling } from "./billing.js";
 import { getAccess } from "./entitlements.js";
+import { cleanNip, createCompanyLookup, validNip } from "./company.js";
 
 // Pola programu widoczne bez opłaconego dostępu – wystarczą do paska
 // "N programów, łącznie X zł, najbliższy termin", ale nie zdradzają nazwy ani źródła.
 const TEASER_FIELDS = ["id", "type", "status", "deadline", "max", "score"];
 const FREE_FULL_PROGRAMS = 1; // pierwszy program w pełni odblokowany (próbka)
 
-export function createApp({ db, cfg, stripe, mailer, loadPrograms = async () => [], log = console }) {
+export function createApp({
+  db, cfg, stripe, mailer, loadPrograms = async () => [], lookupCompany = createCompanyLookup(), log = console,
+}) {
   const app = express();
   app.set("trust proxy", 1);
   app.disable("x-powered-by");
@@ -48,6 +51,18 @@ export function createApp({ db, cfg, stripe, mailer, loadPrograms = async () => 
       user: { email: req.user.email, hasBilling: !!req.user.stripe_customer_id },
       access: getAccess(db, cfg, req.user.id),
     });
+  });
+
+  // Podpowiedź do formularza: województwo i forma z Białej Listy MF (null, gdy firmy tam nie ma).
+  app.get("/api/company", async (req, res) => {
+    if (!validNip(req.query.nip)) return res.status(400).json({ error: "bad_nip" });
+    let company = null;
+    try {
+      company = await lookupCompany(cleanNip(req.query.nip));
+    } catch (e) {
+      log.warn?.("Biała Lista niedostępna", e.message);
+    }
+    res.set("Cache-Control", "private, max-age=3600").json({ company });
   });
 
   // Przykład blokady treści: wyniki dopasowania. Silnik dopasowania (osobny moduł)
