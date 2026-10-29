@@ -63,6 +63,11 @@ Hosting: wystarczy jeden mały serwer z Node 22 (np. Mikrus, OVH VPS, Railway, R
 | POST | `/api/billing/portal` | → `{url}` panelu klienta Stripe |
 | POST | `/api/stripe/webhook` | zdarzenia Stripe (podpis weryfikowany) |
 | GET | `/api/company?nip=` | podpowiedź do formularza z Białej Listy MF: `{company:{name, region, form}}` albo `null` (firmy zwolnione z VAT) |
+| GET | `/api/profile/favorites` | ulubione programy zalogowanego: `{favorites:[{id, program, status, note}]}` |
+| PUT | `/api/profile/favorites/:id` | zapis/zmiana: `{program?, status?, note?}`; etapy: `nowy`, `przygotowuje`, `zlozony`, `pominiety` |
+| DELETE | `/api/profile/favorites/:id` | usuwa z ulubionych |
+| GET | `/api/profile/favorites.ics` | terminy ulubionych do kalendarza (przypomnienie 14 dni wcześniej) |
+| GET/PUT | `/api/profile/search` | ostatnie wyszukiwanie (`{query, label}`), strona `/profil` powtarza je jednym kliknięciem |
 | GET | `/api/programs` | wyniki dopasowania, przycięte dla nieopłaconych |
 | GET | `/api/programs/:id` | pełna karta programu, `402` bez dostępu |
 

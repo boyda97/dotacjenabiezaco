@@ -2,6 +2,7 @@ import express from "express";
 import { createAuth } from "./auth.js";
 import { createBilling } from "./billing.js";
 import { getAccess } from "./entitlements.js";
+import { createProfile } from "./profile.js";
 import { cleanNip, createCompanyLookup, validNip } from "./company.js";
 
 // Pola programu widoczne bez opłaconego dostępu – wystarczą do paska
@@ -43,6 +44,7 @@ export function createApp({
 
   app.use("/api/auth", auth.router);
   app.use("/api/billing", billing.router);
+  app.use("/api/profile", createProfile({ db, cfg, auth }));
 
   app.get("/api/me", (req, res) => {
     res.set("Cache-Control", "no-store");

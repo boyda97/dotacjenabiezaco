@@ -57,7 +57,7 @@ export function createBilling({ db, cfg, stripe, auth, log = console }) {
       billing_address_collection: "required",
       customer_update: { name: "auto", address: "auto" },
       tax_id_collection: { enabled: true }, // NIP na fakturze
-      success_url: `${cfg.appUrl}/?platnosc=ok#panel`,
+      success_url: `${cfg.appUrl}/profil?platnosc=ok`,
       cancel_url: `${cfg.appUrl}/?platnosc=anulowana#cennik`,
       ...(cfg.stripeAutomaticTax ? { automatic_tax: { enabled: true } } : {}),
     };
@@ -93,7 +93,7 @@ export function createBilling({ db, cfg, stripe, auth, log = console }) {
     if (!req.user.stripe_customer_id) return res.status(400).json({ error: "no_customer" });
     const s = await stripe.billingPortal.sessions.create({
       customer: req.user.stripe_customer_id,
-      return_url: `${cfg.appUrl}/#panel`,
+      return_url: `${cfg.appUrl}/profil`,
       locale: "pl",
     });
     res.json({ url: s.url });

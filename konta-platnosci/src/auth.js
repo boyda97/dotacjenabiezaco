@@ -32,7 +32,7 @@ function rateLimiter(limit, windowSec) {
 }
 
 // Tylko ścieżki względne w obrębie serwisu (ochrona przed open redirect).
-const safeNext = (n) => (typeof n === "string" && /^\/(?!\/)[\w\-./?=&#%]*$/.test(n) ? n : "/#panel");
+const safeNext = (n) => (typeof n === "string" && /^\/(?!\/)[\w\-./?=&#%]*$/.test(n) ? n : "/profil");
 
 export function createAuth({ db, cfg, mailer, log = console }) {
   const perEmail = rateLimiter(5, 3600);
@@ -123,7 +123,7 @@ export function createAuth({ db, cfg, mailer, log = console }) {
     db.prepare("UPDATE login_tokens SET used_at = ? WHERE token_hash = ?").run(nowSec(), row.token_hash);
     const user = findOrCreateUser(row.email);
     createSession(res, user.id);
-    res.redirect(303, row.next || "/#panel");
+    res.redirect(303, row.next || "/profil");
   });
 
   router.post("/logout", (req, res) => {
