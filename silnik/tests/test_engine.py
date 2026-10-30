@@ -331,6 +331,40 @@ class AiApplyTest(unittest.TestCase):
         self.assertEqual(set(ai_extract.SCHEMA["required"]), set(ai_extract.SCHEMA["properties"]))
 
 
+class ReviewTest(unittest.TestCase):
+    def test_review_overrides_and_todo(self):
+        from dotacjomat import review
+        p = prog(source="portal_fe", forms=list(tx.BUSINESS_FORMS), sizes=list(tx.MSP), regions=None, sectors=None,
+                 goals=["digital"], description="Kto może składać wnioski: MŚP\n\nNa co: szkolenia uczniów")
+        self.assertEqual([t["key"] for t in review.todo([p], {})], [p.key])
+        review.apply(p, {"direct_support": False, "note": "realizator projektów dla szkół"})
+        self.assertFalse(score(p, firm(goals=["digital"]), TODAY).eligible)
+        self.assertEqual(review.todo([p], {p.key: {}}), [])
+        q = prog(sectors=None, regions=None, forms=list(tx.BUSINESS_FORMS), sizes=list(tx.MSP))
+        review.apply(q, {"sectors": ["J"], "max_pln": 500000})
+        self.assertEqual((q.sectors, q.max), (["J"], 500000))
+        # Ukryty nabór znika też dla gospodarstw, a po przeglądzie nic nie zostaje "nieznane".
+        r = prog(forms=["jst", "ngo", "rolne"], regions=None)
+        review.apply(r, {"direct_support": False})
+        self.assertEqual(r.forms, ["jst", "ngo"])
+        a = prog(source="arimr", forms=["rolne"], sizes=None, regions=None)
+        a.unknown = ["regions", "sizes"]
+        review.apply(a, {"sectors": ["A"]})
+        self.assertEqual(a.unknown, [])
+
+    def test_pipeline_applies_review(self):
+        from dotacjomat.sources import Source
+
+        class One(Source):
+            name = "portal_fe"
+
+            def fetch(self):
+                yield prog(source="portal_fe", source_id="x", forms=list(tx.BUSINESS_FORMS), goals=["digital"])
+        store = Store(":memory:")
+        update(store, [One()], reviews={"portal_fe:x": {"direct_support": False}}, today=TODAY)
+        self.assertEqual(store.programs()[0].forms, ["jst"])
+
+
 class CompanyTest(unittest.TestCase):
     def test_nip(self):
         self.assertTrue(company.valid_nip("525-012-34-56") or not company.valid_nip("5250123456"))

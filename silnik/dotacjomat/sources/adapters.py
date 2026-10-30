@@ -442,7 +442,8 @@ class GovPlNewsSource(Source):
     i ustala termin. Bez przyszłego terminu w tytule lub na początku artykułu wiadomość jest pomijana
     (nie wiemy, czy nabór trwa). Kilka wiadomości o tym samym naborze ("rusza", "kończy się")
     łączy w jeden wpis - wygrywa najnowsza.
-    options: url (lista "wszystkie aktualności"), op, pages, max_age_days, include, exclude, forms."""
+    options: url (lista "wszystkie aktualności"), op, pages, max_age_days, include, exclude, forms,
+    tech (true = wszystkie nabory tej instytucji to B+R, np. NCBR - tylko dla branż technicznych)."""
 
     name = "govpl_news"
     INCLUDE = r"nab[oó]r|wnios(ek|ki|k[oó]w)|konkurs"
@@ -497,7 +498,7 @@ class GovPlNewsSource(Source):
                 p.forms = list(self.options["forms"])
             p.max = 0  # kwoty w wiadomościach to zwykle budżet całego naboru, nie limit dla jednego wnioskodawcy
             classify(p, f"{title}\n{body[:6000]}", today)
-            tech_sectors(p, title)
+            tech_sectors(p, title if not self.options.get("tech") else "b+r")
             p.max = None
             p._classified = True
             words = set(re.findall(r"[a-ząćęłńóśźż]{5,}", title.lower()))

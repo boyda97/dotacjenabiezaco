@@ -33,7 +33,8 @@
   "url": "https://www.gov.pl/web/ncbr/wydarzenia",
   "op": "NCBR",
   "pages": 6,
-  "note": "Aktualności NCBR. Główne programy NCBR (FENG) są też w portal_fe."
+  "note": "Aktualności NCBR. Główne programy NCBR (FENG) są też w portal_fe.",
+  "tech": true
  },
  {
   "adapter": "rss",

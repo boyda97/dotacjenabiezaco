@@ -34,6 +34,8 @@ FORMS = {
     "jst": "podmiot publiczny / JST / uczelnia",
 }
 BUSINESS_FORMS = ["jdg", "sc", "zoo", "sa"]
+# Klienci serwisu: firmy, osoby zakładające firmę i gospodarstwa rolne.
+CLIENT_FORMS = BUSINESS_FORMS + ["none", "rolne"]
 
 SIZES = {
     "start": "dopiero zakładam",
