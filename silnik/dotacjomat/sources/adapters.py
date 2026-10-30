@@ -5,7 +5,8 @@
   html_list - strona z listą naborów + strony szczegółów (linki wybierane wyrażeniem regularnym)
   parp      - PARP: harmonogram naborów + karty programów (pary etykieta-wartość)
   govpl     - tabele harmonogramów w szablonie gov.pl (NFOŚiGW, ARiMR, NCBR)
-  portal_fe - Portal Funduszy Europejskich przez Playwright (eksperymentalne)
+  portal_fe - Portal Funduszy Europejskich: wszystkie nabory unijne (krajowe i 16 regionalnych)
+  govpl_news - nabory z aktualności instytucji na gov.pl (ARiMR, NCBR)
 
 Konkretne źródła (adresy, wzorce linków) opisuje config/sources.json, żeby dodanie
 nowego serwisu nie wymagało zmian w kodzie.
@@ -13,15 +14,20 @@ nowego serwisu nie wymagało zmian w kodzie.
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import re
 import xml.etree.ElementTree as ET
+from datetime import date, timedelta
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Iterator
+from urllib.parse import urljoin
 
+from .. import taxonomy as tx
 from ..models import Program
-from .base import USER_AGENT, Http, Source, html_tables, html_to_text, label_values, log
+from ..classify import norm
+from .base import Http, Source, html_tables, html_to_text, label_values, log
 
 
 def _id(url: str) -> str:
@@ -140,7 +146,7 @@ def load_sources(config_path, http: Http = None, base_dir=None) -> list:
             for k in ("path", "dump_dir"):
                 if k in entry:
                     entry[k] = str(base_dir / entry[k])
-        if kind in ("seed", "portal_fe"):
+        if kind == "seed":
             out.append(cls(**entry))
         else:
             out.append(cls(http=http, **entry))
@@ -213,55 +219,251 @@ class GovPlTableSource(Source):
                 yield p
 
 
-class PortalFESource(Source):
-    """Portal Funduszy Europejskich (funduszeunijne.gov.pl) - lista ładowana JavaScriptem.
+# Program operacyjny (koniec tytułu na Portalu FE) -> województwo; programy krajowe -> None (cała Polska).
+FE_REGIONS = {
+    "dolnego śląska": ["dolnoslaskie"], "kujaw i pomorza": ["kujawsko"], "lubelskiego": ["lubelskie"],
+    "lubuskiego": ["lubuskie"], "łódzkiego": ["lodzkie"], "małopolski": ["malopolskie"],
+    "mazowsza": ["mazowieckie"], "opolskiego": ["opolskie"], "podkarpacia": ["podkarpackie"],
+    "podlaskiego": ["podlaskie"], "pomorza zachodniego": ["zachodniopomorskie"], "pomorza": ["pomorskie"],
+    "śląskiego": ["slaskie"], "świętokrzyskiego": ["swietokrzyskie"], "warmii i mazur": ["warminsko"],
+    "wielkopolski": ["wielkopolskie"],
+}
+FE_NATIONAL = ("nowoczesnej gospodarki", "rozwoju społecznego", "rozwój cyfrowy", "środowisko",
+               "rybactwa", "pomoc techniczna", "infrastruktura, klimat")
+FE_SECTIONS = ["Informacje o naborze", "Kto może składać wnioski?", "Na co można otrzymać dofinansowanie",
+               "Kryteria wyboru projektów", "Finanse", "Niezbędne dokumenty", "Inne ważne informacje",
+               "Jakie środki odwoławcze", "Wyniki naboru"]
 
-    Otwiera listę w Playwright i zbiera (1) odpowiedzi JSON z wewnętrznego API strony,
-    (2) linki do kart naborów z wyrenderowanego DOM, potem pobiera karty.
-    EKSPERYMENTALNE: struktura API nie została jeszcze podejrzana - przy pierwszym
-    uruchomieniu włącz options.dump_dir, żeby zapisać ruch sieciowy i dopracować parser.
-    Wymaga: pip install playwright && playwright install chromium.
-    """
+
+def _sections(text: str, heads) -> dict:
+    """Dzieli tekst strony na sekcje według nagłówków (pierwsze wystąpienie każdego)."""
+    pos = sorted((text.find(h), h) for h in heads if text.find(h) >= 0)
+    return {h: text[a + len(h):(pos[k + 1][0] if k + 1 < len(pos) else len(text))].strip()
+            for k, (a, h) in enumerate(pos)}
+
+
+def _after(text: str, label: str, n: int = 300) -> str:
+    i = text.find(label)
+    return text[i + len(label):i + len(label) + n].strip().split("\n")[0].strip() if i >= 0 else ""
+
+
+class PortalFESource(Source):
+    """Portal Funduszy Europejskich (funduszeunijne.gov.pl): wszystkie nabory z programów unijnych
+    2021-2027 - krajowych (FENG, FERS, FEnIKS, FEPW, FERC, FER), 16 regionalnych i Interreg.
+
+    Lista jest ładowana przez AJAX (POST /umbraco/surface/FiltersSurface/GetNabory) z tokenem CSRF
+    i ciasteczkiem sesji ze strony listy; filtr "stan naboru" = planowany + aktualny.
+    Karta naboru ma stałe sekcje (Kto może składać wnioski, Na co, Finanse, Niezbędne dokumenty),
+    z których adapter sam ustawia województwo, typ beneficjenta, poziom i termin.
+    options: url, max_pages, max_items, statuses (lista identyfikatorów filtra stanu)."""
 
     name = "portal_fe"
+    BASE = "https://www.funduszeunijne.gov.pl"
+    LIST_API = "/umbraco/surface/FiltersSurface/GetNabory"
+    STATUS_FILTER = "3762"
+    STATUSES = {"planowany": "1197", "aktualny": "1198"}
+
+    def __init__(self, name=None, http: Http = None, **options):
+        super().__init__(name, **options)
+        self.http = http or Http()
+
+    def listing(self) -> list:
+        url = self.options.get("url", self.BASE + "/strony/skorzystaj/nabory/")
+        page = self.http.get(url)
+        m = re.search(r'name="__RequestVerificationToken"[^>]*value="([^"]+)"', page)
+        if not m:
+            raise RuntimeError("Portal FE: brak tokenu formularza na stronie listy")
+        filt = "".join(f"/{self.STATUS_FILTER}={v}" for v in self.options.get("statuses", self.STATUSES.values()))
+        items, seen = [], set()
+        for n in range(1, int(self.options.get("max_pages", 100)) + 1):
+            body = self.http.post(self.BASE + self.LIST_API, {
+                "id": "4073", "hashUrl": "domyslne=1" + filt + (f"/strona={n}" if n > 1 else ""),
+                "typeOfDate": "Data ostatniej publikacji", "partialName": "MIRNaboryWnioskow2Items",
+                "ctResultPagesAlias": "MIRNaboryWnioskow", "lang": "pl",
+                "__RequestVerificationToken": m.group(1), "reCaptchaToken": "",
+            }, headers={"X-Requested-With": "XMLHttpRequest", "Referer": url})
+            fresh = 0
+            for li in re.findall(r"<li class=\"row\">(.*?)</li>", body, re.S):
+                a = re.search(r'<a href="(/nabory/[^"]+)" class="title">([^<]+)</a>', li)
+                if not a or a.group(1) in seen:
+                    continue
+                seen.add(a.group(1))
+                fresh += 1
+                st = re.search(r'<span class="status">\s*([^<]*?)\s*</span>', li)
+                dates = re.findall(r"<span>\s*(\d\d)\.(\d\d)\.(\d{4})\s*</span>", li)
+                items.append({"url": self.BASE + a.group(1), "title": html.unescape(a.group(2)).strip(),
+                              "status": (st.group(1) if st else "").lower(),
+                              "dates": [f"{y}-{mo}-{d}" for d, mo, y in dates]})
+            if not fresh:
+                break
+        return items
 
     def fetch(self) -> Iterator[Program]:
-        from playwright.sync_api import sync_playwright
+        for n, it in enumerate(self.listing()):
+            if n >= int(self.options.get("max_items", 1000)):
+                return
+            try:
+                raw = self.http.get(it["url"])
+            except Exception as e:
+                log.warning("[%s] nie pobrano %s: %s", self.name, it["url"], e)
+                continue
+            yield self.parse(it, raw)
 
-        url = self.options.get("url", "https://www.funduszeunijne.gov.pl/strony/skorzystaj/nabory/")
-        pat = re.compile(self.options.get("link_pattern", r"/nabory/[^/?#]+/?$"))
-        dump = Path(self.options["dump_dir"]) if self.options.get("dump_dir") else None
-        captured = []
-        with sync_playwright() as pw:
-            browser = pw.chromium.launch()
-            page = browser.new_page(user_agent=USER_AGENT, locale="pl-PL")
+    def parse(self, it: dict, raw: str) -> Program:
+        from ..classify import classify
 
-            def on_response(r):
-                if "json" in (r.headers.get("content-type") or ""):
-                    try:
-                        captured.append((r.url, r.json()))
-                    except Exception:
-                        pass
-            page.on("response", on_response)
-            for n in range(1, int(self.options.get("pages", 5)) + 1):
-                page.goto(url if n == 1 else f"{url}?page={n}", wait_until="networkidle")
-                links = page.eval_on_selector_all("a[href]", "els => els.map(e => [e.href, e.innerText])")
-                fresh = [(h, t.strip()) for h, t in links if pat.search(h) and h.rstrip("/") != url.rstrip("/")]
-                if not fresh:
+        page = html_to_text(raw, it["url"])
+        text = page["text"]
+        sec = _sections(text, FE_SECTIONS)
+        name, _, prog = it["title"].rpartition(",")
+        name, prog = (name or prog).strip(), prog.strip()
+        p = Program(source=self.name, source_id=_id(it["url"]), name=name, url=it["url"], op=prog)
+        if len(it["dates"]) >= 2:
+            p.start, p.deadline = it["dates"][0], it["dates"][-1]
+        elif it["dates"]:
+            p.start = it["dates"][0]
+        p.status = "soon" if it["status"].startswith("planow") else "closed" if it["status"].startswith("zako") else "open"
+
+        low = prog.lower()
+        if "fundusze europejskie dla polski wschodniej" in low:
+            p.regions = sorted(tx.EAST)
+        elif any(k in low for k in FE_NATIONAL):
+            p.regions = None
+        else:
+            for key, regs in FE_REGIONS.items():
+                if low.endswith(key):
+                    p.regions = regs
                     break
-                for href, anchor in dict(fresh).items():
-                    try:
-                        page.goto(href, wait_until="networkidle")
-                        detail = html_to_text(page.content(), href)
-                    except Exception as e:
-                        log.warning("[portal_fe] %s: %s", href, e)
-                        continue
-                    yield Program(source=self.name, source_id=_id(href), name=detail["title"] or anchor,
-                                  url=href, op="Fundusze Europejskie", description=detail["text"][:20000])
-            browser.close()
-        if dump:
-            dump.mkdir(parents=True, exist_ok=True)
-            (dump / "portal_fe_xhr.json").write_text(json.dumps(captured, ensure_ascii=False)[:5_000_000])
+
+        who = norm(sec.get("Kto może składać wnioski?", ""))
+        firms = re.search(r"przedsiebior|msp|mikro|(?<![a-z])firm|osob[a-z]* prowadzac[a-z]* dzialalnosc", who)
+        forms = set(tx.BUSINESS_FORMS) if firms else set()
+        if re.search(r"organizac[a-z]* (pozarzad|spoleczn)|fundac|stowarzysz|ekonomi[a-z]* spoleczn|spoldziel", who):
+            forms.add("ngo")
+        if re.search(r"jednost[a-z]* samorzad|administrac|uczeln|jednost[a-z]* naukow|szkol|instytuc", who):
+            forms.add("jst")
+        if re.search(r"rolni|rybac|gospodarstw", who):
+            forms.add("rolne")
+        if re.search(r"osob[a-z]* fizyczn", who) and re.search(r"zalozen|rozpoczec|zamierzaj", who):
+            forms.add("none")
+        if who and (not forms or "niekonkurencyjn" in norm(text)):
+            # Nabór dla wskazanego z nazwy podmiotu publicznego (np. "Województwo Lubelskie",
+            # "Regionalne Centra Krwiodawstwa") albo niekonkurencyjny - nie dla firm.
+            forms, firms = {"jst"}, None
+        if forms:
+            p.forms = sorted(forms)
+        if firms:
+            sizes = set()
+            if re.search(r"msp|mikro|malych|male |srednich|srednie ", who) or re.search(r"przedsiebiorstw(a|o)(?! realizuj)", who):
+                sizes |= set(tx.MSP)
+            if re.search(r"duz[aey][a-z]* przedsieb|duzych", who):
+                sizes.add("large")
+            if sizes:
+                p.sizes = sorted(sizes)
+
+        fin = sec.get("Finanse", "")
+        lvl = re.search(r"(\d{1,3}(?:[,.]\d+)?)\s*%", fin[fin.find("Poziom dofinansowania"):][:500]) if "Poziom dofinansowania" in fin else None
+        if lvl:
+            p.level = f"do {lvl.group(1)} %"
+        cap = _after(fin, "Maksymalna wartość", 300) or _after(fin, "Maksymalna kwota", 300)
+        if cap:
+            from ..classify import parse_amounts
+            amounts = [a for a in parse_amounts(cap) if a >= 1000]
+            if amounts:
+                p.max = max(amounts)
+        where = " ".join(x for x in (_after(text, "Sposób składania wniosków"), _after(text, "Miejsce składania wniosków", 200)) if x)
+        p.apply_where = where[:300]
+        p.docs = [u for u, t in page["links"] if u.lower().endswith(".pdf")][:5]
+        what = re.sub(r"^/wsparcie\?\s*", "", sec.get("Na co można otrzymać dofinansowanie", ""))
+        intro = sec.get("Informacje o naborze", "")[:1500]
+        p.description = "\n\n".join(x for x in (
+            f"Program: {prog}", f"Kto może składać wnioski: {sec.get('Kto może składać wnioski?', '')[:3000]}",
+            f"Na co: {what[:6000]}", f"Finanse: {fin[:2000]}", intro) if x)
+        # Klasyfikator dostaje tylko nazwę i "na co": sekcja "kto może" wymienia dziesiątki typów podmiotów,
+        # a "finanse" podaje pulę całego naboru, nie kwotę dla jednej firmy.
+        if p.max is None:
+            p.max = 0
+        classify(p, f"{name}\n{what}")
+        if p.max == 0:
+            p.max = None
+        if p.forms is None or not firms:
+            p.unknown = sorted(set(p.unknown) - {"forms", "sizes"})
+        p._classified = True
+        return p
 
 
-ADAPTERS.update({"parp": ParpSource, "govpl": GovPlTableSource, "portal_fe": PortalFESource})
+class GovPlNewsSource(Source):
+    """Nabory ogłaszane w aktualnościach instytucji na gov.pl (ARiMR, NCBR), gdy harmonogram jest tylko w PDF.
+
+    Bierze wiadomości z ostatnich `max_age_days` dni, których tytuł zapowiada nabór, czyta artykuł
+    i ustala termin. Bez przyszłego terminu w tytule lub na początku artykułu wiadomość jest pomijana
+    (nie wiemy, czy nabór trwa). Kilka wiadomości o tym samym naborze ("rusza", "kończy się")
+    łączy w jeden wpis - wygrywa najnowsza.
+    options: url (lista "wszystkie aktualności"), op, pages, max_age_days, include, exclude, forms."""
+
+    name = "govpl_news"
+    INCLUDE = r"nab[oó]r|wnios(ek|ki|k[oó]w)|konkurs"
+    EXCLUDE = (r"podsumowan|wynik|list[ay] (rankingow|ocenionych)|wyp[lł]at|p[lł]atno|zaliczk|rozlicz|"
+               r"kontrol|wniosek o p[lł]atno|zmian[ay] w|szkolenie dla pracownik|dofinansowan[a-z]* przyznan|"
+               r"spotkani|info ?day|nagrani|webinar|konferencj")
+
+    def __init__(self, name=None, http: Http = None, **options):
+        super().__init__(name, **options)
+        self.http = http or Http()
+
+    def fetch(self, today: date = None) -> Iterator[Program]:
+        from ..classify import classify, parse_dates
+
+        today = today or date.today()
+        oldest = today - timedelta(days=int(self.options.get("max_age_days", 120)))
+        inc = re.compile(self.options.get("include", self.INCLUDE), re.I)
+        exc = re.compile(self.options.get("exclude", self.EXCLUDE), re.I)
+        url = self.options["url"]
+        found = []
+        for n in range(1, int(self.options.get("pages", 5)) + 1):
+            body = self.http.get(url if n == 1 else f"{url}?page={n}&size=10")
+            items = re.findall(r'class="date">\s*(\d\d)\.(\d\d)\.(\d{4})\s*</span>.*?<a href="([^"]+)">([^<]+)</a>', body, re.S)
+            if not items:
+                break
+            for d, m, y, href, title in items:
+                published = date(int(y), int(m), int(d))
+                title = html.unescape(title).strip()
+                if published >= oldest and inc.search(title) and not exc.search(title):
+                    found.append((published, urljoin(url, href), title))
+            if published < oldest:
+                break
+        merged = {}
+        for published, link, title in sorted(found, reverse=True):
+            try:
+                page = html_to_text(self.http.get(link), link)
+            except Exception as e:
+                log.warning("[%s] nie pobrano %s: %s", self.name, link, e)
+                continue
+            text = page["text"]
+            start = text.find(title[:40])
+            body = text[start:] if start >= 0 else text
+            dates = [x for x in parse_dates(f"{title}\n{body[:2500]}") if x >= today]
+            if not dates:
+                continue
+            p = Program(source=self.name, source_id=_id(link), name=title, url=link,
+                        op=self.options.get("op", ""), description=body[:20000])
+            p.deadline = max(dates).isoformat()
+            past = [x for x in parse_dates(body[:1500]) if published - timedelta(days=60) <= x < max(dates)]
+            p.start = min(past).isoformat() if past else None
+            if self.options.get("forms"):
+                p.forms = list(self.options["forms"])
+            p.max = 0  # kwoty w wiadomościach to zwykle budżet całego naboru, nie limit dla jednego wnioskodawcy
+            classify(p, f"{title}\n{body[:6000]}", today)
+            p.max = None
+            p._classified = True
+            words = set(re.findall(r"[a-ząćęłńóśźż]{5,}", title.lower()))
+            dup = next((k for k, (w, q) in merged.items()
+                        if q.deadline == p.deadline and len(words & w) >= max(1, min(len(words), len(w)) // 3)), None)
+            if dup is None:
+                merged[p.key] = (words, p)
+        for _, p in merged.values():
+            yield p
+
+
+ADAPTERS.update({"parp": ParpSource, "govpl": GovPlTableSource, "portal_fe": PortalFESource,
+                 "govpl_news": GovPlNewsSource})

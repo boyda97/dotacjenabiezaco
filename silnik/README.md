@@ -30,7 +30,7 @@ Codzienna aktualizacja (cron):
 
 ```
 źródła (config/sources.json)
-  └─ adaptery: seed · parp · govpl · rss · html_list · portal_fe
+  └─ adaptery: seed · portal_fe · govpl · govpl_news · parp · rss · html_list
        └─ classify.py      reguły słownikowe: regiony, MŚP, cele, kwoty, daty, typ wsparcia
        └─ ai_extract.py    (opcjonalnie, --ai) Claude czyta opis + regulamin PDF: PKD wykluczone, warunki
             └─ storage.py  SQLite: historia zmian, nowe/zmienione/usunięte, profile, wysłane alerty
@@ -76,14 +76,15 @@ pracy jako osoba bezrobotna przed złożeniem wniosku”.
 
 ## Źródła
 
-| Źródło | Adapter | Stan |
+| Źródło | Adapter | Stan (sprawdzone na żywo 2026-10-30) |
 |---|---|---|
-| Programy redakcyjne | `seed` | działa |
-| PARP – harmonogram naborów | `parp` | gotowy, sprawdzony na przykładowym HTML |
-| NFOŚiGW (gov.pl) | `govpl` | gotowy, sprawdzony na przykładowym HTML |
-| ARiMR, NCBR (gov.pl) | `govpl` | wyłączone do czasu potwierdzenia adresów |
-| Serwisy regionalne FE (RSS) | `rss` | wyłączone, adres kanału Lubelskie do potwierdzenia |
-| Portal Funduszy Europejskich | `portal_fe` | eksperymentalny (Playwright), wymaga podejrzenia ruchu XHR |
+| Portal Funduszy Europejskich: wszystkie programy unijne 2021-2027, krajowe (FENG z naborami PARP i NCBR, FERS, FEnIKS, FEPW, FERC, rybactwo), 16 regionalnych i Interreg | `portal_fe` | działa, ok. 250 planowanych i trwających naborów |
+| NFOŚiGW, harmonogram (gov.pl) | `govpl` | działa, ok. 50 pozycji |
+| ARiMR, NCBR: aktualności o naborach (gov.pl) | `govpl_news` | działa; harmonogram ARiMR jest tylko w PDF |
+| Programy redakcyjne | `seed` | działa, do weryfikacji |
+| PARP, harmonogram | `parp` | wyłączone: strona wpuszcza tylko przeglądarki po captchy; nabory PARP są w `portal_fe` |
+| Serwisy regionalne FE (RSS) | `rss` | wyłączone, niepotrzebne obok `portal_fe` |
+| BGK | brak | strona blokuje roboty (403) |
 
 Nowe źródło dodaje się wpisem w `config/sources.json`, bez zmian w kodzie (o ile pasuje istniejący adapter).
 

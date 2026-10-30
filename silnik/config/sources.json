@@ -1,21 +1,54 @@
 [
- {"adapter": "seed", "name": "seed", "path": "data/programs_seed.json",
-  "note": "Programy wpisane ręcznie przez redakcję (na start: 19 programów ze strony). Format jak PROGRAMS na stronie."},
- {"adapter": "parp", "name": "parp",
-  "note": "PARP – harmonogram naborów + karty programów. robots.txt pozwala."},
- {"adapter": "govpl", "name": "nfosigw", "url": "https://www.gov.pl/web/nfosigw/harmonogram-naborow",
-  "op": "NFOŚiGW", "follow": false,
-  "note": "Tabela: numer, nazwa, tryb, daty, stan naboru, oznaczenie (dotacja/pożyczka)."},
- {"adapter": "govpl", "name": "arimr", "url": "https://www.gov.pl/web/arimr/harmonogram-naborow",
-  "op": "ARiMR", "enabled": false,
-  "note": "Ten sam szablon gov.pl – adres strony z harmonogramem do potwierdzenia."},
- {"adapter": "govpl", "name": "ncbr", "url": "https://www.gov.pl/web/ncbr/harmonogram-naborow",
-  "op": "NCBR", "enabled": false,
-  "note": "Adres do potwierdzenia."},
- {"adapter": "rss", "name": "fe_lubelskie", "url": "https://funduszeue.lubelskie.pl/nabory/feed/",
-  "op": "FE dla Lubelskiego", "include": ".", "follow": true, "enabled": false,
-  "note": "Serwis ma RSS – dokładny adres kanału do potwierdzenia. Kolejne województwa dodawać analogicznie."},
- {"adapter": "portal_fe", "name": "portal_fe", "url": "https://www.funduszeunijne.gov.pl/strony/skorzystaj/nabory/",
-  "pages": 5, "dump_dir": "var/portal_fe", "enabled": false,
-  "note": "Wymaga Playwright. Włączyć po pierwszym przejrzeniu zapisanego ruchu XHR (var/portal_fe)."}
+ {
+  "adapter": "seed",
+  "name": "seed",
+  "path": "data/programs_seed.json",
+  "note": "Programy wpisane ręcznie przez redakcję (na start: 19 programów ze strony). Format jak PROGRAMS na stronie."
+ },
+ {
+  "adapter": "parp",
+  "name": "parp",
+  "note": "Wyłączone 2026-10-30: parp.gov.pl wpuszcza tylko przeglądarki po captchy (Incapsula). Nabory PARP (FENG, FEPW, FERS) są w portal_fe.",
+  "enabled": false
+ },
+ {
+  "adapter": "govpl",
+  "name": "nfosigw",
+  "url": "https://www.gov.pl/web/nfosigw/harmonogram-naborow",
+  "op": "NFOŚiGW",
+  "follow": false,
+  "note": "Tabela: numer, nazwa, tryb, daty, stan naboru, oznaczenie (dotacja/pożyczka)."
+ },
+ {
+  "adapter": "govpl_news",
+  "name": "arimr",
+  "url": "https://www.gov.pl/web/arimr/wszystkie-aktualnosci",
+  "op": "ARiMR",
+  "pages": 8,
+  "note": "Harmonogram ARiMR jest tylko w PDF, więc nabory bierzemy z aktualności (tytuły z „nabór”/„wnioski”, termin z treści)."
+ },
+ {
+  "adapter": "govpl_news",
+  "name": "ncbr",
+  "url": "https://www.gov.pl/web/ncbr/wydarzenia",
+  "op": "NCBR",
+  "pages": 6,
+  "note": "Aktualności NCBR. Główne programy NCBR (FENG) są też w portal_fe."
+ },
+ {
+  "adapter": "rss",
+  "name": "fe_lubelskie",
+  "url": "https://funduszeue.lubelskie.pl/nabory/feed/",
+  "op": "FE dla Lubelskiego",
+  "include": ".",
+  "follow": true,
+  "enabled": false,
+  "note": "Niepotrzebne: nabory regionalne są w portal_fe."
+ },
+ {
+  "adapter": "portal_fe",
+  "name": "portal_fe",
+  "url": "https://www.funduszeunijne.gov.pl/strony/skorzystaj/nabory/",
+  "note": "Wszystkie nabory unijne 2021-2027 (FENG z PARP i NCBR, FERS, FEnIKS, FEPW, FERC, rybactwo, 16 programów regionalnych, Interreg): planowane i trwające. Ok. 250 kart, pobieranie ok. 5 min."
+ }
 ]
