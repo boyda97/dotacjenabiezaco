@@ -10,7 +10,7 @@ from dotacjomat.matching import rank, score
 from dotacjomat.models import CompanyProfile, Program
 from dotacjomat.pipeline import digest, update
 from dotacjomat.sources import GovPlTableSource, RssSource, SeedSource
-from dotacjomat.sources.adapters import GovPlNewsSource, ParpSource, PortalFESource
+from dotacjomat.sources.adapters import GovPlNewsSource, ParpSource, PortalFESource, firm_directed
 from dotacjomat.storage import Store
 
 FIX = Path(__file__).parent / "fixtures"
@@ -214,7 +214,9 @@ class PortalFETest(unittest.TestCase):
         self.assertEqual((p.name, p.op), ("5.3 ALMA - staże zagraniczne dla młodych (352/26)", "Fundusze Europejskie dla Śląskiego"))
         self.assertEqual((p.start, p.deadline, p.status), ("2026-10-30", "2027-01-29", "open"))
         self.assertEqual(p.regions, ["slaskie"])
-        self.assertTrue(set(tx.BUSINESS_FORMS) <= set(p.forms))
+        # ALMA: firmy są na liście realizatorów, ale wsparcie (staże) dostają młodzi, nie firma
+        self.assertFalse(set(tx.BUSINESS_FORMS) & set(p.forms))
+        self.assertFalse(score(p, firm(region="slaskie"), TODAY).eligible)
         self.assertEqual(p.level, "do 95 %")
         self.assertIsNone(p.max)  # pula naboru (7,5 mln zł) to nie kwota dla jednej firmy
         self.assertIn("zatrudnienie", p.goals)
@@ -225,6 +227,24 @@ class PortalFETest(unittest.TestCase):
         p = src.parse(it, (FIX / "portal_fe_detail_jst.html").read_text(encoding="utf-8"))
         self.assertEqual((p.forms, p.status, p.regions), (["jst"], "soon", ["lubelskie"]))
         self.assertFalse(score(p, firm(region="lubelskie"), TODAY).eligible)
+
+    def test_firm_directed_titles(self):
+        for t in ["2.7 Lubelskie MŚP na rynkach zagranicznych", "1.1 Ścieżka SMART – nabór projektów B+R",
+                  "2.33 Kredyt na wytwarzanie produktów podwójnego zastosowania", "8.4 Zdrowy pracownik",
+                  "1.2 Inwestycje przedsiębiorstw w badania i innowacje", "2.12 Granty na Eurogranty"]:
+            self.assertTrue(firm_directed(t, "Fundusze Europejskie dla Lubelskiego", ""), t)
+        for t in ["7.2 Wzmocnienie kompetencji uczniów", "8.5 Usługi społeczne", "2.8 Gospodarka wodno-ściekowa",
+                  "5.4 Lokalna kultura i turystyka", "9.1 Aktywna integracja", "5.6 Edukacja przedszkolna"]:
+            self.assertFalse(firm_directed(t, "Fundusze Europejskie dla Lubelskiego", ""), t)
+        self.assertFalse(firm_directed("1. Innowacyjny Południowy Bałtyk, Cyfryzacja regionu", "Interreg", ""))
+        self.assertTrue(firm_directed("2.5 Odpady", "FE", "Wsparcie dla przedsiębiorstw na inwestycje w recykling"))
+
+    def test_tech_calls_not_for_services(self):
+        from dotacjomat.sources.adapters import tech_sectors
+        p = prog(sectors=None, regions=None, forms=list(tx.BUSINESS_FORMS), sizes=list(tx.MSP), goals=["badania"])
+        tech_sectors(p, "1.1 Ścieżka SMART – nabór projektów B+R")
+        self.assertFalse(score(p, firm(pkd="96.02.Z", goals=[]), TODAY).eligible)  # fryzjer
+        self.assertTrue(score(p, firm(pkd="62.01.Z", goals=[]), TODAY).eligible)   # firma IT
 
     def test_detail_keeps_classifier_off_full_description(self):
         it = {"url": "https://www.funduszeunijne.gov.pl/nabory/53-alma/", "status": "aktualny", "dates": ["2026-10-30", "2027-01-29"],
@@ -296,6 +316,16 @@ class AiApplyTest(unittest.TestCase):
         # firma spożywcza (C10) mieści się w C, ale jej PKD jest wykluczone
         f = firm(form="jdg", size="micro", pkd="10.11.Z", goals=["sprzet"])
         self.assertFalse(score(p, f, TODAY).eligible)
+
+    def test_operator_call_hidden_from_firms(self):
+        p = prog(goals=[], unknown=[])
+        data = {"national": False, "direct_support": False, "regions": ["mazowieckie"], "forms": ["zoo", "ngo", "jst"],
+                "sizes": [], "all_sectors": True, "sectors": [], "pkd_excluded": [], "requires": [], "requires_all": [],
+                "goals": ["szkolenia"], "type": "dotacja", "min_pln": None, "max_pln": None, "level": "",
+                "start": None, "deadline": "2026-12-15", "how": "", "apply_where": "", "documents": []}
+        ai_extract.apply(p, data)
+        self.assertEqual(p.forms, ["ngo", "jst"])
+        self.assertFalse(score(p, firm(goals=["szkolenia"]), TODAY).eligible)
 
     def test_schema_keys_match_apply(self):
         self.assertEqual(set(ai_extract.SCHEMA["required"]), set(ai_extract.SCHEMA["properties"]))

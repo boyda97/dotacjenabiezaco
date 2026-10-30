@@ -31,6 +31,8 @@ SCHEMA = {
     "type": "object",
     "properties": {
         "national": {"type": "boolean", "description": "true, jeśli nabór dotyczy całej Polski"},
+        "direct_support": {"type": "boolean",
+                           "description": "true, jeśli wnioskodawca dostaje wsparcie na własną działalność"},
         "regions": _enum_array([r for r in tx.REGIONS if r != "inne"]),
         "forms": _enum_array(tx.FORMS),
         "sizes": _enum_array(tx.SIZES),
@@ -50,7 +52,7 @@ SCHEMA = {
         "apply_where": {"type": "string"},
         "documents": {"type": "array", "items": {"type": "string"}},
     },
-    "required": ["national", "regions", "forms", "sizes", "all_sectors", "sectors", "pkd_excluded",
+    "required": ["national", "direct_support", "regions", "forms", "sizes", "all_sectors", "sectors", "pkd_excluded",
                  "requires", "requires_all", "goals", "type", "min_pln", "max_pln", "level", "start", "deadline", "how",
                  "apply_where", "documents"],
     "additionalProperties": False,
@@ -68,6 +70,14 @@ Klucze, których używasz:
 
 Zasady:
 - Wpisuj tylko to, co wynika z tekstu. Jeśli nabór jest dla MŚP, sizes = micro, small, medium.
+- direct_support: true, gdy pieniądze idą na rozwój samego wnioskodawcy (inwestycja firmy, B+R, eksport,
+  szkolenia własnych pracowników, pożyczka dla firmy, start firmy). false, gdy wnioskodawca realizuje projekt
+  dla innych odbiorców (uczniów, bezrobotnych, seniorów, mieszkańców, rodzin) albo inwestycję publiczną
+  (drogi, wodociągi, szkoły, szpitale), nawet jeśli firmy są na liście uprawnionych realizatorów.
+- forms: formy, które realnie dostają wsparcie dla siebie. Przy direct_support = false nie wpisuj form
+  firmowych (jdg, sc, zoo, sa), tylko ngo/jst, jeśli dotyczy.
+- goals: tylko główne cele, na które da się wydać pieniądze w tym naborze; nie wpisuj celu, który pojawia się
+  w tekście tylko pobocznie.
 - "Polska Wschodnia" (FEPW) = lubelskie, podkarpackie, podlaskie, swietokrzyskie, warminsko
   (+ część mazowieckiego - wtedy dodaj mazowieckie).
 - all_sectors = true, jeśli nabór nie ogranicza branży; wtedy sectors może być puste.
@@ -76,6 +86,8 @@ Zasady:
 - Dotacje na założenie firmy (urząd pracy, PFRON, LGD, FSE+) mają forms = none, sizes = start, goals zawiera start.
 - pkd_excluded: prefiksy kodów PKD wykluczonych w regulaminie (np. "01", "46.1", "92"); pusta lista, jeśli brak.
 - Kwoty w PLN jako liczby całkowite (EUR przelicz po 4,3). Daty w formacie RRRR-MM-DD.
+  max_pln / min_pln to kwota wsparcia dla JEDNEGO wnioskodawcy lub projektu, nigdy pula całego naboru;
+  null, jeśli tekst jej nie podaje.
 - level: poziom dofinansowania, np. "do 80 %", albo "".
 - how: 1-2 zdania po polsku dla przedsiębiorcy: na co konkretnie da się wydać te pieniądze.
 - apply_where: 1 zdanie, gdzie i jak składa się wniosek (np. "Wniosek składasz online w systemie LSI PARP,
@@ -120,6 +132,9 @@ def apply(program: Program, data: dict) -> Program:
     """Nakłada wynik ekstrakcji na program (wynik AI ma pierwszeństwo przed heurystyką)."""
     program.regions = None if data["national"] or not data["regions"] else data["regions"]
     program.forms = data["forms"] or program.forms
+    if data.get("direct_support") is False and program.forms:
+        # firma byłaby tu tylko realizatorem projektu dla innych - nie pokazujemy naboru firmom
+        program.forms = [f for f in program.forms if f not in tx.BUSINESS_FORMS and f != "none"] or ["jst"]
     program.sizes = data["sizes"] or program.sizes
     program.sectors = None if data["all_sectors"] or not data["sectors"] else data["sectors"]
     program.pkd_excluded = data["pkd_excluded"]

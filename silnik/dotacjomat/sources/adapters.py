@@ -235,6 +235,43 @@ FE_SECTIONS = ["Informacje o naborze", "Kto może składać wnioski?", "Na co mo
                "Jakie środki odwoławcze", "Wyniki naboru"]
 
 
+# Tytuł/opis naboru, w którym wsparcie trafia do samej firmy (inwestycja, B+R, eksport, kadry, pożyczka).
+FIRM_STEMS = (r"przedsiebior|(?<![a-z])msp|(?<![a-z])firm|pracodaw|przemysl|innowac|b\+r|badan[a-z]* i (rozwoj|innowac)|"
+              r"badawczo|eksport|rynk[a-z]* zagraniczn|internacjonaliz|kredyt|pozyczk|start-?up|platform[a-z]* startow|"
+              r"technolog|dual-?use|podwojnego zastosowania|eurogrant|horizon|kadr[a-z]* (regionaln[a-z]* )?gospodark|"
+              r"zdrowy[a-z]* (i aktywn[a-z]* )?pracownik|cyfryzac[a-z]* (msp|przedsieb|firm)|wzornict|automatyzac|robotyzac")
+# Nabory, w których firma mogłaby być najwyżej realizatorem projektu dla innych albo które są inwestycją publiczną.
+OPERATOR_STEMS = (r"szkol|uczni|przedszkol|edukacj|ksztalceni|uslug[a-z]* spoleczn|uslug[a-z]* zdrowotn|integrac|"
+                  r"aktywizac|wlaczeni|staz|alma|bezrobotn|mieszkanc|rodzin|opiek|kultur|gotowos[a-z]* cywiln|"
+                  r"obywatel|wod|sciek|drog|transport|rewitaliz|transgraniczn|wspolprac|ochron[a-z]* (przyrod|ludnos)|"
+                  r"odporn[a-z]* (i gotowos|cyfrow[a-z]* region)|infrastruktur[a-z]* (spoleczn|zdrow|edukac|drogow)")
+
+
+# Nabory na B+R, innowacje, technologie i przemysł (w tym obronny) nie są dla handlu i usług osobistych.
+TECH_STEMS = (r"b\+r|badawcz|badan[a-z]* (i|naukow|przemysl)|innowac|technolog|dual-?use|podwojnego zastosowania|"
+              r"obronn|przemysl|horizon|eurogrant|ekosystem[a-z]* innowac")
+TECH_SECTORS = ["B", "C", "C10", "D", "E", "F", "H", "J", "M", "Q"]
+
+
+def tech_sectors(p: Program, title: str) -> None:
+    if p.sectors is None and re.search(TECH_STEMS, norm(title)):
+        p.sectors = list(TECH_SECTORS)
+
+
+def firm_directed(name: str, prog: str, what: str) -> bool:
+    """Czy nabór daje wsparcie samej firmie (a nie: firma realizuje projekt dla innych / inwestycja publiczna)."""
+    title = norm(name)
+    if "interreg" in norm(prog) or re.search(r"poludniow[a-z]* baltyk|transgraniczn", title):
+        return False
+    if re.search(FIRM_STEMS, title):
+        return True
+    if re.search(OPERATOR_STEMS, title):
+        return False
+    # Tytuł nic nie mówi (np. "2.5 Odpady i GOZ"): decyduje pierwszy akapit "na co".
+    head = norm(what[:800])
+    return bool(re.search(r"przedsiebiorstw|(?<![a-z])msp|(?<![a-z])firm", head)) and not re.search(OPERATOR_STEMS, head[:200])
+
+
 def _sections(text: str, heads) -> dict:
     """Dzieli tekst strony na sekcje według nagłówków (pierwsze wystąpienie każdego)."""
     pos = sorted((text.find(h), h) for h in heads if text.find(h) >= 0)
@@ -350,6 +387,12 @@ class PortalFESource(Source):
             # Nabór dla wskazanego z nazwy podmiotu publicznego (np. "Województwo Lubelskie",
             # "Regionalne Centra Krwiodawstwa") albo niekonkurencyjny - nie dla firm.
             forms, firms = {"jst"}, None
+        what = re.sub(r"^/wsparcie\?\s*", "", sec.get("Na co można otrzymać dofinansowanie", ""))
+        if firms and not firm_directed(name, prog, what):
+            # Firma jest tu tylko jednym z możliwych realizatorów projektu dla innych (szkół, bezrobotnych,
+            # mieszkańców) albo inwestycji publicznej - właściciel firmy nie dostaje wsparcia dla siebie.
+            forms -= set(tx.BUSINESS_FORMS) | {"none"}
+            forms, firms = forms or {"jst"}, None
         if forms:
             p.forms = sorted(forms)
         if firms:
@@ -374,7 +417,6 @@ class PortalFESource(Source):
         where = " ".join(x for x in (_after(text, "Sposób składania wniosków"), _after(text, "Miejsce składania wniosków", 200)) if x)
         p.apply_where = where[:300]
         p.docs = [u for u, t in page["links"] if u.lower().endswith(".pdf")][:5]
-        what = re.sub(r"^/wsparcie\?\s*", "", sec.get("Na co można otrzymać dofinansowanie", ""))
         intro = sec.get("Informacje o naborze", "")[:1500]
         p.description = "\n\n".join(x for x in (
             f"Program: {prog}", f"Kto może składać wnioski: {sec.get('Kto może składać wnioski?', '')[:3000]}",
@@ -383,7 +425,8 @@ class PortalFESource(Source):
         # a "finanse" podaje pulę całego naboru, nie kwotę dla jednej firmy.
         if p.max is None:
             p.max = 0
-        classify(p, f"{name}\n{what}")
+        classify(p, f"{name}\n{what[:1500]}")
+        tech_sectors(p, name)
         if p.max == 0:
             p.max = None
         if p.forms is None or not firms:
@@ -454,6 +497,7 @@ class GovPlNewsSource(Source):
                 p.forms = list(self.options["forms"])
             p.max = 0  # kwoty w wiadomościach to zwykle budżet całego naboru, nie limit dla jednego wnioskodawcy
             classify(p, f"{title}\n{body[:6000]}", today)
+            tech_sectors(p, title)
             p.max = None
             p._classified = True
             words = set(re.findall(r"[a-ząćęłńóśźż]{5,}", title.lower()))
