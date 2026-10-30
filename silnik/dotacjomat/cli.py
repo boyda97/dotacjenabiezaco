@@ -51,7 +51,7 @@ def main(argv=None):
                    help="pokaż też nabory z nieustalonymi warunkami (\"do sprawdzenia\")")
 
     e = sub.add_parser("export", help="eksport dla strony")
-    e.add_argument("out")
+    e.add_argument("out", help="plik JSON albo - (standardowe wyjście)")
 
     pa = sub.add_parser("profile-add")
     pa.add_argument("file")
@@ -101,6 +101,9 @@ def main(argv=None):
 
     if a.cmd == "export":
         data = [p.to_page_dict() for p in store.programs()]
+        if a.out == "-":  # na standardowe wyjście (katalog stron województw w backendzie)
+            print(json.dumps(data, ensure_ascii=False))
+            return 0
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.out).write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"Zapisano {len(data)} naborów do {a.out}")

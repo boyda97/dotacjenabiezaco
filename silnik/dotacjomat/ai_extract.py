@@ -47,9 +47,12 @@ SCHEMA = {
         "start": {"type": ["string", "null"]},
         "deadline": {"type": ["string", "null"]},
         "how": {"type": "string"},
+        "apply_where": {"type": "string"},
+        "documents": {"type": "array", "items": {"type": "string"}},
     },
     "required": ["national", "regions", "forms", "sizes", "all_sectors", "sectors", "pkd_excluded",
-                 "requires", "requires_all", "goals", "type", "min_pln", "max_pln", "level", "start", "deadline", "how"],
+                 "requires", "requires_all", "goals", "type", "min_pln", "max_pln", "level", "start", "deadline", "how",
+                 "apply_where", "documents"],
     "additionalProperties": False,
 }
 
@@ -74,7 +77,11 @@ Zasady:
 - pkd_excluded: prefiksy kodów PKD wykluczonych w regulaminie (np. "01", "46.1", "92"); pusta lista, jeśli brak.
 - Kwoty w PLN jako liczby całkowite (EUR przelicz po 4,3). Daty w formacie RRRR-MM-DD.
 - level: poziom dofinansowania, np. "do 80 %", albo "".
-- how: 1-2 zdania po polsku dla przedsiębiorcy: na co konkretnie da się wydać te pieniądze."""
+- how: 1-2 zdania po polsku dla przedsiębiorcy: na co konkretnie da się wydać te pieniądze.
+- apply_where: 1 zdanie, gdzie i jak składa się wniosek (np. "Wniosek składasz online w systemie LSI PARP,
+  podpisany podpisem kwalifikowanym."), albo "", jeśli tekst tego nie mówi.
+- documents: najważniejsze dokumenty do przygotowania, krótko (np. "Biznesplan", "Oświadczenie o pomocy de minimis"),
+  maksymalnie 8, tylko te wymienione w tekście; pusta lista, jeśli brak."""
 
 
 def _client():
@@ -126,6 +133,8 @@ def apply(program: Program, data: dict) -> Program:
     program.start = data["start"] or program.start
     program.deadline = data["deadline"] or program.deadline
     program.how = data["how"] or program.how
+    program.apply_where = data.get("apply_where") or program.apply_where
+    program.documents = (data.get("documents") or program.documents)[:8]
     resolved = {"regions", "sectors", "goals"} | ({"forms"} if data["forms"] else set()) \
         | ({"sizes"} if data["sizes"] else set())
     program.unknown = sorted(set(program.unknown) - resolved)

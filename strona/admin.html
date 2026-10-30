@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Statystyki – Dotacjo</title>
+<link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml">
+<style>
+/* Panel właściciela: liczby z ostatnich dni. Dane bez ciasteczek i bez adresów IP (src/stats.js). */
+:root{--paper:#fbfcf8;--surface:#fff;--soft:#eef4ef;--ink:#14211b;--mut:#5e6d66;--line:#e2e8e2;--green:#00854A;--deep:#003D2B;--greenT:#006f3d;--font:system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--font)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+header{background:var(--surface);border-bottom:1px solid var(--line)}header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+header img{width:120px;height:auto;display:block}h1{font-size:26px;margin:28px 0 4px}.sub{color:var(--mut);margin:0 0 20px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:24px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}.tile b{display:block;font-size:26px;color:var(--deep);font-variant-numeric:tabular-nums}.tile span{color:var(--mut);font-size:13px}
+h2{font-size:18px;margin:28px 0 8px}.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th,td{text-align:right;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}th{font-size:12px;color:var(--mut);font-weight:700;background:var(--soft)}tr:last-child td{border-bottom:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.msg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:28px}
+.seg{display:flex;gap:6px}.seg button{font:600 13px var(--font);padding:7px 10px;border:1px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--deep);color:#fff;border-color:var(--deep)}
+a{color:var(--greenT)}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="/"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="120" height="38"></a>
+<div class="seg" id="range"><button type="button" data-d="7">7 dni</button><button type="button" data-d="30" aria-pressed="true">30 dni</button><button type="button" data-d="90">90 dni</button></div></div></header>
+<main class="wrap" id="out"><p class="sub" style="margin-top:28px">Ładuję…</p></main>
+<script>
+(function(){
+  var out=document.getElementById("out"),days=30;
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function n(x){return String(x||0).replace(/\B(?=(\d{3})+(?!\d))/g," ")}
+  function sum(rows,k){return rows.reduce(function(a,r){return a+(r[k]||0)},0)}
+  function pct(a,b){return b?Math.round(a/b*1000)/10+"%":"–"}
+  function load(){
+    fetch("/api/stats/admin?dni="+days,{credentials:"same-origin"}).then(function(r){
+      if(r.status===401){out.innerHTML='<div class="msg"><h1>Zaloguj się</h1><p>Statystyki widzi tylko właściciel serwisu. <a href="/profil">Zaloguj się</a> adresem administratora i wróć tutaj.</p></div>';return}
+      if(r.status===403){out.innerHTML='<div class="msg"><h1>Brak dostępu</h1><p>To konto nie jest na liście administratorów (ADMIN_EMAILS na serwerze).</p></div>';return}
+      return r.json().then(draw);
+    }).catch(function(){out.innerHTML='<div class="msg">Nie udało się pobrać statystyk.</div>'});
+  }
+  function draw(s){
+    var d=s.daily.slice().reverse(),t=s.totals,u=sum(d,"unikalni"),q=sum(d,"szukanie"),b=sum(d,"zakup_start");
+    out.innerHTML='<h1>Statystyki</h1><p class="sub">Ostatnie '+s.days+' dni. Bez ciasteczek: „osoby” to unikalni goście danego dnia.</p>'+
+      '<div class="tiles">'+
+      tile(n(sum(d,"odslony")),"odsłon")+tile(n(u),"osób (suma dni)")+tile(n(q),"wyszukiwań · "+pct(q,u)+" osób")+
+      tile(n(b),"kliknięć „Kup” · "+pct(b,q)+" wyszukiwań")+tile(n(t.subscriptions),"aktywnych abonamentów")+tile(n(t.weeksActive),"aktywnych tygodni")+
+      tile(n(t.weeks),"kupionych tygodni w okresie")+tile(n(t.newUsers),"nowych kont · razem "+n(t.users))+tile(n(t.favorites),"zapisanych ulubionych")+
+      '</div><h2>Dzień po dniu</h2><div class="box"><table><tr><th>Dzień</th><th>Odsłony</th><th>Osoby</th><th>Wyszukiwania</th><th>Logowania</th><th>Kliknięcia „Kup”</th></tr>'+
+      (d.length?d.map(function(r){return"<tr><td>"+esc(r.day.split("-").reverse().join("."))+"</td><td>"+n(r.odslony)+"</td><td>"+n(r.unikalni)+"</td><td>"+n(r.szukanie)+"</td><td>"+n(r.logowanie)+"</td><td>"+n(r.zakup_start)+"</td></tr>"}).join(""):'<tr><td colspan="6">Jeszcze brak danych.</td></tr>')+
+      '</table></div><div class="two"><div><h2>Najczęściej oglądane</h2>'+list(s.pages,"Strona")+'</div><div><h2>Skąd przychodzą</h2>'+list(s.refs,"Źródło")+'</div></div>';
+  }
+  function tile(v,l){return'<div class="tile"><b>'+v+'</b><span>'+esc(l)+'</span></div>'}
+  function list(rows,h){return'<div class="box"><table><tr><th>'+h+'</th><th>Odsłony</th></tr>'+(rows.length?rows.map(function(r){return"<tr><td>"+esc(r.k)+"</td><td>"+n(r.n)+"</td></tr>"}).join(""):'<tr><td colspan="2">Brak danych.</td></tr>')+'</table></div>'}
+  document.getElementById("range").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;days=+b.dataset.d;
+    [].forEach.call(this.children,function(x){x.setAttribute("aria-pressed",x===b)});load()});
+  load();
+})();
+</script>
+</body>
+</html>
