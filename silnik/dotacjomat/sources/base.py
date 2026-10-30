@@ -3,7 +3,9 @@ from __future__ import annotations
 
 import logging
 import re
+import http.cookiejar
 import time
+import urllib.parse
 import urllib.request
 import urllib.robotparser
 from html.parser import HTMLParser
@@ -13,7 +15,7 @@ from urllib.parse import urljoin, urlparse
 from ..models import Program
 
 log = logging.getLogger("dotacjomat.sources")
-USER_AGENT = "DotacjeNaBiezacoBot/0.1 (+https://dotacjenabiezaco.pl/bot)"
+USER_AGENT = "DotacjoBot/0.2 (+https://dotacjo.pl)"
 
 
 class Source:
@@ -32,13 +34,15 @@ class Source:
 
 
 class Http:
-    """Prosty klient: limit tempa per host, 3 próby, poszanowanie robots.txt."""
+    """Prosty klient: limit tempa per host, 3 próby, poszanowanie robots.txt, ciasteczka sesji
+    (niektóre serwisy, np. Portal FE, wymagają ich przy zapytaniach o listę)."""
 
     def __init__(self, delay: float = 1.0, timeout: float = 20.0, opener=None):
         self.delay, self.timeout = delay, timeout
         self._last: dict = {}
         self._robots: dict = {}
-        self._open = opener or urllib.request.urlopen
+        self._open = opener or urllib.request.build_opener(
+            urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar())).open
 
     def allowed(self, url: str) -> bool:
         host = "{0.scheme}://{0.netloc}".format(urlparse(url))
@@ -52,12 +56,13 @@ class Http:
         rp = self._robots[host]
         return rp is None or rp.can_fetch(USER_AGENT, url)
 
-    def _raw(self, url: str, binary: bool = False):
+    def _raw(self, url: str, binary: bool = False, data: Optional[bytes] = None, headers: Optional[dict] = None):
         host = urlparse(url).netloc
         wait = self.delay - (time.monotonic() - self._last.get(host, 0))
         if wait > 0:
             time.sleep(wait)
-        req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept-Language": "pl"})
+        req = urllib.request.Request(url, data=data,
+                                     headers={"User-Agent": USER_AGENT, "Accept-Language": "pl", **(headers or {})})
         try:
             with self._open(req, timeout=self.timeout) as r:
                 body = r.read()
@@ -74,11 +79,19 @@ class Http:
         return self._raw(url, binary=True)
 
     def get(self, url: str, retries: int = 3) -> str:
+        return self._fetch(url, retries)
+
+    def post(self, url: str, form: dict, headers: Optional[dict] = None, retries: int = 3) -> str:
+        """POST formularza (application/x-www-form-urlencoded) - np. listy ładowane przez AJAX."""
+        data = urllib.parse.urlencode(form).encode()
+        return self._fetch(url, retries, data, {"Content-Type": "application/x-www-form-urlencoded", **(headers or {})})
+
+    def _fetch(self, url, retries, data=None, headers=None) -> str:
         if not self.allowed(url):
             raise PermissionError(f"robots.txt nie pozwala pobrać {url}")
         for attempt in range(retries):
             try:
-                return self._raw(url)
+                return self._raw(url, data=data, headers=headers)
             except PermissionError:
                 raise
             except Exception as e:

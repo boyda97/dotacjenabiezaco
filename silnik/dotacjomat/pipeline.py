@@ -58,10 +58,10 @@ def _process(store, p, use_ai, http, today):
     cached, cached_raw = store.get(p.key)
     if cached is not None and cached_raw == raw and (cached.ai_extracted or not use_ai):
         p = cached  # treść u źródła bez zmian - nie klasyfikujemy ponownie
-    elif p.source != "seed" and not p.goals:
+    elif p.source != "seed" and not getattr(p, "_classified", False) and not p.goals:
         classify(p, p.description, today)
-        if use_ai:
-            _ai(p, http)
+    if use_ai and p.source != "seed" and not p.ai_extracted:
+        _ai(p, http)
     p._raw = raw
     p.refresh_status(today)
     return p

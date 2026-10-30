@@ -10,7 +10,7 @@ from dotacjomat.matching import rank, score
 from dotacjomat.models import CompanyProfile, Program
 from dotacjomat.pipeline import digest, update
 from dotacjomat.sources import GovPlTableSource, RssSource, SeedSource
-from dotacjomat.sources.adapters import ParpSource
+from dotacjomat.sources.adapters import GovPlNewsSource, ParpSource, PortalFESource, firm_directed
 from dotacjomat.storage import Store
 
 FIX = Path(__file__).parent / "fixtures"
@@ -21,6 +21,11 @@ TODAY = date(2026, 10, 26)
 class FakeHttp:
     def __init__(self, pages):
         self.pages = pages
+        self.posts = []
+
+    def post(self, url, form, headers=None):
+        self.posts.append(form)
+        return self.get(url) if len(self.posts) == 1 else "<ul></ul>"
 
     def get(self, url):
         for suffix, name in self.pages.items():
@@ -186,6 +191,84 @@ class SourcesTest(unittest.TestCase):
         self.assertEqual((p.start, p.deadline), ("2027-01-15", "2027-02-28"))
 
 
+class PortalFETest(unittest.TestCase):
+    def test_listing_uses_token_status_filter_and_pages(self):
+        http = FakeHttp({"/strony/skorzystaj/nabory/": "portal_fe_page.html", "GetNabory": "portal_fe_list.html"})
+        items = PortalFESource(http=http).listing()
+        self.assertEqual(len(items), 2)
+        self.assertEqual(http.posts[0]["__RequestVerificationToken"], "tok123")
+        self.assertIn("/3762=1197/3762=1198", http.posts[0]["hashUrl"])
+        self.assertEqual(http.posts[1]["hashUrl"].split("/")[-1], "strona=2")
+        a, b = items
+        self.assertTrue(a["url"].startswith("https://www.funduszeunijne.gov.pl/nabory/"))
+        self.assertEqual((a["status"], a["dates"]), ("aktualny", ["2026-05-13", "2026-06-17"]))
+        self.assertEqual(b["status"], "planowany")
+        self.assertTrue(b["title"].endswith("Fundusze Europejskie dla Kujaw i Pomorza"))
+
+    def test_detail_for_firms_and_public_only(self):
+        src = PortalFESource(http=FakeHttp({}))
+        it = {"url": "https://www.funduszeunijne.gov.pl/nabory/53-alma/", "status": "aktualny",
+              "dates": ["2026-10-30", "2027-01-29"],
+              "title": "5.3 ALMA - staże zagraniczne dla młodych (352/26), Fundusze Europejskie dla Śląskiego"}
+        p = src.parse(it, (FIX / "portal_fe_detail.html").read_text(encoding="utf-8"))
+        self.assertEqual((p.name, p.op), ("5.3 ALMA - staże zagraniczne dla młodych (352/26)", "Fundusze Europejskie dla Śląskiego"))
+        self.assertEqual((p.start, p.deadline, p.status), ("2026-10-30", "2027-01-29", "open"))
+        self.assertEqual(p.regions, ["slaskie"])
+        # ALMA: firmy są na liście realizatorów, ale wsparcie (staże) dostają młodzi, nie firma
+        self.assertFalse(set(tx.BUSINESS_FORMS) & set(p.forms))
+        self.assertFalse(score(p, firm(region="slaskie"), TODAY).eligible)
+        self.assertEqual(p.level, "do 95 %")
+        self.assertIsNone(p.max)  # pula naboru (7,5 mln zł) to nie kwota dla jednej firmy
+        self.assertIn("zatrudnienie", p.goals)
+        self.assertIn("LSI", p.apply_where)
+
+        it = {"url": "https://www.funduszeunijne.gov.pl/nabory/61-drogi/", "status": "planowany", "dates": ["2026-11-02", "2026-12-31"],
+              "title": "6.1 Poprawa regionalnej dostępności transportowej, Fundusze Europejskie dla Lubelskiego"}
+        p = src.parse(it, (FIX / "portal_fe_detail_jst.html").read_text(encoding="utf-8"))
+        self.assertEqual((p.forms, p.status, p.regions), (["jst"], "soon", ["lubelskie"]))
+        self.assertFalse(score(p, firm(region="lubelskie"), TODAY).eligible)
+
+    def test_firm_directed_titles(self):
+        for t in ["2.7 Lubelskie MŚP na rynkach zagranicznych", "1.1 Ścieżka SMART – nabór projektów B+R",
+                  "2.33 Kredyt na wytwarzanie produktów podwójnego zastosowania", "8.4 Zdrowy pracownik",
+                  "1.2 Inwestycje przedsiębiorstw w badania i innowacje", "2.12 Granty na Eurogranty"]:
+            self.assertTrue(firm_directed(t, "Fundusze Europejskie dla Lubelskiego", ""), t)
+        for t in ["7.2 Wzmocnienie kompetencji uczniów", "8.5 Usługi społeczne", "2.8 Gospodarka wodno-ściekowa",
+                  "5.4 Lokalna kultura i turystyka", "9.1 Aktywna integracja", "5.6 Edukacja przedszkolna"]:
+            self.assertFalse(firm_directed(t, "Fundusze Europejskie dla Lubelskiego", ""), t)
+        self.assertFalse(firm_directed("1. Innowacyjny Południowy Bałtyk, Cyfryzacja regionu", "Interreg", ""))
+        self.assertTrue(firm_directed("2.5 Odpady", "FE", "Wsparcie dla przedsiębiorstw na inwestycje w recykling"))
+
+    def test_tech_calls_not_for_services(self):
+        from dotacjomat.sources.adapters import tech_sectors
+        p = prog(sectors=None, regions=None, forms=list(tx.BUSINESS_FORMS), sizes=list(tx.MSP), goals=["badania"])
+        tech_sectors(p, "1.1 Ścieżka SMART – nabór projektów B+R")
+        self.assertFalse(score(p, firm(pkd="96.02.Z", goals=[]), TODAY).eligible)  # fryzjer
+        self.assertTrue(score(p, firm(pkd="62.01.Z", goals=[]), TODAY).eligible)   # firma IT
+
+    def test_detail_keeps_classifier_off_full_description(self):
+        it = {"url": "https://www.funduszeunijne.gov.pl/nabory/53-alma/", "status": "aktualny", "dates": ["2026-10-30", "2027-01-29"],
+              "title": "5.3 ALMA, Fundusze Europejskie dla Nowoczesnej Gospodarki"}
+        p = PortalFESource(http=FakeHttp({})).parse(it, (FIX / "portal_fe_detail.html").read_text(encoding="utf-8"))
+        self.assertIsNone(p.regions)
+        self.assertTrue(getattr(p, "_classified"))
+
+
+class GovPlNewsTest(unittest.TestCase):
+    def test_news_titles_dates_and_duplicates(self):
+        http = FakeHttp({"wszystkie-aktualnosci": "govpl_news.html", "konczy-sie": "govpl_news_a.html",
+                         "rusza": "govpl_news_b.html"})
+        src = GovPlNewsSource(name="arimr", http=http, url="https://www.gov.pl/web/arimr/wszystkie-aktualnosci",
+                              op="ARiMR", pages=1)
+        items = list(src.fetch(today=date(2026, 10, 30)))
+        self.assertEqual(len(items), 1)  # dwie wiadomości o tym samym naborze, podsumowanie i stary pominięte
+        p = items[0]
+        self.assertEqual(p.url, "https://www.gov.pl/web/arimr/maly-przetworstwo-konczy-sie")
+        self.assertEqual((p.start, p.deadline), ("2026-10-03", "2026-11-02"))
+        self.assertIn("rolne", p.forms)
+        self.assertIsNone(p.max)  # budżet naboru, nie kwota dla wnioskodawcy
+
+
 class PipelineTest(unittest.TestCase):
     def test_update_diff_and_digest(self):
         with tempfile.TemporaryDirectory() as d:
@@ -233,6 +316,16 @@ class AiApplyTest(unittest.TestCase):
         # firma spożywcza (C10) mieści się w C, ale jej PKD jest wykluczone
         f = firm(form="jdg", size="micro", pkd="10.11.Z", goals=["sprzet"])
         self.assertFalse(score(p, f, TODAY).eligible)
+
+    def test_operator_call_hidden_from_firms(self):
+        p = prog(goals=[], unknown=[])
+        data = {"national": False, "direct_support": False, "regions": ["mazowieckie"], "forms": ["zoo", "ngo", "jst"],
+                "sizes": [], "all_sectors": True, "sectors": [], "pkd_excluded": [], "requires": [], "requires_all": [],
+                "goals": ["szkolenia"], "type": "dotacja", "min_pln": None, "max_pln": None, "level": "",
+                "start": None, "deadline": "2026-12-15", "how": "", "apply_where": "", "documents": []}
+        ai_extract.apply(p, data)
+        self.assertEqual(p.forms, ["ngo", "jst"])
+        self.assertFalse(score(p, firm(goals=["szkolenia"]), TODAY).eligible)
 
     def test_schema_keys_match_apply(self):
         self.assertEqual(set(ai_extract.SCHEMA["required"]), set(ai_extract.SCHEMA["properties"]))

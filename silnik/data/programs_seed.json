@@ -1,371 +1,5 @@
 [
  {
-  "id": 1,
-  "name": "Ścieżka SMART – projekty B+R i wdrożenia",
-  "op": "PARP / NCBR · FENG (Fundusze Europejskie dla Nowoczesnej Gospodarki)",
-  "type": "dotacja",
-  "status": "open",
-  "deadline": "2026-11-28",
-  "min": 3000000,
-  "max": 50000000,
-  "level": "do 80 %",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium",
-   "large"
-  ],
-  "sectors": [
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "Q",
-   "F",
-   "H"
-  ],
-  "goals": [
-   "badania",
-   "ai",
-   "digital",
-   "sprzet",
-   "ip",
-   "wzornictwo"
-  ],
-  "how": "Sfinansuj prace B+R nad {badania} – do 80 % kosztów wynagrodzeń, podwykonawstwa i aparatury, a w module wdrożeniowym także {sprzet}. Projekt musi kończyć się nowym produktem lub usługą na rynek.",
-  "url": "https://www.parp.gov.pl"
- },
- {
-  "id": 2,
-  "name": "Kredyt technologiczny (premia technologiczna)",
-  "op": "BGK · FENG",
-  "type": "mieszane",
-  "status": "soon",
-  "deadline": "2027-01-15",
-  "min": 500000,
-  "max": 15000000,
-  "level": "premia do 70 % kredytu",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "F",
-   "H",
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "G",
-   "Q"
-  ],
-  "goals": [
-   "sprzet",
-   "digital",
-   "ai",
-   "badania",
-   "budowa"
-  ],
-  "how": "Weź kredyt w banku komercyjnym na {sprzet} i {digital}, a BGK spłaci za Ciebie do 70 % kapitału jako premię technologiczną – warunek: technologia jest nowa dla Twojej firmy i daje nowy lub ulepszony produkt.",
-  "url": "https://www.bgk.pl"
- },
- {
-  "id": 3,
-  "name": "Dig.IT – transformacja cyfrowa MŚP",
-  "op": "Agencja Rozwoju Przemysłu · FENG",
-  "type": "dotacja",
-  "status": "open",
-  "deadline": "2026-12-10",
-  "min": 40000,
-  "max": 850000,
-  "level": "do 70 %",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "G",
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "F",
-   "H",
-   "I",
-   "N79",
-   "R"
-  ],
-  "goals": [
-   "digital",
-   "ai",
-   "szkolenia",
-   "marketing"
-  ],
-  "how": "Wdróż {digital} – dotacja pokrywa licencje, wdrożenie, sprzęt niezbędny do działania systemu i szkolenia zespołu z nowych narzędzi.",
-  "url": "https://www.arp.pl"
- },
- {
-  "id": 4,
-  "name": "Bony na innowacje dla MŚP – Dolny Śląsk",
-  "op": "DIP Wrocław · FEDS 2021-2027 (Fundusze Europejskie dla Dolnego Śląska)",
-  "type": "mieszane",
-  "status": "open",
-  "deadline": "2026-11-14",
-  "min": 20000,
-  "max": 250000,
-  "level": "do 85 %",
-  "regions": [
-   "dolnoslaskie"
-  ],
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "G",
-   "Q",
-   "I",
-   "N79",
-   "R",
-   "F",
-   "H"
-  ],
-  "goals": [
-   "badania",
-   "wzornictwo",
-   "digital",
-   "ip",
-   "doradztwo"
-  ],
-  "how": "Kup w jednostce naukowej usługę badawczą: {badania}. Bon pokrywa do 85 % kosztu ekspertyzy, testów lub prototypu, bez własnego laboratorium.",
-  "url": "https://www.dip.dolnyslask.pl"
- },
- {
-  "id": 5,
-  "name": "Pożyczka Rozwojowa dla MŚP (Dolny Śląsk)",
-  "op": "BGK + pośrednicy finansowi · FEDS",
-  "type": "pozyczka",
-  "status": "open",
-  "deadline": "nabór ciągły",
-  "min": 10000,
-  "max": 1000000,
-  "level": "oprocentowanie od 0,5 % · do 7 lat · bez prowizji",
-  "regions": [
-   "dolnoslaskie"
-  ],
-  "forms": [
-   "none",
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "start",
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "G",
-   "I",
-   "N79",
-   "R",
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "F",
-   "H",
-   "Q",
-   "P"
-  ],
-  "goals": [
-   "sprzet",
-   "budowa",
-   "nieruchomosc",
-   "pojazdy",
-   "digital",
-   "plynnosc",
-   "start",
-   "oze",
-   "marketing"
-  ],
-  "how": "Pożyczka na niemal każdy cel rozwojowy: {sprzet}, {digital}, remont lub nowy lokal. Oprocentowanie od 0,5 % bez prowizji – tańsze niż leasing czy kredyt bankowy.",
-  "url": "https://www.bgk.pl"
- },
- {
-  "id": 6,
-  "name": "Pożyczka na efektywność energetyczną / OZE",
-  "op": "NFOŚiGW / pośrednicy regionalni · FEnIKS",
-  "type": "pozyczka",
-  "status": "open",
-  "deadline": "nabór ciągły",
-  "min": 50000,
-  "max": 5000000,
-  "level": "do 100 % kosztów · częściowe umorzenie do 20 %",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa",
-   "rolne",
-   "ngo",
-   "jst"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium",
-   "large"
-  ],
-  "sectors": [
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "I",
-   "N79",
-   "R",
-   "G",
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "F",
-   "H",
-   "A",
-   "Q",
-   "P"
-  ],
-  "goals": [
-   "oze",
-   "efektywnosc",
-   "goz"
-  ],
-  "how": "Sfinansuj {oze} – do 100 % kosztów, a po osiągnięciu efektu ekologicznego część pożyczki (do 20 %) jest umarzana.",
-  "url": "https://www.gov.pl/web/nfosigw"
- },
- {
-  "id": 7,
-  "name": "Dotacja na rozpoczęcie działalności gospodarczej",
-  "op": "Powiatowy Urząd Pracy · FEDS / Fundusz Pracy",
-  "type": "dotacja",
-  "status": "open",
-  "deadline": "2026-10-31",
-  "min": 20000,
-  "max": 45000,
-  "level": "100 % (bezzwrotna, 12 mies. utrzymania firmy)",
-  "regions": null,
-  "forms": [
-   "none"
-  ],
-  "sizes": [
-   "start"
-  ],
-  "sectors": [
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "G",
-   "I",
-   "N79",
-   "R",
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "F",
-   "H",
-   "Q",
-   "P"
-  ],
-  "goals": [
-   "start",
-   "sprzet",
-   "marketing"
-  ],
-  "how": "Jednorazowa dotacja na start: {sprzet} i pierwsze wydatki marketingowe. Warunek: status bezrobotnego w PUP i utrzymanie firmy 12 miesięcy.",
-  "url": "https://www.gov.pl/web/pup"
- },
- {
   "id": 8,
   "name": "Baza Usług Rozwojowych – dofinansowanie szkoleń i doradztwa",
   "op": "PARP + operatorzy regionalni · FERS",
@@ -417,478 +51,6 @@
   ],
   "how": "Dofinansuj {szkolenia} – wybierasz usługę z Bazy Usług Rozwojowych, operator zwraca 50–80 % jej kosztu. Działa też dla samozatrudnionych.",
   "url": "https://uslugirozwojowe.parp.gov.pl"
- },
- {
-  "id": 9,
-  "name": "Promocja marki na rynkach zagranicznych (Go to Brand)",
-  "op": "PARP · FENG",
-  "type": "dotacja",
-  "status": "soon",
-  "deadline": "2027-02-01",
-  "min": 100000,
-  "max": 500000,
-  "level": "do 50 %",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "G",
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "I",
-   "N79",
-   "R"
-  ],
-  "goals": [
-   "eksport",
-   "marketing"
-  ],
-  "how": "Dotacja na {eksport}: stoiska targowe, misje, materiały promocyjne i usługi doradcze przy wejściu na nowy rynek – do 50 % kosztów.",
-  "url": "https://www.parp.gov.pl"
- },
- {
-  "id": 10,
-  "name": "Wzornictwo w MŚP – Polska Wschodnia",
-  "op": "PARP · FEPW (Fundusze Europejskie dla Polski Wschodniej)",
-  "type": "dotacja",
-  "status": "open",
-  "deadline": "2026-12-05",
-  "min": 200000,
-  "max": 3000000,
-  "level": "do 85 %",
-  "regions": [
-   "lubelskie",
-   "podkarpackie",
-   "podlaskie",
-   "warminsko"
-  ],
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "G"
-  ],
-  "goals": [
-   "wzornictwo",
-   "badania",
-   "sprzet",
-   "ip"
-  ],
-  "how": "Zaprojektuj nowy produkt z profesjonalnym projektantem: {badania}. Dotacja pokrywa audyt wzorniczy, projekt oraz {sprzet} potrzebny do wdrożenia.",
-  "url": "https://www.parp.gov.pl"
- },
- {
-  "id": 11,
-  "name": "Pożyczka płynnościowa dla MŚP",
-  "op": "BGK · FENG",
-  "type": "pozyczka",
-  "status": "open",
-  "deadline": "nabór ciągły (do wyczerpania)",
-  "min": 50000,
-  "max": 3500000,
-  "level": "0 % · do 6 lat · karencja 6 mies.",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "G",
-   "I",
-   "N79",
-   "R",
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "F",
-   "H",
-   "Q",
-   "P"
-  ],
-  "goals": [
-   "plynnosc",
-   "restrukturyzacja"
-  ],
-  "how": "Pożyczka 0 % na bieżące wydatki: wynagrodzenia, zapasy, czynsz, zobowiązania. Karencja 6 miesięcy – bufor na trudniejszy okres lub szybki wzrost.",
-  "url": "https://www.bgk.pl"
- },
- {
-  "id": 12,
-  "name": "Inwestycje w gospodarstwach – modernizacja (PS WPR)",
-  "op": "ARiMR · Plan Strategiczny WPR 2023-2027",
-  "type": "dotacja",
-  "status": "soon",
-  "deadline": "2027-03-15",
-  "min": 50000,
-  "max": 1200000,
-  "level": "do 65 % (młody rolnik)",
-  "regions": null,
-  "forms": [
-   "rolne",
-   "jdg"
-  ],
-  "sizes": [
-   "start",
-   "micro",
-   "small"
-  ],
-  "sectors": [
-   "A",
-   "C10"
-  ],
-  "goals": [
-   "sprzet",
-   "oze",
-   "start",
-   "budowa",
-   "pojazdy",
-   "przejecie"
-  ],
-  "how": "Dotacja na {sprzet} w gospodarstwie – maszyny, budynki inwentarskie, instalacje OZE. Do 65 % dla młodego rolnika.",
-  "url": "https://www.gov.pl/web/arimr"
- },
- {
-  "id": 13,
-  "name": "Wsparcie dla HoReCa, turystyki i kultury (KPO A1.2.1)",
-  "op": "PARP · KPO",
-  "type": "dotacja",
-  "status": "closed",
-  "deadline": "zakończony 2025",
-  "min": 50000,
-  "max": 540000,
-  "level": "do 90 %",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small"
-  ],
-  "sectors": [
-   "I",
-   "N79",
-   "R"
-  ],
-  "goals": [
-   "sprzet",
-   "digital",
-   "szkolenia",
-   "budowa"
-  ],
-  "how": "Nabór zakończony – zobacz, co finansował: {sprzet}, {digital} i szkolenia dla gastronomii i turystyki. Podobne programy pojawiają się w FEDS.",
-  "url": "https://www.parp.gov.pl"
- },
- {
-  "id": 14,
-  "name": "Granty na eurogranty",
-  "op": "PARP · FENG",
-  "type": "dotacja",
-  "status": "open",
-  "deadline": "2026-12-31",
-  "min": 20000,
-  "max": 280000,
-  "level": "do 100 % kosztów przygotowania wniosku",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa",
-   "ngo",
-   "jst"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "Q",
-   "P"
-  ],
-  "goals": [
-   "badania",
-   "eksport",
-   "doradztwo"
-  ],
-  "how": "Chcesz sięgnąć po Horizon Europe, LIFE lub Creative Europe? Dotacja pokrywa 100 % kosztów przygotowania wniosku i partnerstwa międzynarodowego – np. na {badania}.",
-  "url": "https://www.parp.gov.pl"
- },
- {
-  "id": 15,
-  "name": "Dolnośląski Bon na Cyfryzację",
-  "op": "Urząd Marszałkowski Województwa Dolnośląskiego · FEDS",
-  "type": "mieszane",
-  "status": "soon",
-  "deadline": "2027-01-20",
-  "min": 15000,
-  "max": 150000,
-  "level": "do 75 %",
-  "regions": [
-   "dolnoslaskie"
-  ],
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa"
-  ],
-  "sizes": [
-   "micro",
-   "small"
-  ],
-  "sectors": [
-   "M",
-   "J",
-   "N",
-   "S",
-   "K",
-   "L",
-   "G",
-   "I",
-   "N79",
-   "R",
-   "C",
-   "C10",
-   "B",
-   "D",
-   "E",
-   "F",
-   "H",
-   "Q",
-   "P"
-  ],
-  "goals": [
-   "digital",
-   "ai",
-   "szkolenia",
-   "marketing"
-  ],
-  "how": "Bon na {digital}: do 75 % kosztu oprogramowania, sklepu internetowego, automatyzacji i szkoleń z nowych narzędzi.",
-  "url": "https://rpo.dolnyslask.pl"
- },
- {
-  "id": 16,
-  "name": "Przetwórstwo rolno-spożywcze – wsparcie MŚP (KPO A1.4.1)",
-  "op": "ARiMR · KPO",
-  "type": "dotacja",
-  "status": "soon",
-  "deadline": "2027-02-15",
-  "min": 100000,
-  "max": 3000000,
-  "level": "do 50 %",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa",
-   "rolne"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium"
-  ],
-  "sectors": [
-   "C10",
-   "A"
-  ],
-  "goals": [
-   "sprzet",
-   "oze",
-   "digital",
-   "budowa",
-   "goz"
-  ],
-  "how": "Inwestycja w przetwórstwo: {sprzet}, linie technologiczne, chłodnie, magazyny i {oze}. Do 50 % kosztów.",
-  "url": "https://www.gov.pl/web/arimr"
- },
- {
-  "id": 17,
-  "name": "Zeroemisyjny transport – wymiana floty na elektryczną",
-  "op": "NFOŚiGW · program „Mój elektryk” / FEnIKS",
-  "type": "mieszane",
-  "status": "open",
-  "deadline": "nabór ciągły",
-  "min": 30000,
-  "max": 1500000,
-  "level": "dopłata do 30 % + leasing",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa",
-   "ngo",
-   "jst"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium",
-   "large"
-  ],
-  "sectors": [
-   "H",
-   "G",
-   "F",
-   "N",
-   "M",
-   "J",
-   "S"
-  ],
-  "goals": [
-   "pojazdy",
-   "oze"
-  ],
-  "how": "Wymień auta na elektryczne: dopłata do 30 % ceny plus preferencyjny leasing – {sprzet} w wersji zeroemisyjnej, ładowarki na własnym parkingu.",
-  "url": "https://www.gov.pl/web/nfosigw"
- },
- {
-  "id": 18,
-  "name": "Kultura i sektor kreatywny – rozwój przedsiębiorstw (FEDS 1.x)",
-  "op": "Urząd Marszałkowski Dolnego Śląska · FEDS",
-  "type": "dotacja",
-  "status": "soon",
-  "deadline": "2027-03-01",
-  "min": 50000,
-  "max": 800000,
-  "level": "do 70 %",
-  "regions": [
-   "dolnoslaskie"
-  ],
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa",
-   "ngo"
-  ],
-  "sizes": [
-   "micro",
-   "small"
-  ],
-  "sectors": [
-   "R",
-   "J",
-   "M",
-   "P"
-  ],
-  "goals": [
-   "sprzet",
-   "digital",
-   "szkolenia",
-   "marketing",
-   "budowa"
-  ],
-  "how": "Dla sektora kreatywnego: {sprzet}, {digital} i promocja nowej oferty. Do 70 % kosztów, także dla fundacji i stowarzyszeń.",
-  "url": "https://rpo.dolnyslask.pl"
- },
- {
-  "id": 19,
-  "name": "Usługi zdrowotne i opieka – infrastruktura i cyfryzacja",
-  "op": "Ministerstwo Zdrowia · FEnIKS / FERS",
-  "type": "dotacja",
-  "status": "open",
-  "deadline": "2026-12-18",
-  "min": 200000,
-  "max": 5000000,
-  "level": "do 85 %",
-  "regions": null,
-  "forms": [
-   "jdg",
-   "sc",
-   "zoo",
-   "sa",
-   "ngo",
-   "jst"
-  ],
-  "sizes": [
-   "micro",
-   "small",
-   "medium",
-   "large"
-  ],
-  "sectors": [
-   "Q"
-  ],
-  "goals": [
-   "sprzet",
-   "digital",
-   "szkolenia",
-   "budowa",
-   "zatrudnienie"
-  ],
-  "how": "Inwestycje w placówce: {sprzet}, dostosowanie lokalu, {digital} (e-rejestracja, EDM) i szkolenia personelu – do 85 % kosztów.",
-  "url": "https://www.gov.pl/web/zdrowie"
  },
  {
   "id": "start-pup",
@@ -1027,13 +189,13 @@
  {
   "id": "start-bgk",
   "name": "Pierwszy biznes – Wsparcie w starcie (pożyczka na założenie firmy)",
-  "op": "BGK · Fundusz Pracy",
+  "op": "BGK · Fundusze Europejskie dla Rozwoju Społecznego / Fundusz Pracy",
   "type": "pozyczka",
   "status": "open",
   "deadline": null,
   "min": null,
-  "max": 160000,
-  "level": "oprocentowanie preferencyjne, możliwe umorzenie części",
+  "max": 184000,
+  "level": "0,25 % rocznie · do 7 lat · do 50 % umorzenia",
   "regions": null,
   "forms": [
    "none",
@@ -1055,7 +217,226 @@
    "bezrobotny",
    "poszukujacy"
   ],
-  "how": "Niskooprocentowana pożyczka na założenie firmy dla studentów ostatniego roku, absolwentów, osób bezrobotnych i poszukujących pracy, z bezpłatnym doradztwem. Przy spełnieniu warunków część pożyczki może zostać umorzona.",
-  "url": "https://www.bgk.pl"
+  "how": "Pożyczka na założenie firmy dla studentów ostatniego roku, absolwentów, osób bezrobotnych i poszukujących pracy: 0,25 % w skali roku, spłata do 7 lat z karencją do 12 miesięcy, bez prowizji. Po roku działalności i terminowych spłatach do 50 % pożyczki może zostać umorzone. Wniosek składa się u partnera finansującego BGK w swoim województwie.",
+  "url": "https://www.bgk.pl/osoby-prywatne/zalozenie-firmy/europejskie-pozyczki-na-samozatrudnienie-w-ramach-programu-fundusze-europejskie-dla-rozwoju-spolecznego-2021-2027/"
+ },
+ {
+  "id": "bgk-deminimis",
+  "name": "Gwarancja de minimis BGK do kredytu firmowego",
+  "op": "BGK · fundusz powierniczy",
+  "type": "mieszane",
+  "status": "open",
+  "deadline": null,
+  "min": null,
+  "max": null,
+  "level": "gwarancja do 60 % kredytu",
+  "regions": null,
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": null,
+  "goals": [
+   "sprzet",
+   "budowa",
+   "plynnosc",
+   "pojazdy",
+   "digital"
+  ],
+  "how": "BGK poręcza do 60 % kredytu obrotowego lub inwestycyjnego, więc bank żąda mniej zabezpieczeń. Nie jest to wypłata pieniędzy, tylko gwarancja liczona do limitu pomocy de minimis. Wniosek składasz w swoim banku razem z wnioskiem o kredyt.",
+  "apply_where": "u partnera finansującego BGK właściwego dla siedziby firmy (lista na stronie programu)",
+  "url": "https://www.bgk.pl/male-i-srednie-przedsiebiorstwa/"
+ },
+ {
+  "id": "bgk-swietokrzyskie",
+  "name": "Pożyczka dla MŚP – Świętokrzyskie",
+  "op": "BGK · fundusz powierniczy FE dla regionu",
+  "type": "pozyczka",
+  "status": "open",
+  "deadline": null,
+  "min": null,
+  "max": 1700000,
+  "level": "od 0 % · do 5 lat",
+  "regions": [
+   "swietokrzyskie"
+  ],
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": null,
+  "goals": [
+   "sprzet",
+   "budowa",
+   "nieruchomosc",
+   "digital",
+   "oze",
+   "efektywnosc"
+  ],
+  "how": "Preferencyjna pożyczka na rozwój firmy ze środków Funduszy Europejskich dla Świętokrzyskiego: do 1,7 mln zł, oprocentowanie od 0 %, spłata do 5 lat.",
+  "apply_where": "u partnera finansującego BGK właściwego dla siedziby firmy (lista na stronie programu)",
+  "url": "https://www.bgk.pl/male-i-srednie-przedsiebiorstwa/inwestycje/finansowanie-ze-srodkow-unijnych/pozyczki-z-funduszy-europejskich-dla-swietokrzyskiego-2021-2027/"
+ },
+ {
+  "id": "bgk-lodzkie",
+  "name": "Pożyczka na inwestycje w MŚP – Łódzkie",
+  "op": "BGK · fundusz powierniczy FE dla regionu",
+  "type": "pozyczka",
+  "status": "open",
+  "deadline": null,
+  "min": null,
+  "max": 3000000,
+  "level": "2 % · bez wkładu własnego",
+  "regions": [
+   "lodzkie"
+  ],
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": null,
+  "goals": [
+   "sprzet",
+   "budowa",
+   "nieruchomosc",
+   "digital",
+   "oze",
+   "efektywnosc"
+  ],
+  "how": "Pożyczka na inwestycje firmy z Funduszy Europejskich dla Łódzkiego: do 3 mln zł, oprocentowanie 2 %, bez wkładu własnego.",
+  "apply_where": "u partnera finansującego BGK właściwego dla siedziby firmy (lista na stronie programu)",
+  "url": "https://bgk.pl/male-i-srednie-przedsiebiorstwa/inwestycje/finansowanie-ze-srodkow-unijnych/pozyczki-z-funduszy-europejskich-dla-lodzkiego-2021-2027/pozyczka-na-inwestycje-w-msp"
+ },
+ {
+  "id": "bgk-opolskie",
+  "name": "Pożyczka na inwestycje w MŚP – Opolskie",
+  "op": "BGK · fundusz powierniczy FE dla regionu",
+  "type": "pozyczka",
+  "status": "open",
+  "deadline": null,
+  "min": null,
+  "max": 3000000,
+  "level": "preferencyjne oprocentowanie",
+  "regions": [
+   "opolskie"
+  ],
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": null,
+  "goals": [
+   "sprzet",
+   "budowa",
+   "nieruchomosc",
+   "digital",
+   "oze",
+   "efektywnosc"
+  ],
+  "how": "Pożyczka na inwestycje firmy z Funduszy Europejskich dla Opolskiego (działanie 1.11): do 3 mln zł na preferencyjnych warunkach.",
+  "apply_where": "u partnera finansującego BGK właściwego dla siedziby firmy (lista na stronie programu)",
+  "url": "https://www.bgk.pl/produkty/pozyczka-na-inwestycje-w-msp-opolskie/"
+ },
+ {
+  "id": "bgk-mazowieckie",
+  "name": "Pożyczki inwestycyjne i na rozwój turystyki – Mazowsze",
+  "op": "BGK · fundusz powierniczy FE dla regionu",
+  "type": "pozyczka",
+  "status": "open",
+  "deadline": null,
+  "min": null,
+  "max": null,
+  "level": "preferencyjne oprocentowanie",
+  "regions": [
+   "mazowieckie"
+  ],
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": null,
+  "goals": [
+   "sprzet",
+   "budowa",
+   "nieruchomosc",
+   "digital",
+   "oze",
+   "efektywnosc"
+  ],
+  "how": "Preferencyjne pożyczki z Funduszy Europejskich dla Mazowsza: inwestycyjne (osobno dla Warszawy z okolicami i dla reszty województwa) oraz na rozwój turystyki.",
+  "apply_where": "u partnera finansującego BGK właściwego dla siedziby firmy (lista na stronie programu)",
+  "url": "https://www.bgk.pl/male-i-srednie-przedsiebiorstwa/inwestycje/finansowanie-ze-srodkow-unijnych/pozyczki-z-funduszy-europejskich-dla-mazowsza-2021-2027/"
+ },
+ {
+  "id": "bgk-dolnoslaskie",
+  "name": "Pożyczki rozwojowe, na efektywność energetyczną i OZE – Dolny Śląsk",
+  "op": "BGK · fundusz powierniczy FE dla regionu",
+  "type": "pozyczka",
+  "status": "open",
+  "deadline": null,
+  "min": null,
+  "max": null,
+  "level": "preferencyjne oprocentowanie",
+  "regions": [
+   "dolnoslaskie"
+  ],
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": null,
+  "goals": [
+   "sprzet",
+   "budowa",
+   "nieruchomosc",
+   "digital",
+   "oze",
+   "efektywnosc"
+  ],
+  "how": "Preferencyjne pożyczki z Funduszy Europejskich dla Dolnego Śląska zarządzane przez BGK: rozwojowa (na inwestycje firmy), na efektywność energetyczną i na odnawialne źródła energii.",
+  "apply_where": "u partnera finansującego BGK właściwego dla siedziby firmy (lista na stronie programu)",
+  "url": "https://funduszeuedolnoslaskie.pl/poradnik/5513-instrumenty-finansowe"
  }
 ]
