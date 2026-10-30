@@ -57,7 +57,7 @@ export function createBilling({ db, cfg, stripe, auth, log = console }) {
       billing_address_collection: "required",
       customer_update: { name: "auto", address: "auto" },
       tax_id_collection: { enabled: true }, // NIP na fakturze
-      success_url: `${cfg.appUrl}/panel?platnosc=ok`,
+      success_url: `${cfg.appUrl}/panel?platnosc=ok&plan=${product}`,
       cancel_url: `${cfg.appUrl}/?platnosc=anulowana#cennik`,
       ...(cfg.stripeAutomaticTax ? { automatic_tax: { enabled: true } } : {}),
     };

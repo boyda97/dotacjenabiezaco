@@ -26,6 +26,12 @@ export function loadConfig(overrides = {}) {
     // Dane firmy po NIP z GUS REGON (darmowy klucz od GUS). Bez klucza tylko Biała Lista MF (firmy z VAT).
     gusKey: env.GUS_KEY || "",
 
+    // Reklamy i analityka (ładowane w przeglądarce dopiero po zgodzie na cookies, strona/zgody.js).
+    gaId: env.GA_ID || "",
+    adsId: env.GOOGLE_ADS_ID || "",
+    adsPurchaseLabel: env.GOOGLE_ADS_PURCHASE_LABEL || "",
+    metaPixelId: env.META_PIXEL_ID || "",
+
     // Stripe
     stripeSecretKey: env.STRIPE_SECRET_KEY || "",
     stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET || "",

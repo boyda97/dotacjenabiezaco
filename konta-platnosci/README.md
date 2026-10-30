@@ -73,6 +73,7 @@ Hosting: wystarczy jeden mały serwer z Node 22 (np. Mikrus, OVH VPS, Railway, R
 | GET | `/api/profile/export` | RODO: kopia danych konta w JSON |
 | POST | `/api/profile/delete` | RODO: usunięcie konta `{confirm: e-mail}`; abonament anulowany w Stripe, historia płatności zostaje bez danych osobowych |
 | POST | `/api/stats/hit` | licznik odwiedzin bez ciasteczek (`/stat.js`), dzienne liczniki bez adresów IP |
+| GET | `/api/site-config` | identyfikatory Google Analytics / Google Ads / Meta Pixel z `.env` dla banera zgody na cookies (`strona/zgody.js`); bez nich baner się nie pokazuje |
 | GET | `/api/admin/stats?dni=`, `/users?q=`, `/programs`, `/alerts` | panel `/admin` (tylko `ADMIN_EMAILS`): statystyki, klienci, nabory w bazie, wysłane e-maile |
 | POST | `/api/admin/users/:id/gift` `{days}`, `/api/admin/alerts/run` | darmowy dostęp na N dni; ręczna wysyłka alertów |
 | GET | `/dotacje`, `/dotacje/:woj`, `/sitemap.xml`, `/robots.txt` | strony województw pod wyszukiwarki (karty jak zablokowane, bez nazw i linków) |

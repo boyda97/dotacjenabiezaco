@@ -564,7 +564,7 @@ body{background:var(--paper)}
     if(!me.user){gate("Zaloguj się","Wyszukiwarka jest dostępna po zalogowaniu, dla osób z aktywnym dostępem.",'<button class="btn primary" type="button" id="gl">Zaloguj się</button>');$("gl").onclick=function(){window.Konto&&Konto.login("/panel")};return}
     if(!me.access||!me.access.active){gate("Twój dostęp jest nieaktywny","Wykup dostęp tygodniowy albo abonament, aby korzystać z pełnej wyszukiwarki.",'<a class="btn primary" href="/?strona=1#cennik">Zobacz cennik</a><a class="btn ghost" href="/profil">Moje konto</a>');return}
     $("app").hidden=false;
-    if(/platnosc=ok/.test(location.search))$("paid").hidden=false;
+    if(/platnosc=ok/.test(location.search)){$("paid").hidden=false;var pl=(location.search.match(/plan=(\w+)/)||[])[1];try{if(!sessionStorage.getItem("dotacjo:kupiono")){sessionStorage.setItem("dotacjo:kupiono","1");(window.zgodyQ=window.zgodyQ||[]).push(["purchase",{value:pl==="week"?39:49,currency:"PLN",items:[{item_id:pl||"start"}]}])}}catch(e){}}
     fetch("/api/profile/favorites",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){(j.favorites||[]).forEach(function(f){saved[f.id]=true});draw()}).catch(function(){});
     fetch("/api/profile/search",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){
       var s=j.search;
@@ -580,7 +580,9 @@ body{background:var(--paper)}
 })();
 </script>
 <script src="/konto.js"></script>
+<footer data-zgody hidden><div class="wrap"><a href="#">Ustawienia cookies</a></div></footer>
 
+<script src="/zgody.js" defer></script>
 <script src="/stat.js" defer></script>
 </body>
 </html>

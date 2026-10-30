@@ -42,6 +42,11 @@ export function createApp({
   app.use(auth.loadUser);
   const stats = createStats({ db, cfg });
   app.use("/api/stats", stats.router);
+  // Identyfikatory reklam dla banera zgody (strona/zgody.js). Publiczne, bez sekretów.
+  app.get("/api/site-config", (_req, res) => {
+    res.set("Cache-Control", "public, max-age=300");
+    res.json({ gaId: cfg.gaId, adsId: cfg.adsId, adsPurchaseLabel: cfg.adsPurchaseLabel, metaPixelId: cfg.metaPixelId });
+  });
   // Liczniki zdarzeń do panelu /admin (bez danych osobowych).
   app.post("/api/auth/verify", (_req, _res, next) => (stats.event("logowanie"), next()));
   app.post("/api/billing/checkout", (_req, _res, next) => (stats.event("zakup_start"), next()));

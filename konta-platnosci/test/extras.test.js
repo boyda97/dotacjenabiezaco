@@ -197,3 +197,16 @@ test("strony województw: liczby i karty bez nazw, mapa strony, robots", async (
   assert.match(await (await fetch(base + "/sitemap.xml")).text(), /<loc>http:\/\/localhost\/dotacje\/slaskie<\/loc>/);
   assert.match(await (await fetch(base + "/robots.txt")).text(), /Disallow: \/api\//);
 });
+
+test("baner cookies: identyfikatory reklam z konfiguracji, strony ładują zgody.js", async () => {
+  const empty = await (await req("GET", "/api/site-config")).json();
+  assert.deepEqual(empty, { gaId: "", adsId: "", adsPurchaseLabel: "", metaPixelId: "" });
+  cfg.metaPixelId = "123456"; cfg.adsId = "AW-1";
+  const set = await (await req("GET", "/api/site-config")).json();
+  assert.equal(set.metaPixelId, "123456");
+  assert.equal(set.adsId, "AW-1");
+  cfg.metaPixelId = ""; cfg.adsId = "";
+  const page = await (await req("GET", "/dotacje")).text();
+  assert.match(page, /\/zgody\.js/);
+  assert.match(page, /data-zgody hidden/);
+});
