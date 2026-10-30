@@ -3,6 +3,7 @@ import { loadConfig } from "./config.js";
 import { openDb } from "./db.js";
 import { createMailer } from "./mailer.js";
 import { createApp } from "./app.js";
+import { createCompanyLookup } from "./company.js";
 import { createSilnikLoader } from "./silnik.js";
 
 const cfg = loadConfig();
@@ -17,7 +18,9 @@ const stripe = new Stripe(cfg.stripeSecretKey);
 const loadPrograms = process.env.SILNIK_DIR
   ? createSilnikLoader({ dir: process.env.SILNIK_DIR, python: process.env.SILNIK_PYTHON || "python3" })
   : undefined;
-const app = createApp({ db, cfg, stripe, mailer: createMailer(cfg), loadPrograms });
+const app = createApp({
+  db, cfg, stripe, mailer: createMailer(cfg), loadPrograms, lookupCompany: createCompanyLookup({ gusKey: cfg.gusKey }),
+});
 
 // Sprzątanie wygasłych sesji i tokenów raz na godzinę
 setInterval(() => {

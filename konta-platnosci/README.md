@@ -62,7 +62,7 @@ Hosting: wystarczy jeden mały serwer z Node 22 (np. Mikrus, OVH VPS, Railway, R
 | POST | `/api/billing/checkout` | `{product:"start"\|"pro"\|"biuro"\|"week", acceptTerms:true, immediateAccess:true}` → `{url}` do Stripe |
 | POST | `/api/billing/portal` | → `{url}` panelu klienta Stripe |
 | POST | `/api/stripe/webhook` | zdarzenia Stripe (podpis weryfikowany) |
-| GET | `/api/company?nip=` | podpowiedź do formularza z Białej Listy MF: `{company:{name, region, form}}` albo `null` (firmy zwolnione z VAT) |
+| GET | `/api/company?nip=` | podpowiedź do formularza: `{company:{name, region, form, pkd?, sector?}}` albo `null`. Z GUS REGON, gdy ustawiony `GUS_KEY` (wszystkie firmy, z PKD), inaczej z Białej Listy MF (tylko podatnicy VAT) |
 | GET | `/api/profile/favorites` | ulubione programy zalogowanego: `{favorites:[{id, program, status, note}]}` |
 | PUT | `/api/profile/favorites/:id` | zapis/zmiana: `{program?, status?, note?}`; etapy: `nowy`, `przygotowuje`, `zlozony`, `pominiety` |
 | DELETE | `/api/profile/favorites/:id` | usuwa z ulubionych |
