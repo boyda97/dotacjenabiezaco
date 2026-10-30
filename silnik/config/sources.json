@@ -3,7 +3,7 @@
   "adapter": "seed",
   "name": "seed",
   "path": "data/programs_seed.json",
-  "note": "Programy wpisane ręcznie przez redakcję (na start: 19 programów ze strony). Format jak PROGRAMS na stronie."
+  "note": "Programy stałe wpisane ręcznie, których nie da się pobrać automatycznie: pożyczki BGK (strona BGK blokuje roboty), BUR, wsparcie na założenie firmy (PUP, FSE+, LGD, PFRON). Przegląd raz w miesiącu."
  },
  {
   "adapter": "parp",
