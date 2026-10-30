@@ -55,14 +55,14 @@ export function createApp({
     });
   });
 
-  // Podpowiedź do formularza: województwo i forma z Białej Listy MF (null, gdy firmy tam nie ma).
+  // Podpowiedź do formularza: nazwa, województwo, forma i branża z GUS albo Białej Listy MF (null, gdy brak).
   app.get("/api/company", async (req, res) => {
     if (!validNip(req.query.nip)) return res.status(400).json({ error: "bad_nip" });
     let company = null;
     try {
       company = await lookupCompany(cleanNip(req.query.nip));
     } catch (e) {
-      log.warn?.("Biała Lista niedostępna", e.message);
+      log.warn?.("Rejestr firm niedostępny", e.message);
     }
     res.set("Cache-Control", "private, max-age=3600").json({ company });
   });

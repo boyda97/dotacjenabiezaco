@@ -16,6 +16,9 @@ export function loadConfig(overrides = {}) {
     resendApiKey: env.RESEND_API_KEY || "",
     mailFrom: env.MAIL_FROM || "Dotacjo <logowanie@dotacjo.pl>",
 
+    // Dane firmy po NIP z GUS REGON (darmowy klucz od GUS). Bez klucza tylko Biała Lista MF (firmy z VAT).
+    gusKey: env.GUS_KEY || "",
+
     // Stripe
     stripeSecretKey: env.STRIPE_SECRET_KEY || "",
     stripeWebhookSecret: env.STRIPE_WEBHOOK_SECRET || "",

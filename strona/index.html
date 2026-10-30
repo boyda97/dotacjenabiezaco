@@ -746,9 +746,10 @@ footer a{color:var(--mut)}
     hint.textContent="Sprawdzam w rejestrze…";
     fetch("/api/company?nip="+d).then(function(r){return r.json()}).then(function(j){
       company=j.company;
-      if(!company){hint.className="hint";hint.textContent="Nie ma tej firmy w wykazie VAT. Wybierz dane poniżej.";return}
+      if(!company){hint.className="hint";hint.textContent="Nie znaleźliśmy tej firmy w rejestrze. Wybierz dane poniżej.";return}
       if(company.region)document.getElementById("fWoj").value=company.region;
       if(company.form)document.getElementById("fForm").value=company.form;
+      var sec=document.getElementById("fSector");if(company.sector&&sec.querySelector('option[value="'+company.sector+'"]'))sec.value=company.sector;
       syncDD();
       hint.className="hint ok";hint.textContent="✓ "+(company.name||"Firma znaleziona")+". Sprawdź dane poniżej.";
     }).catch(function(){hint.textContent="Rejestr nie odpowiada. Wybierz dane poniżej."});
