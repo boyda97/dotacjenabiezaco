@@ -109,6 +109,7 @@ test("bez dostępu: lista programów zablokowana poza pierwszym, szczegóły 402
   assert.equal(anon.programs[0].name, "Bon na start");
   assert.equal(anon.programs[1].name, undefined);
   assert.equal(anon.programs[1].url, undefined);
+  assert.equal(anon.programs[1].op, undefined);
   assert.equal(anon.programs[1].max, 300000);
   assert.equal((await get("/api/programs/2")).status, 402);
 });

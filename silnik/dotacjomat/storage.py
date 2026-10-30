@@ -79,10 +79,13 @@ class Store:
         return len(gone)
 
     def programs(self, active_only: bool = True) -> list:
-        q = "SELECT data FROM programs" + (" WHERE active=1" if active_only else "")
-        out = [Program.from_dict(json.loads(r["data"])) for r in self.db.execute(q)]
-        for p in out:
+        q = "SELECT data, last_seen FROM programs" + (" WHERE active=1" if active_only else "")
+        out = []
+        for r in self.db.execute(q):
+            p = Program.from_dict(json.loads(r["data"]))
+            p.checked = (r["last_seen"] or "")[:10] or None  # kiedy źródło ostatnio potwierdziło nabór
             p.refresh_status()
+            out.append(p)
         return out
 
     def log_run(self, source, started, stats: dict, error: Optional[str] = None):

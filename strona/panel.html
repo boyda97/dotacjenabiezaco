@@ -80,13 +80,22 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .fld select,.fld input{display:block;width:100%;border:0;background:transparent;padding:2px 0 0;font:700 16px/1.4 var(--font);color:var(--ink);outline:none;text-overflow:ellipsis;cursor:pointer}
 .fld input{cursor:text}
 .fld input::placeholder{color:#a3aea8;font-weight:500}
-.fld em{font-style:normal;font-weight:500;color:#8d9893}
+.fld em,.goals em{font-style:normal;font-weight:500;color:#8d9893}
+.fld.err{border-color:var(--red);box-shadow:0 0 0 3px var(--redL)}
+.goals{border:0;margin:2px 0 0;padding:0;min-width:0}
+.goals legend{font-size:13px;font-weight:600;color:var(--mut);padding:0;margin-bottom:8px}
+.tiles{display:flex;flex-wrap:wrap;gap:8px}
+.tiles button{font:600 14px/1.2 var(--font);padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tiles button:hover{border-color:var(--green)}
+.tiles button[aria-pressed=true]{background:var(--greenL);border-color:var(--green);color:var(--greenT)}
+.tiles button[aria-pressed=true]::before{content:"✓ ";font-weight:800}
 /* własne listy wyboru zamiast systemowych (strzałki Windowsa wyglądały źle); <select> zostaje ukryty jako źródło wartości */
 .fld.sel{position:relative;padding:0}
 .fld.sel>span{position:absolute;left:15px;top:9px;pointer-events:none}
 .fld.sel select{position:absolute;inset:0;opacity:0;pointer-events:none}
 .dd{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:28px 14px 9px;font:700 16px/1.4 var(--font);color:var(--ink);text-align:left;cursor:pointer;border-radius:10px}
 .dd b{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd b.ph{color:#8d9893;font-weight:600}
 .dd svg{flex:0 0 18px;width:18px;height:18px;color:var(--green);transition:transform .15s}
 .dd[aria-expanded=true] svg{transform:rotate(180deg)}
 .dd:focus-visible{outline:none}
@@ -136,7 +145,6 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .ev.hot::before{border-color:var(--red)}
 .ev.hot .date{background:var(--redL);color:var(--red)}
 .ev.hot .left{color:var(--red);font-weight:600}
-.ev.lock h4{color:#8d9893;font-weight:600}
 .ev.lock .date{background:var(--soft);color:var(--mut)}
 .ev.lock::before{border-color:#c5cec8}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
@@ -146,10 +154,22 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .fav:hover{border-color:var(--green)}
 .fav[aria-pressed=true]{background:var(--greenL);border-color:var(--greenL)}
 .empty{padding:20px 0;color:var(--mut);font-size:15px}
-.cal-foot{margin-top:10px;background:var(--greenL);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
-.cal-foot:has(#rMore:empty):has(a[hidden]){display:none}
-.cal-foot a{font-weight:800;color:var(--greenT);text-decoration:none}
-.cal-foot a:hover{text-decoration:underline}
+.rtools{display:flex;flex-wrap:wrap;gap:8px 12px;justify-content:space-between;padding:14px 0 4px}
+.seg{display:flex;gap:3px;padding:3px;background:var(--soft);border-radius:9px}
+.seg button{font:600 12.5px/1 var(--font);padding:7px 10px;border:0;border-radius:7px;background:none;color:var(--mut);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(20,33,27,.12)}
+.rfoot{display:grid;gap:10px;margin-top:8px}
+.rfoot>.btn{justify-self:center}
+.unlock{background:var(--greenL);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.unlock p{font-size:13.5px;color:var(--ink);flex:1 1 260px}
+.freebadge{display:inline-block;font-size:11px;font-weight:700;color:var(--greenT);background:var(--greenL);border-radius:6px;padding:3px 7px;margin-bottom:5px}
+.ev .match{color:var(--ink);font-size:13px;margin-top:6px}
+.ev .match b{color:var(--greenT)}
+.ev .src{font-size:12px;color:#8d9893;margin-top:3px}
+.ev .locknote{font-size:12px;color:#8d9893;margin-top:4px}
+.ev.lock h4{color:var(--ink);font-weight:700}
+.ev.free{background:linear-gradient(90deg,transparent,rgba(0,133,74,.04));}
+.date.yr b{font-size:17px}
 .sample{font-size:12px;color:var(--mut);margin-top:10px;text-align:center}
 @media (max-width:520px){
   .cal{padding:18px 14px 14px;border-radius:16px}
@@ -167,7 +187,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 
 /* sekcje */
 section.block{padding-block:88px}
-section.block.alt{background:var(--surface);border-block:1px solid var(--line)}
+section.block.alt{background:#F3FAF6;border-block:1px solid #dcefe3}
 .head{display:grid;gap:12px;margin-bottom:40px;max-width:680px}
 @media (max-width:700px){section.block{padding-block:60px}.head{margin-bottom:28px}}
 
@@ -180,7 +200,7 @@ section.block.alt{background:var(--surface);border-block:1px solid var(--line)}
 /* zaufanie */
 .trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:760px){.trust{grid-template-columns:minmax(0,1fr)}}
-.tr{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:24px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line)}
+.tr{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
 .tr .ic{width:44px;height:44px;border-radius:12px;background:var(--greenL);color:var(--greenT);display:grid;place-items:center}
 .tr h3{font-size:17px;margin-bottom:6px}
 .tr p{color:var(--mut);font-size:15px}
@@ -240,7 +260,6 @@ body{background:var(--paper)}
 .appnav a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px}
 .appnav a:hover{color:var(--ink);background:var(--soft)}
 .appnav a[aria-current=page]{color:var(--greenT);background:var(--greenL)}
-@media (max-width:520px){.appbar .wrap{gap:6px}.appbar .logo img{width:104px}.appnav{gap:0}.appnav a{padding:8px 7px;font-size:13px}}
 .app{max-width:1240px;display:grid;grid-template-columns:330px minmax(0,1fr);gap:28px;align-items:start;padding-block:28px 72px}
 @media (max-width:900px){.app{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:20px 56px}}
 .app .banner{grid-column:1/-1;background:var(--greenL);color:var(--greenT);font-weight:600;border-radius:12px;padding:14px 18px}
@@ -302,20 +321,35 @@ body{background:var(--paper)}
         <div class="grid2">
           <div class="fld sel"><span>Województwo</span>
             <select id="fWoj">
-              <option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
-              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie" selected>Mazowieckie</option><option value="opolskie">Opolskie</option>
+              <option value="">Wybierz województwo</option><option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
+              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie">Mazowieckie</option><option value="opolskie">Opolskie</option>
               <option value="podkarpackie">Podkarpackie</option><option value="podlaskie">Podlaskie</option><option value="pomorskie">Pomorskie</option><option value="slaskie">Śląskie</option>
               <option value="swietokrzyskie">Świętokrzyskie</option><option value="warminsko">Warmińsko-mazurskie</option><option value="wielkopolskie">Wielkopolskie</option><option value="zachodniopomorskie">Zachodniopomorskie</option>
             </select></div>
-          <div class="fld sel"><span>Rodzaj firmy</span>
-            <select id="fForm"><option value="jdg">Jednoosobowa działalność</option><option value="sc">Spółka cywilna, jawna lub partnerska</option><option value="zoo">Spółka z o.o. lub PSA</option><option value="sa">Spółka akcyjna lub komandytowa</option><option value="rolne">Gospodarstwo rolne</option><option value="ngo">Fundacja lub stowarzyszenie</option></select></div>
+          
           <div class="fld sel"><span>Liczba pracowników</span>
             <select id="fSize"><option value="micro">Mikrofirma (do 9 osób)</option><option value="small">Mała firma (10–49 osób)</option><option value="medium">Średnia firma (50–249 osób)</option><option value="large">Duża firma (250 i więcej osób)</option></select></div>
-          <div class="fld sel"><span>Branża</span>
-            <select id="fSector"><option value="">Wszystkie branże</option><option value="G">Handel</option><option value="F">Budownictwo</option><option value="C">Produkcja</option><option value="C10">Przetwórstwo spożywcze</option><option value="J">IT i komunikacja</option><option value="M">Usługi dla firm (marketing, doradztwo, projekty)</option><option value="I">Hotele i gastronomia</option><option value="N79">Turystyka</option><option value="H">Transport i logistyka</option><option value="A">Rolnictwo, leśnictwo, rybactwo</option><option value="D">Energetyka</option><option value="E">Woda, ścieki, odpady</option><option value="P">Edukacja</option><option value="Q">Zdrowie i opieka</option><option value="R">Kultura, sport, rekreacja</option><option value="N">Usługi administracyjne</option><option value="S">Inne usługi</option></select></div>
+          
         </div>
-        <div class="fld sel"><span>Na co potrzebujesz pieniędzy?</span>
-          <select id="fGoal"><option value="">Na dowolny cel</option><option value="sprzet">Maszyny i sprzęt</option><option value="digital">Oprogramowanie, strona, sklep internetowy</option><option value="marketing">Marketing i promocja</option><option value="szkolenia">Szkolenia</option><option value="oze">Fotowoltaika, pompa ciepła, magazyn energii</option><option value="efektywnosc">Oszczędzanie energii</option><option value="budowa">Budowa lub remont</option><option value="pojazdy">Samochody i elektromobilność</option><option value="badania">Badania i nowe produkty</option><option value="ai">Automatyzacja, roboty, AI</option><option value="eksport">Eksport i targi</option><option value="zatrudnienie">Zatrudnienie pracowników</option><option value="doradztwo">Doradztwo i audyty</option><option value="plynnosc">Bieżące wydatki firmy</option></select></div>
+        
+        <div class="fld sel"><span>Rodzaj firmy</span>
+            <select id="fForm"><option value="jdg">Jednoosobowa działalność</option><option value="sc">Spółka cywilna, jawna lub partnerska</option><option value="zoo">Spółka z o.o. lub PSA</option><option value="sa">Spółka akcyjna lub komandytowa</option><option value="rolne">Gospodarstwo rolne</option><option value="ngo">Fundacja lub stowarzyszenie</option></select></div>
+        <div class="fld sel"><span>Branża</span>
+            <select id="fSector"><option value="">Wszystkie branże</option><option value="G">Handel</option><option value="F">Budownictwo</option><option value="C">Produkcja</option><option value="C10">Przetwórstwo spożywcze</option><option value="J">IT i komunikacja</option><option value="M">Usługi dla firm (marketing, doradztwo, projekty)</option><option value="I">Hotele i gastronomia</option><option value="N79">Turystyka</option><option value="H">Transport i logistyka</option><option value="A">Rolnictwo, leśnictwo, rybactwo</option><option value="D">Energetyka</option><option value="E">Woda, ścieki, odpady</option><option value="P">Edukacja</option><option value="Q">Zdrowie i opieka</option><option value="R">Kultura, sport, rekreacja</option><option value="N">Usługi administracyjne</option><option value="S">Inne usługi</option></select></div>
+        <fieldset class="goals"><legend>Na co potrzebujesz pieniędzy? <em>(możesz wybrać kilka)</em></legend>
+          <input type="hidden" id="fGoal" value="">
+          <div class="tiles">
+            <button type="button" data-goal="" aria-pressed="true">Pokaż wszystkie cele</button>
+            <button type="button" data-goal="sprzet" aria-pressed="false">Sprzęt i maszyny</button>
+            <button type="button" data-goal="digital" aria-pressed="false">IT i internet</button>
+            <button type="button" data-goal="szkolenia" aria-pressed="false">Szkolenia</button>
+            <button type="button" data-goal="oze,efektywnosc" aria-pressed="false">Energia</button>
+            <button type="button" data-goal="badania,ai" aria-pressed="false">Rozwój i innowacje</button>
+            <button type="button" data-goal="marketing,eksport" aria-pressed="false">Marketing i eksport</button>
+            <button type="button" data-goal="budowa" aria-pressed="false">Budowa i remont</button>
+            <button type="button" data-goal="zatrudnienie" aria-pressed="false">Zatrudnienie</button>
+          </div>
+        </fieldset>
         <button class="btn primary" type="submit">Szukaj</button>
       </form>
 
@@ -323,8 +357,8 @@ body{background:var(--paper)}
         <div class="grid2">
           <div class="fld sel"><span>Województwo</span>
             <select id="sWoj">
-              <option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
-              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie" selected>Mazowieckie</option><option value="opolskie">Opolskie</option>
+              <option value="">Wybierz województwo</option><option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
+              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie">Mazowieckie</option><option value="opolskie">Opolskie</option>
               <option value="podkarpackie">Podkarpackie</option><option value="podlaskie">Podlaskie</option><option value="pomorskie">Pomorskie</option><option value="slaskie">Śląskie</option>
               <option value="swietokrzyskie">Świętokrzyskie</option><option value="warminsko">Warmińsko-mazurskie</option><option value="wielkopolskie">Wielkopolskie</option><option value="zachodniopomorskie">Zachodniopomorskie</option>
             </select></div>
@@ -383,6 +417,8 @@ body{background:var(--paper)}
   function daysTo(t){return Math.round((t-today)/864e5)}
   function left(n){return n<0?"nabór zakończony":n===0?"ostatni dzień":"zostało "+n+(n===1?" dzień":" dni")}
   function label(sel){return sel.options[sel.selectedIndex].text}
+  function fmt(t){return String(t.getDate()).padStart(2,"0")+"."+String(t.getMonth()+1).padStart(2,"0")+"."+t.getFullYear()}
+  function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return""}}
 
   // ---- listy wyboru: przycisk + rozwijana lista w stylu strony, wartość trzyma ukryty <select> ----
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
@@ -394,7 +430,7 @@ body{background:var(--paper)}
     var menu=document.createElement("ul");menu.className="menu";menu.setAttribute("role","listbox");menu.hidden=true;menu.setAttribute("aria-label",cap);
     fld.appendChild(btn);fld.appendChild(menu);
     var act=-1;
-    function sync(){btn.innerHTML="<b>"+esc(sel.options[sel.selectedIndex].text)+"</b>"+CHEV;btn.setAttribute("aria-label",cap+": "+sel.options[sel.selectedIndex].text)}
+    function sync(){btn.innerHTML="<b"+(sel.value===""&&sel.id.slice(1)==="Woj"?' class="ph"':"")+">"+esc(sel.options[sel.selectedIndex].text)+"</b>"+CHEV;btn.setAttribute("aria-label",cap+": "+sel.options[sel.selectedIndex].text)}
     function hilite(i){act=i;[].forEach.call(menu.children,function(li,j){li.classList.toggle("act",j===i);if(j===i)li.scrollIntoView({block:"nearest"})})}
     function open(){
       dds.forEach(function(d){if(d.close!==close)d.close()});
@@ -420,6 +456,30 @@ body{background:var(--paper)}
   document.addEventListener("click",function(e){if(!e.target.closest(".fld.sel"))dds.forEach(function(d){d.close()})});
   function syncDD(){dds.forEach(function(d){d.sync()})}
 
+  // ---- województwo jest wymagane: zamiast domyślnego „mazowieckie” pytamy wprost ----
+  function needWoj(sel){
+    if(sel.value)return false;
+    var f=sel.closest(".fld");f.classList.add("err");f.querySelector(".dd").click();
+    sel.addEventListener("change",function(){f.classList.remove("err")},{once:true});
+    return true;
+  }
+  // ---- cele jako kafelki: można wybrać kilka; „Pokaż wszystkie cele” czyści wybór ----
+  var goalIn=document.getElementById("fGoal"),tiles=[].slice.call(document.querySelectorAll(".tiles button"));
+  function setGoals(v){
+    var on=String(v||"").split(",").filter(Boolean);
+    tiles.forEach(function(b){var g=b.dataset.goal.split(",").filter(Boolean);b.setAttribute("aria-pressed",g.length?g.some(function(x){return on.indexOf(x)>=0}):!on.length)});
+    goalIn.value=on.join(",");
+  }
+  tiles.forEach(function(b){b.addEventListener("click",function(){
+    if(!b.dataset.goal)return setGoals("");
+    var on=goalIn.value.split(",").filter(Boolean),g=b.dataset.goal.split(","),has=g.some(function(x){return on.indexOf(x)>=0});
+    on=has?on.filter(function(x){return g.indexOf(x)<0}):on.concat(g);
+    setGoals(on.join(","));
+  })});
+  function goalLabel(){return tiles.filter(function(b){return b.dataset.goal&&b.getAttribute("aria-pressed")==="true"}).map(function(b){return b.textContent}).join(", ")}
+
+
+
   // ---- zakładki ----
   var tabF=$("tabFirm"),tabS=$("tabStart"),pF=$("paneFirm"),pS=$("paneStart");
   function mode(m){var s=m==="start";tabF.setAttribute("aria-selected",!s);tabS.setAttribute("aria-selected",s);pF.hidden=s;pS.hidden=!s}
@@ -435,11 +495,13 @@ body{background:var(--paper)}
       return true;
     }).sort(sortBy==="date"?byDate:function(a,b){return(b.score||0)-(a.score||0)||byDate(a,b)});
     $("rList").innerHTML=list.map(function(p){
-      var t=parse(p.deadline),n=t?daysTo(t):null,hot=n!=null&&n<30,id=String(p.id);
-      var date=t?'<div class="date"><small>'+MON[t.getMonth()]+'</small><b>'+t.getDate()+'</b></div>':'<div class="date open"><small>'+(p.status==="soon"?"wkrótce":"ciągły")+'</small></div>';
-      var sub=[esc(p.op||""),esc(p.level||""),n!=null?'<span class="left">'+left(n)+'</span>':""].filter(Boolean).join(" · ");
-      var tags=(p.why||[]).filter(function(w){return w.state==="ok"&&w.t}).slice(0,4).map(function(w){return '<span class="tag">✓ '+esc(w.t)+'</span>'}).join("");
-      return '<div class="ev'+(hot?" hot":"")+'">'+date+'<div><h4>'+esc(p.name)+'</h4><p>'+sub+'</p>'+(tags?'<div class="tags">'+tags+'</div>':"")+
+      var t=parse(p.deadline),n=t?daysTo(t):null,far=n!=null&&n>365,hot=n!=null&&n<30,id=String(p.id);
+      var date=!t?'<div class="date open"><small>'+(p.status==="soon"?"wkrótce":"ciągły")+'</small></div>':far?'<div class="date yr"><small>do</small><b>'+t.getFullYear()+'</b></div>':'<div class="date"><small>'+MON[t.getMonth()]+'</small><b>'+t.getDate()+'</b></div>';
+      var when=!t?(p.status==="soon"?"nabór wkrótce":"nabór ciągły"):far?"termin programu "+fmt(t):'<span class="left">'+left(n)+'</span>';
+      var sub=[esc(p.op||""),p.level?"dofinansowanie "+esc(p.level.replace(" %","%")):"",when].filter(Boolean).join(" · ");
+      var match=(p.why||[]).filter(function(w){return w.state==="ok"&&w.t}).slice(0,4).map(function(w){return w.t});
+      var ck=parse(p.checked),src=[host(p.url)?"Źródło: "+esc(host(p.url)):"",ck&&p.source&&p.source!=="seed"?"sprawdzono "+fmt(ck):""].filter(Boolean).join(" · ");
+      return '<div class="ev'+(hot?" hot":"")+'">'+date+'<div><h4>'+esc(p.name)+'</h4><p>'+sub+'</p>'+(match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+
         '<div class="acts"><button type="button" class="fav" data-fav="'+esc(id)+'" aria-pressed="'+!!saved[id]+'">'+(saved[id]?"★ Zapisane":"☆ Zapisz")+'</button>'+
         (p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">Ogłoszenie i regulamin →</a>':"")+'</div></div>'+
         '<div class="v">'+esc(p.max?"do "+zl(p.max):"")+'<small>'+esc(TYPE[p.type]||"")+'</small></div></div>';
@@ -474,11 +536,11 @@ body{background:var(--paper)}
   function setVal(id,v){var s=$(id);if(s&&v!=null&&[].some.call(s.options,function(o){return o.value===v}))s.value=v}
   function firmQuery(){
     var q={region:$("fWoj").value,form:$("fForm").value,size:$("fSize").value};if($("fSector").value)q.sector=$("fSector").value;if($("fGoal").value)q.goals=$("fGoal").value;
-    return [q,label($("fForm")),label($("fSize")).split(" (")[0]+" · "+label($("fWoj"))+($("fSector").value?" · "+label($("fSector")):"")];
+    return [q,label($("fForm")),label($("fSize")).split(" (")[0]+" · "+label($("fWoj"))+($("fSector").value?" · "+label($("fSector")):"")+($("fGoal").value?" · "+goalLabel():"")];
   }
-  pF.addEventListener("submit",function(e){e.preventDefault();var a=firmQuery();search(a[0],a[1],a[2]);if(innerWidth<900)document.querySelector(".main").scrollIntoView({behavior:"smooth"})});
+  pF.addEventListener("submit",function(e){e.preventDefault();if(needWoj($("fWoj")))return;var a=firmQuery();search(a[0],a[1],a[2]);if(innerWidth<900)document.querySelector(".main").scrollIntoView({behavior:"smooth"})});
   pS.addEventListener("submit",function(e){
-    e.preventDefault();
+    e.preventDefault();if(needWoj($("sWoj")))return;
     var woj=$("sWoj"),wiek=$("sWiek").value,st=$("sStatus").value,niep=$("sNiep").checked,byla=$("sByla").checked,gm=$("sGmina").value.trim(),person=[];
     if(st==="pup")person.push("bezrobotny");else if(st==="nauka")person.push("student");else if(st==="inne")person.push("bierny");
     if(wiek==="mlody")person.push("do30");if(niep)person.push("niepelnosprawnosc");if(!byla)person.push("bez_dg_12m");
@@ -486,6 +548,7 @@ body{background:var(--paper)}
     if(innerWidth<900)document.querySelector(".main").scrollIntoView({behavior:"smooth"});
   });
 
+  function hello(){$("title").textContent="Zacznij od danych firmy";$("subtitle").textContent="";$("rList").innerHTML='<p class="empty">Wybierz województwo i pozostałe dane po lewej, a potem kliknij „Szukaj”.</p>'}
   function gate(h,p,btns){$("gate").hidden=false;$("gateH").textContent=h;$("gateP").textContent=p;$("gateBtns").innerHTML=btns}
   document.addEventListener("konto:ready",function(e){
     var me=e.detail||{};
@@ -499,10 +562,10 @@ body{background:var(--paper)}
       if(s&&s.query){
         var q=s.query,l=String(s.label||"Moja firma").split("\n");
         if(q.form==="none"){mode("start");setVal("sWoj",q.region)}
-        else{setVal("fWoj",q.region);setVal("fForm",q.form);setVal("fSize",q.size);setVal("fSector",q.sector||"");setVal("fGoal",q.goals||"")}
+        else{setVal("fWoj",q.region);setVal("fForm",q.form);setVal("fSize",q.size);setVal("fSector",q.sector||"");setGoals(q.goals||"")}
         syncDD();search(q,l[0],l[1]||"");
-      }else{var a=firmQuery();search(a[0],a[1],a[2])}
-    }).catch(function(){var a=firmQuery();search(a[0],a[1],a[2])});
+      }else hello();
+    }).catch(hello);
   });
   mode("firm");
 })();
