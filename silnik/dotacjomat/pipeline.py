@@ -23,7 +23,7 @@ def _raw_fp(p) -> str:
 
 
 def update(store: Store, sources: list, use_ai: bool = False, http=None,
-           today: Optional[date] = None) -> dict:
+           today: Optional[date] = None, reviews: Optional[dict] = None) -> dict:
     """Pobiera wszystkie źródła. Błąd jednego źródła nie zatrzymuje pozostałych."""
     summary = {}
     for src in sources:
@@ -32,7 +32,7 @@ def update(store: Store, sources: list, use_ai: bool = False, http=None,
             for p in src.fetch():
                 stats["fetched"] += 1
                 try:
-                    p = _process(store, p, use_ai, http, today)
+                    p = _process(store, p, use_ai, http, today, reviews or {})
                 except Exception as e:  # noqa: BLE001 - jeden wadliwy nabór nie psuje całego źródła
                     log.warning("[%s] pominięto %s: %s", src.name, p.key, e)
                     stats["skipped"] = stats.get("skipped", 0) + 1
@@ -53,14 +53,17 @@ def update(store: Store, sources: list, use_ai: bool = False, http=None,
     return summary
 
 
-def _process(store, p, use_ai, http, today):
+def _process(store, p, use_ai, http, today, reviews=None):
     raw = _raw_fp(p)
     cached, cached_raw = store.get(p.key)
     if cached is not None and cached_raw == raw and (cached.ai_extracted or not use_ai):
         p = cached  # treść u źródła bez zmian - nie klasyfikujemy ponownie
     elif p.source != "seed" and not getattr(p, "_classified", False) and not p.goals:
         classify(p, p.description, today)
-    if use_ai and p.source != "seed" and not p.ai_extracted and _for_clients(p):
+    if reviews and p.key in reviews:
+        from . import review
+        review.apply(p, reviews[p.key])  # ocena Claude z data/przeglad.json (raz w tygodniu)
+    elif use_ai and p.source != "seed" and not p.ai_extracted and _for_clients(p):
         _ai(p, http)
     p._raw = raw
     p.refresh_status(today)

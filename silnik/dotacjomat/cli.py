@@ -7,6 +7,7 @@
   python -m dotacjomat profile-add profil.json --plan monthly --until 2026-11-30
   python -m dotacjomat digest [--send]               alerty o nowych dopasowaniach dla subskrybentów
   python -m dotacjomat nip 5250123456                dane firmy z Białej Listy MF
+  python -m dotacjomat przeglad                      nabory do cotygodniowego przeglądu (data/przeglad.json)
 """
 from __future__ import annotations
 
@@ -24,6 +25,7 @@ from .sources import Http, load_sources
 from .storage import Store
 
 ROOT = Path(__file__).resolve().parent.parent
+REVIEWS = ROOT / "data" / "przeglad.json"
 
 
 def main(argv=None):
@@ -62,6 +64,8 @@ def main(argv=None):
     d.add_argument("--send", action="store_true", help="wyślij (SMTP_HOST) lub zapisz do outbox/")
     d.add_argument("--min-score", type=int, default=50)
 
+    sub.add_parser("przeglad", help="nabory bez oceny w data/przeglad.json (JSON na stdout)")
+
     n = sub.add_parser("nip")
     n.add_argument("nip")
 
@@ -75,7 +79,8 @@ def main(argv=None):
         if a.only:
             names = set(a.only.split(","))
             sources = [s for s in sources if s.name in names]
-        res = pipeline.update(store, sources, use_ai=a.ai, http=http)
+        from . import review
+        res = pipeline.update(store, sources, use_ai=a.ai, http=http, reviews=review.load(REVIEWS))
         for name, st in res.items():
             print(f"{name:<14} pobrano {st['fetched']:>4}  nowe {st['new']:>3}  zmienione {st['changed']:>3}"
                   f"  usunięte {st['removed']:>3}" + (f"  BŁĄD: {st['error']}" if st["error"] else ""))
@@ -121,6 +126,11 @@ def main(argv=None):
         else:
             for pid, prof, matches in items:
                 print(f"--- profil {pid} ({prof.email})\n{pipeline.render_digest(prof, matches)}\n")
+        return 0
+
+    if a.cmd == "przeglad":
+        from . import review
+        print(json.dumps(review.todo(store.programs(), review.load(REVIEWS)), ensure_ascii=False, indent=1))
         return 0
 
     if a.cmd == "nip":
