@@ -60,11 +60,17 @@ def _process(store, p, use_ai, http, today):
         p = cached  # treść u źródła bez zmian - nie klasyfikujemy ponownie
     elif p.source != "seed" and not getattr(p, "_classified", False) and not p.goals:
         classify(p, p.description, today)
-    if use_ai and p.source != "seed" and not p.ai_extracted:
+    if use_ai and p.source != "seed" and not p.ai_extracted and _for_clients(p):
         _ai(p, http)
     p._raw = raw
     p.refresh_status(today)
     return p
+
+
+def _for_clients(p) -> bool:
+    """AI czyta tylko nabory, które mogą trafić do klientów (firmy, rolnicy, zakładający firmę).
+    Nabory już rozpoznane jako tylko dla gmin i urzędów pomijamy - to ok. 2/3 Portalu FE i spory koszt."""
+    return p.forms is None or bool(set(p.forms) & (set(tx.BUSINESS_FORMS) | {"none", "rolne"}))
 
 
 def _ai(p, http=None):
