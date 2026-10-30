@@ -41,12 +41,10 @@ def apply(p: Program, d: dict) -> Program:
 
 
 def todo(programs, reviews: dict) -> list:
-    """Nabory do przeczytania: mogą trafić do klientów i nie mają jeszcze oceny."""
-    from .pipeline import _for_clients
-
+    """Nabory do przeczytania: wszystkie bez oceny, także te, które heurystyka uznała za nie dla firm."""
     out = []
     for p in programs:
-        if p.source == "seed" or p.key in reviews or p.status == "closed" or not _for_clients(p):
+        if p.source == "seed" or p.key in reviews or p.status == "closed":
             continue
         d = p.description
         who = d.split("Kto może składać wnioski:")[1].split("Na co:")[0] if "Kto może składać wnioski:" in d else ""
