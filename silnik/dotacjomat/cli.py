@@ -47,6 +47,8 @@ def main(argv=None):
     m.add_argument("--amount", type=int)
     m.add_argument("--limit", type=int, default=20)
     m.add_argument("--json", action="store_true")
+    m.add_argument("--wszystkie", action="store_true",
+                   help="pokaż też nabory z nieustalonymi warunkami (\"do sprawdzenia\")")
 
     e = sub.add_parser("export", help="eksport dla strony")
     e.add_argument("out")
@@ -85,7 +87,7 @@ def main(argv=None):
         else:
             prof = CompanyProfile(region=a.region, form=a.form, size=a.size, sector=a.sector,
                                   pkd=a.pkd, goals=a.goal, amount=a.amount, person=a.person)
-        results = rank(store.programs(), prof, limit=a.limit)
+        results = rank(store.programs(), prof, limit=a.limit, strict=not a.wszystkie)
         if a.json:
             print(json.dumps([r.to_dict() for r in results], ensure_ascii=False, indent=1))
         else:

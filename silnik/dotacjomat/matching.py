@@ -2,7 +2,9 @@
 
 Punktacja jest zgodna ze stroną (region 25, wielkość 25, branża 15, cel 35 lub 20
 przy "dowolnym celu"), rozszerzona o:
-  - kryteria nieustalone przez klasyfikator ("do sprawdzenia" zamiast odrzucenia, połowa punktów),
+  - kryteria nieustalone przez klasyfikator: w trybie ścisłym (domyślnym, tak działa strona) program
+    jest pomijany, bo klient płaci za sprawdzone dopasowania; z strict=False zostaje jako "do sprawdzenia"
+    za połowę punktów (podgląd redakcyjny),
   - wiele celów naraz, podsekcje PKD (C10 w C, N79 w N),
   - dopasowanie kwoty i bliskość terminu.
 """
@@ -56,7 +58,7 @@ def _criterion(values, wanted, unknown, label_ok, label_fail, covers=None):
 
 
 def score(program: Program, profile: CompanyProfile, today: Optional[date] = None,
-          include_closed: bool = False) -> MatchResult:
+          include_closed: bool = False, strict: bool = True) -> MatchResult:
     today = today or date.today()
     why: list[Reason] = []
     pts = 0.0
@@ -71,10 +73,15 @@ def score(program: Program, profile: CompanyProfile, today: Optional[date] = Non
     if program.type not in profile.types:
         return fail(f"odrzucona forma wsparcia: {tx.TYPES.get(program.type, program.type)}")
 
+    def unsure(st):
+        return strict and st == CHECK
+
     # region (25)
     st, _ = _criterion(program.regions, profile.region, "regions" in unk, "", "")
     if st == FAIL:
         return fail("program dla innego województwa")
+    if unsure(st):
+        return fail("region naboru nieustalony")
     pts += 25 if st == OK else 12.5
     why.append(Reason("cała Polska" if program.regions is None and st == OK else
                       ("Twoje województwo" if st == OK else "region do sprawdzenia"), st))
@@ -83,12 +90,16 @@ def score(program: Program, profile: CompanyProfile, today: Optional[date] = Non
     st, _ = _criterion(program.forms, profile.form, "forms" in unk, "", "")
     if st == FAIL:
         return fail("forma działalności nie kwalifikuje się")
+    if unsure(st):
+        return fail("dopuszczalne formy działalności nieustalone")
     why.append(Reason(tx.FORMS[profile.form] if st == OK else "forma działalności do sprawdzenia", st))
 
     # wielkość (25)
     st, _ = _criterion(program.sizes, profile.size, "sizes" in unk, "", "")
     if st == FAIL:
         return fail("wielkość firmy nie kwalifikuje się")
+    if unsure(st):
+        return fail("dopuszczalna wielkość firmy nieustalona")
     pts += 25 if st == OK else 12.5
     size_txt = "dla nowych firm" if profile.size == "start" else f"{tx.SIZES[profile.size]} firma"
     why.append(Reason(size_txt if st == OK else "wielkość firmy do sprawdzenia", st))
@@ -102,6 +113,8 @@ def score(program: Program, profile: CompanyProfile, today: Optional[date] = Non
                            covers=tx.sector_covers)
         if st == FAIL:
             return fail("branża poza zakresem programu")
+        if unsure(st):
+            return fail("branże programu nieustalone")
         pts += 15 if st == OK else 7.5
         why.append(Reason(f"branża: {tx.SECTORS[profile.sector]}" if st == OK else "branża do sprawdzenia", st))
 
@@ -131,6 +144,8 @@ def score(program: Program, profile: CompanyProfile, today: Optional[date] = Non
             pts += 35 + 3 * (len(hits) - 1)
             why += [Reason(f"cel: {tx.GOALS[g]}", OK) for g in hits]
         elif not program.goals:
+            if strict:
+                return fail("zakres kosztów nieustalony")
             pts += 15
             why.append(Reason("zakres kosztów do sprawdzenia w regulaminie", CHECK))
         else:
@@ -176,9 +191,10 @@ def score(program: Program, profile: CompanyProfile, today: Optional[date] = Non
 
 
 def rank(programs: Iterable[Program], profile: CompanyProfile, today: Optional[date] = None,
-         min_score: int = 1, include_closed: bool = False, limit: Optional[int] = None) -> list:
+         min_score: int = 1, include_closed: bool = False, limit: Optional[int] = None,
+         strict: bool = True) -> list:
     """Lista MatchResult kwalifikujących się programów, najlepsze pierwsze."""
-    res = [score(p, profile, today, include_closed) for p in programs]
+    res = [score(p, profile, today, include_closed, strict) for p in programs]
     res = [r for r in res if r.eligible and r.score >= min_score]
     far = 10 ** 6
     res.sort(key=lambda r: (-r.score, r.program.status != "open",
