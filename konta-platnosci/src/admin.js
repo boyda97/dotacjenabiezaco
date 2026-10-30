@@ -80,6 +80,7 @@ export function createAdmin({ db, cfg, auth, catalog, mailer, loadPrograms, log 
     res.json({
       total: all.length, bySource: count("source"), byStatus: count("status"),
       withDocuments: all.filter((p) => p.documents?.length).length,
+      reviewed: all.filter((p) => p.reviewed).length,
       programs: all
         .map(({ id, name, op, source, status, deadline, max, type, checked, url, regions }) =>
           ({ id, name, op, source, status, deadline, max, type, checked, url, regional: !!regions }))

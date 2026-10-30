@@ -44,7 +44,6 @@ header .wrap{display:flex;align-items:center;gap:16px;height:66px}
 .logo{display:block;margin-right:auto;padding-block:4px}
 .logo img{display:block;width:160px;height:auto}
 @media (max-width:520px){.logo img{width:136px}}
-@media (max-width:480px){#searchLink{display:none}}
 
 main{padding-block:40px 80px}
 .hello{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
@@ -62,7 +61,7 @@ main{padding-block:40px 80px}
 .pill.off{background:var(--soft);color:var(--mut)}
 .pill.warn{background:var(--amberL);color:var(--amber)}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
-.settings{margin-top:40px}
+.settings{margin-top:0}
 .btn.danger{color:var(--red)}
 .btn.danger-fill{background:var(--red);color:#fff}
 .del{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}
@@ -117,13 +116,29 @@ main{padding-block:40px 80px}
 .gate p{color:var(--mut)}
 footer{border-top:1px solid var(--line);padding-block:24px 32px;font-size:13px;color:var(--mut);background:var(--surface)}
 footer a{color:var(--mut)}
+
+.appnav{display:flex;gap:4px}
+.appnav a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px}
+.appnav a:hover{color:var(--ink);background:var(--soft)}
+.appnav a[aria-current=page]{color:var(--greenT);background:var(--greenL)}
+@media (max-width:520px){header .wrap{gap:6px}.logo img{width:104px!important}.appnav{gap:0}.appnav a{padding:8px 7px;font-size:13px}}
+.swrow{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.switch{flex:none;width:46px;height:26px;border-radius:99px;border:0;background:#c5cec8;position:relative;cursor:pointer;margin-top:2px;transition:background .15s}
+.switch::after{content:"";position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .15s}
+.switch[aria-checked=true]{background:var(--green)}
+.switch[aria-checked=true]::after{transform:translateX(20px)}
+@media (prefers-reduced-motion:reduce){.switch,.switch::after{transition:none}}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
     <a class="logo" href="/"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="160" height="50"></a>
-    <a class="btn ghost" id="searchLink" href="/">Szukaj dotacji</a>
+    <nav class="appnav" aria-label="Konto">
+      <a href="/" id="searchLink">Wyszukiwarka</a>
+      <a href="/ulubione">Ulubione</a>
+      <a href="/profil" aria-current="page">Konto</a>
+    </nav>
     <button type="button" class="btn link" id="logoutBtn" hidden>Wyloguj</button>
   </div>
 </header>
@@ -157,20 +172,12 @@ footer a{color:var(--mut)}
       </section>
     </div>
 
-    <div class="sec" id="ulubione">
-      <h2>Ulubione nabory</h2>
-      <a class="btn ghost" id="icsBtn" href="/api/profile/favorites.ics" download>📅 Dodaj terminy do kalendarza</a>
-    </div>
-    <div class="filters" id="filters" role="group" aria-label="Filtruj według etapu"></div>
-    <div class="list"><div class="tl" id="favs"></div></div>
-
     <div class="top settings">
       <section class="card" aria-labelledby="alH">
         <span class="lbl">Powiadomienia e-mail</span>
-        <h2 id="alH">Nowe nabory i terminy</h2>
+        <div class="swrow"><h2 id="alH">Dotacje dla Twojej firmy co poniedziałek</h2><button type="button" class="switch" id="alBtn" role="switch" aria-checked="false" aria-labelledby="alH" hidden></button></div>
         <span class="pill off" id="alPill">…</span>
-        <p id="alTxt">Raz w tygodniu, w poniedziałek rano: nowe nabory pasujące do Twojego wyszukiwania i ulubione nabory, które kończą się w ciągu dwóch tygodni. Gdy nie ma nic nowego, nie piszemy.</p>
-        <div class="row"><button type="button" class="btn ghost" id="alBtn" hidden></button></div>
+        <p id="alTxt">Jeden e-mail tygodniowo: nowe nabory, które pasują do Twojej firmy, i przypomnienie o zapisanych naborach, które niedługo się kończą. Gdy nie ma nic nowego, nie piszemy.</p>
       </section>
       <section class="card" aria-labelledby="rodoH">
         <span class="lbl">Twoje dane</span>
@@ -197,11 +204,8 @@ footer a{color:var(--mut)}
 <script>
 (function(){
   var MON=["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"];
-  var ST={nowy:"Do sprawdzenia",przygotowuje:"Przygotowuję wniosek",zlozony:"Wniosek złożony",pominiety:"Pomijam"};
-  var TYPE={dotacja:"dotacja",pozyczka:"pożyczka",mieszane:"dotacja + pożyczka"};
   var PLAN={start:"Abonament miesięczny",pro:"Abonament Pro",biuro:"Abonament Biuro"};
   var today=new Date();today.setHours(0,0,0,0);
-  var favs=[],filter="all",openNote=null;
   function $(id){return document.getElementById(id)}
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function zl(n){if(!n)return"";if(n>=1e6)return(Math.round(n/1e5)/10).toString().replace(".",",")+" mln zł";if(n>=1e3)return Math.round(n/1e3)+" tys. zł";return n+" zł"}
@@ -243,67 +247,25 @@ footer a{color:var(--mut)}
     $("srchBtns").innerHTML='<a class="btn primary" href="/?profil=1#wyniki">Pokaż aktualne nabory</a><a class="btn ghost" href="/">Zmień dane</a>';
   }
 
-  // ---- ulubione ----
-  function counts(){var c={all:favs.length};favs.forEach(function(f){c[f.status]=(c[f.status]||0)+1});return c}
-  function drawFilters(){
-    var c=counts(),opts=[["all","Wszystkie"]].concat(Object.keys(ST).map(function(k){return[k,ST[k]]}));
-    $("filters").innerHTML=opts.map(function(o){return '<button type="button" data-f="'+o[0]+'" aria-pressed="'+(filter===o[0])+'">'+o[1]+'<b>'+(c[o[0]]||0)+'</b></button>'}).join("");
-    $("filters").hidden=!favs.length;
-    $("icsBtn").hidden=!favs.some(function(f){return parse(f.program.deadline)&&f.status!=="zlozony"&&f.status!=="pominiety"});
-  }
-  function byDate(a,b){var x=parse(a.program.deadline),y=parse(b.program.deadline);if(x&&y)return x-y;if(x)return-1;if(y)return 1;return b.savedAt-a.savedAt}
-  function drawFavs(){
-    drawFilters();
-    var list=favs.filter(function(f){return filter==="all"||f.status===filter}).sort(byDate);
-    if(!list.length){$("favs").innerHTML='<div class="empty">'+(favs.length?"<p>Brak naborów na tym etapie.</p>":
-      '<p>Nie masz jeszcze ulubionych naborów. Przy każdym wyniku wyszukiwania kliknij „☆ Zapisz”, a program pojawi się tutaj razem z terminem.</p><a class="btn primary" href="/">Wyszukaj dotacje</a>')+'</div>';return}
-    $("favs").innerHTML=list.map(function(f){
-      var p=f.program,t=parse(p.deadline),n=t?Math.round((t-today)/864e5):null,done=f.status==="zlozony"||f.status==="pominiety";
-      var hot=!done&&n!=null&&n<30;
-      var date=t?'<div class="date"><small>'+MON[t.getMonth()]+'</small><b>'+t.getDate()+'</b></div>':'<div class="date open"><small>'+(p.status==="soon"?"wkrótce":"ciągły")+'</small></div>';
-      var left=n==null?"":n<0?"nabór zakończony":n===0?"ostatni dzień":"zostało "+n+(n===1?" dzień":" dni");
-      var name=p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>':esc(p.name);
-      var sub=[esc(p.op||p.level||""),left?'<span class="left">'+left+'</span>':""].filter(Boolean).join(" · ");
-      var sel='<select data-st="'+esc(f.id)+'" aria-label="Etap">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===f.status?" selected":"")+'>'+ST[k]+'</option>'}).join("")+'</select>';
-      var editing=openNote===f.id;
-      var note=editing?'<div class="note"><textarea data-note="'+esc(f.id)+'" placeholder="Np. potrzebne dokumenty, kontakt do doradcy, co już zrobione">'+esc(f.note)+'</textarea><div class="row"><button class="btn primary" type="button" data-save="'+esc(f.id)+'">Zapisz notatkę</button><button class="btn link" type="button" data-cancel>Anuluj</button></div></div>'
-        :f.note?'<div class="note"><p>'+esc(f.note)+'</p></div>':"";
-      return '<div class="ev'+(hot?" hot":"")+(done?" done":"")+'">'+date+'<div><h3>'+name+'</h3><p class="sub">'+sub+'</p></div><div class="v">'+esc(p.max?"do "+zl(p.max):"")+'<small>'+esc(TYPE[p.type]||"")+'</small></div>'+
-        '<div class="tools">'+sel+'<button class="btn ghost" type="button" data-edit="'+esc(f.id)+'">'+(f.note?"Edytuj notatkę":"Dodaj notatkę")+'</button><button class="btn link" type="button" data-del="'+esc(f.id)+'">Usuń z ulubionych</button></div>'+note+'</div>';
-    }).join("");
-  }
-  function find(id){for(var i=0;i<favs.length;i++)if(favs[i].id===id)return favs[i]}
-  function enc(id){return encodeURIComponent(id)}
-  $("filters").addEventListener("click",function(e){var b=e.target.closest("[data-f]");if(b){filter=b.dataset.f;drawFavs()}});
-  $("favs").addEventListener("change",function(e){var s=e.target.closest("[data-st]");if(!s)return;var f=find(s.dataset.st);f.status=s.value;api("/api/profile/favorites/"+enc(f.id),"PUT",{status:s.value}).catch(function(){});drawFavs()});
-  $("favs").addEventListener("click",function(e){
-    var t=e.target.closest("button");if(!t)return;
-    if(t.dataset.edit){openNote=t.dataset.edit;drawFavs();var ta=document.querySelector("[data-note]");if(ta)ta.focus()}
-    else if(t.hasAttribute("data-cancel")){openNote=null;drawFavs()}
-    else if(t.dataset.save){var f=find(t.dataset.save),v=document.querySelector("[data-note]").value;f.note=v;openNote=null;api("/api/profile/favorites/"+enc(f.id),"PUT",{note:v}).catch(function(){});drawFavs()}
-    else if(t.dataset.del){var id=t.dataset.del;favs=favs.filter(function(x){return x.id!==id});fetch("/api/profile/favorites/"+enc(id),{method:"DELETE",credentials:"same-origin"});drawFavs()}
-  });
-
   $("loginBtn").onclick=function(){window.Konto&&Konto.login("/profil")};
   $("logoutBtn").onclick=function(){window.Konto&&Konto.logout()};
 
   function start(me){
     if(!me.user){$("gate").hidden=false;return}
     $("app").hidden=false;$("logoutBtn").hidden=false;
-    if(me.access&&me.access.active){$("searchLink").href="/panel";$("searchLink").textContent="Wyszukiwarka"}
+    if(me.access&&me.access.active)$("searchLink").href="/panel";
     if(/platnosc=ok/.test(location.search))$("paid").hidden=false;
     access(me);
     api("/api/profile/search").then(function(j){search(j.search)}).catch(function(){search(null)});
-    api("/api/profile/favorites").then(function(j){favs=j.favorites||[];drawFavs()}).catch(function(){favs=[];drawFavs()});
-  }
+      }
   // ---- powiadomienia e-mail ----
   function alerts(){
     api("/api/profile/alerts").then(function(a){
       var on=a.enabled&&a.included;
       $("alPill").className="pill"+(on?"":" off");
       $("alPill").textContent=!a.included?"W abonamencie miesięcznym":on?"Włączone":"Wyłączone";
-      if(!a.included){$("alTxt").textContent="Przy abonamencie miesięcznym w każdy poniedziałek wysyłamy e-mail z nowymi naborami pasującymi do Twojego wyszukiwania i przypominamy o kończących się naborach z ulubionych.";$("alBtn").hidden=true;return}
-      $("alBtn").hidden=false;$("alBtn").textContent=a.enabled?"Wyłącz powiadomienia":"Włącz powiadomienia";
+      if(!a.included){$("alTxt").textContent="W abonamencie miesięcznym raz w tygodniu wysyłamy e-mail z nowymi naborami dla Twojej firmy i przypominamy o zapisanych naborach, które niedługo się kończą.";$("alBtn").hidden=true;return}
+      $("alBtn").hidden=false;$("alBtn").setAttribute("aria-checked",!!a.enabled);
       $("alBtn").onclick=function(){api("/api/profile/alerts","PUT",{enabled:!a.enabled}).then(alerts)};
     }).catch(function(){});
   }
