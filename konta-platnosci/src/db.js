@@ -72,6 +72,50 @@ CREATE TABLE IF NOT EXISTS search_profiles (
   label TEXT,
   updated_at INTEGER NOT NULL
 );
+-- Alerty e-mail dla abonentów: nowe pasujące nabory i przypomnienia o terminach ulubionych.
+CREATE TABLE IF NOT EXISTS alert_settings (
+  user_id INTEGER PRIMARY KEY REFERENCES users(id),
+  enabled INTEGER NOT NULL DEFAULT 1,
+  updated_at INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS alert_seen (
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  program_id TEXT NOT NULL,
+  seen_at INTEGER NOT NULL,
+  PRIMARY KEY (user_id, program_id)
+);
+CREATE TABLE IF NOT EXISTS alert_reminders (
+  user_id INTEGER NOT NULL REFERENCES users(id),
+  program_id TEXT NOT NULL,
+  deadline TEXT NOT NULL,
+  sent_at INTEGER NOT NULL,
+  PRIMARY KEY (user_id, program_id, deadline)
+);
+CREATE TABLE IF NOT EXISTS alert_log (
+  id INTEGER PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  sent_at INTEGER NOT NULL,
+  fresh INTEGER NOT NULL,
+  reminders INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS meta (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
+-- Statystyka odwiedzin bez ciasteczek: tylko liczniki dzienne, bez adresów IP.
+CREATE TABLE IF NOT EXISTS stat_views (
+  day TEXT NOT NULL,
+  path TEXT NOT NULL,
+  ref TEXT NOT NULL,
+  n INTEGER NOT NULL,
+  PRIMARY KEY (day, path, ref)
+);
+CREATE TABLE IF NOT EXISTS stat_daily (
+  day TEXT NOT NULL,
+  name TEXT NOT NULL,               -- odslony | unikalni | szukanie | logowanie | zakup_start
+  n INTEGER NOT NULL,
+  PRIMARY KEY (day, name)
+);
 CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
 CREATE INDEX IF NOT EXISTS idx_subs_user ON subscriptions(user_id);
 CREATE INDEX IF NOT EXISTS idx_passes_user ON passes(user_id);
@@ -95,4 +139,13 @@ export function tx(db, fn) {
     db.exec("ROLLBACK");
     throw e;
   }
+}
+
+export function getMeta(db, key) {
+  return db.prepare("SELECT value FROM meta WHERE key = ?").get(key)?.value ?? null;
+}
+
+export function setMeta(db, key, value) {
+  db.prepare("INSERT INTO meta (key, value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value = excluded.value")
+    .run(key, String(value));
 }

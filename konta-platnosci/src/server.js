@@ -5,6 +5,8 @@ import { createMailer } from "./mailer.js";
 import { createApp } from "./app.js";
 import { createCompanyLookup } from "./company.js";
 import { createSilnikLoader } from "./silnik.js";
+import { createCatalog } from "./seo.js";
+import { scheduleAlerts } from "./alerts.js";
 
 const cfg = loadConfig();
 if (!cfg.stripeSecretKey || !cfg.stripeWebhookSecret) {
@@ -18,9 +20,14 @@ const stripe = new Stripe(cfg.stripeSecretKey);
 const loadPrograms = process.env.SILNIK_DIR
   ? createSilnikLoader({ dir: process.env.SILNIK_DIR, python: process.env.SILNIK_PYTHON || "python3" })
   : undefined;
+const silnik = process.env.SILNIK_DIR && { dir: process.env.SILNIK_DIR, python: process.env.SILNIK_PYTHON || "python3" };
+const mailer = createMailer(cfg);
 const app = createApp({
-  db, cfg, stripe, mailer: createMailer(cfg), loadPrograms, lookupCompany: createCompanyLookup({ gusKey: cfg.gusKey }),
+  db, cfg, stripe, mailer, loadPrograms, lookupCompany: createCompanyLookup({ gusKey: cfg.gusKey }),
+  catalog: silnik ? createCatalog(silnik) : undefined,
 });
+// Alerty e-mail dla abonentów raz w tygodniu (poniedziałek od ALERTS_HOUR czasu polskiego)
+if (loadPrograms) scheduleAlerts({ db, cfg, mailer, loadPrograms });
 
 // Sprzątanie wygasłych sesji i tokenów raz na godzinę
 setInterval(() => {

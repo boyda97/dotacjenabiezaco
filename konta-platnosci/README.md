@@ -68,6 +68,15 @@ Hosting: wystarczy jeden mały serwer z Node 22 (np. Mikrus, OVH VPS, Railway, R
 | DELETE | `/api/profile/favorites/:id` | usuwa z ulubionych |
 | GET | `/api/profile/favorites.ics` | terminy ulubionych do kalendarza (przypomnienie 14 dni wcześniej) |
 | GET/PUT | `/api/profile/search` | ostatnie wyszukiwanie (`{query, label}`), strona `/profil` powtarza je jednym kliknięciem |
+| GET/PUT | `/api/profile/alerts` | alerty e-mail `{enabled, included}` (tylko przy abonamencie, raz w tygodniu: `ALERTS_WEEKDAY`, od `ALERTS_HOUR`) |
+| GET/POST | `/api/alerts/off?u=&t=` | wypisanie z alertów linkiem z e-maila (podpis HMAC, POST = jedno kliknięcie, `List-Unsubscribe`) |
+| GET | `/api/profile/export` | RODO: kopia danych konta w JSON |
+| POST | `/api/profile/delete` | RODO: usunięcie konta `{confirm: e-mail}`; abonament anulowany w Stripe, historia płatności zostaje bez danych osobowych |
+| POST | `/api/stats/hit` | licznik odwiedzin bez ciasteczek (`/stat.js`), dzienne liczniki bez adresów IP |
+| GET | `/api/site-config` | identyfikatory Google Analytics / Google Ads / Meta Pixel z `.env` dla banera zgody na cookies (`strona/zgody.js`); bez nich baner się nie pokazuje |
+| GET | `/api/admin/stats?dni=`, `/users?q=`, `/programs`, `/alerts` | panel `/admin` (tylko `ADMIN_EMAILS`): statystyki, klienci, nabory w bazie, wysłane e-maile |
+| POST | `/api/admin/users/:id/gift` `{days}`, `/api/admin/alerts/run` | darmowy dostęp na N dni; ręczna wysyłka alertów |
+| GET | `/dotacje`, `/dotacje/:woj`, `/sitemap.xml`, `/robots.txt` | strony województw pod wyszukiwarki (karty jak zablokowane, bez nazw i linków) |
 | GET | `/api/programs` | wyniki dopasowania, przycięte dla nieopłaconych |
 | GET | `/api/programs/:id` | pełna karta programu, `402` bez dostępu |
 

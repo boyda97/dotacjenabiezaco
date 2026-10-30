@@ -15,9 +15,22 @@ export function loadConfig(overrides = {}) {
     // E-mail (Resend). Bez klucza linki logowania lądują w logach serwera (tryb dev).
     resendApiKey: env.RESEND_API_KEY || "",
     mailFrom: env.MAIL_FROM || "Dotacjo <logowanie@dotacjo.pl>",
+    alertsFrom: env.ALERTS_FROM || "Dotacjo <alerty@dotacjo.pl>",
+    // Alerty e-mail: raz w tygodniu, w dniu ALERTS_WEEKDAY (1 = poniedziałek) od ALERTS_HOUR (czas polski). 0 = wyłączone.
+    alertsHour: Number(env.ALERTS_HOUR ?? 7),
+    alertsWeekday: Number(env.ALERTS_WEEKDAY ?? 1),
+
+    // Adresy e-mail z dostępem do /admin (statystyki), po przecinku.
+    adminEmails: (env.ADMIN_EMAILS || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean),
 
     // Dane firmy po NIP z GUS REGON (darmowy klucz od GUS). Bez klucza tylko Biała Lista MF (firmy z VAT).
     gusKey: env.GUS_KEY || "",
+
+    // Reklamy i analityka (ładowane w przeglądarce dopiero po zgodzie na cookies, strona/zgody.js).
+    gaId: env.GA_ID || "",
+    adsId: env.GOOGLE_ADS_ID || "",
+    adsPurchaseLabel: env.GOOGLE_ADS_PURCHASE_LABEL || "",
+    metaPixelId: env.META_PIXEL_ID || "",
 
     // Stripe
     stripeSecretKey: env.STRIPE_SECRET_KEY || "",

@@ -223,8 +223,11 @@ class AiApplyTest(unittest.TestCase):
         data = {"national": True, "regions": [], "forms": ["jdg", "zoo"], "sizes": ["micro", "small"],
                 "all_sectors": False, "sectors": ["C"], "pkd_excluded": ["10.1"], "requires": [], "requires_all": [], "goals": ["sprzet"],
                 "type": "dotacja", "min_pln": None, "max_pln": 2000000, "level": "do 50 %",
-                "start": None, "deadline": "2026-12-15", "how": "Na maszyny."}
+                "start": None, "deadline": "2026-12-15", "how": "Na maszyny.",
+                "apply_where": "Online w LSI.", "documents": ["Biznesplan"]}
         ai_extract.apply(p, data)
+        self.assertEqual((p.apply_where, p.documents), ("Online w LSI.", ["Biznesplan"]))
+        self.assertEqual(p.to_page_dict()["documents"], ["Biznesplan"])
         self.assertEqual((p.regions, p.sectors, p.pkd_excluded, p.max, p.unknown), (None, ["C"], ["10.1"], 2000000, []))
         self.assertTrue(p.ai_extracted)
         # firma spożywcza (C10) mieści się w C, ale jej PKD jest wykluczone

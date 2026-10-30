@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Panel admina – Dotacjo</title>
+<link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml">
+<style>
+/* Panel właściciela (src/admin.js): statystyki bez ciasteczek, klienci, nabory w bazie, wysłane e-maile. */
+:root{--paper:#fbfcf8;--surface:#fff;--soft:#eef4ef;--ink:#14211b;--mut:#5e6d66;--line:#e2e8e2;--green:#00854A;--deep:#003D2B;--greenT:#006f3d;--font:system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--font)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 16px}
+header{background:var(--surface);border-bottom:1px solid var(--line)}header .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+header img{width:120px;height:auto;display:block}h1{font-size:26px;margin:28px 0 4px}.sub{color:var(--mut);margin:0 0 20px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:24px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}.tile b{display:block;font-size:26px;color:var(--deep);font-variant-numeric:tabular-nums}.tile span{color:var(--mut);font-size:13px}
+h2{font-size:18px;margin:28px 0 8px}.box{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}th,td{text-align:right;padding:8px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}th{font-size:12px;color:var(--mut);font-weight:700;background:var(--soft)}tr:last-child td{border-bottom:0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}.msg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:28px}
+.seg{display:flex;gap:6px}.seg button{font:600 13px var(--font);padding:7px 10px;border:1px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--deep);color:#fff;border-color:var(--deep)}
+a{color:var(--greenT)}
+.tabs{display:flex;gap:4px;margin:24px 0 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{font:700 14px var(--font);padding:10px 14px;border:0;background:none;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button[aria-selected=true]{color:var(--deep);border-bottom-color:var(--green)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0}
+.bar input{font:500 14px var(--font);padding:9px 12px;border:1px solid var(--line);border-radius:10px;min-width:0;flex:1 1 220px}
+.btn{font:700 13px var(--font);padding:8px 12px;border-radius:9px;border:1px solid var(--line);background:var(--surface);cursor:pointer;color:var(--ink)}
+.btn.pri{background:var(--green);border-color:var(--green);color:#fff}
+.pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--mut)}
+.pill.on{background:#e6f5ec;color:var(--greenT)}
+td.l{text-align:left;white-space:normal;min-width:180px}
+.note{color:var(--mut);font-size:13px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a href="/"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="120" height="38"></a>
+<div class="seg" id="range"><button type="button" data-d="7">7 dni</button><button type="button" data-d="30" aria-pressed="true">30 dni</button><button type="button" data-d="90">90 dni</button></div></div></header>
+<main class="wrap">
+<div class="tabs" role="tablist" id="tabs">
+  <button role="tab" data-t="stats" aria-selected="true">Statystyki</button>
+  <button role="tab" data-t="users" aria-selected="false">Klienci</button>
+  <button role="tab" data-t="programs" aria-selected="false">Nabory w bazie</button>
+  <button role="tab" data-t="alerts" aria-selected="false">E-maile</button>
+</div>
+<div id="out"><p class="sub" style="margin-top:28px">Ładuję…</p></div>
+</main>
+<script>
+(function(){
+  var out=document.getElementById("out"),days=30,tab="stats",range=document.getElementById("range");
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+  function n(x){return String(x||0).replace(/\B(?=(\d{3})+(?!\d))/g," ")}
+  function d(iso){return iso?String(iso).slice(0,10).split("-").reverse().join("."):"–"}
+  function ts(sec){return sec?d(new Date(sec*1000).toISOString()):"–"}
+  function sum(rows,k){return rows.reduce(function(a,r){return a+(r[k]||0)},0)}
+  function pct(a,b){return b?Math.round(a/b*1000)/10+"%":"–"}
+  function api(path,body){return fetch(path,{method:body?"POST":"GET",credentials:"same-origin",headers:body?{"Content-Type":"application/json"}:{},body:body?JSON.stringify(body):undefined}).then(function(r){if(r.status===401||r.status===403)throw r.status;if(!r.ok)throw r.status;return r.json()})}
+  function fail(st){
+    if(st===401)out.innerHTML='<div class="msg"><h1>Zaloguj się</h1><p>Panel widzi tylko właściciel serwisu. <a href="/profil">Zaloguj się</a> adresem administratora i wróć tutaj.</p></div>';
+    else if(st===403)out.innerHTML='<div class="msg"><h1>Brak dostępu</h1><p>To konto nie jest na liście administratorów (ADMIN_EMAILS na serwerze).</p></div>';
+    else out.innerHTML='<div class="msg">Nie udało się pobrać danych'+(st===503?": baza naborów nie odpowiada.":".")+'</div>';
+  }
+  function tile(v,l){return'<div class="tile"><b>'+v+'</b><span>'+esc(l)+'</span></div>'}
+  function table(head,rows,empty){return'<div class="box"><table><tr>'+head.map(function(h){return"<th>"+h+"</th>"}).join("")+'</tr>'+(rows.length?rows.join(""):'<tr><td colspan="'+head.length+'">'+(empty||"Brak danych.")+'</td></tr>')+'</table></div>'}
+  function list(rows,h){return table([h,"Odsłony"],rows.map(function(r){return"<tr><td>"+esc(r.k)+"</td><td>"+n(r.n)+"</td></tr>"}))}
+  function access(a){
+    if(!a.active)return'<span class="pill">brak</span>';
+    var k=a.kind==="subscription"?"abonament"+(a.cancelAtPeriodEnd?" (anulowany)":""):"tydzień / dostęp";
+    return'<span class="pill on">'+k+'</span> <span class="note">do '+ts(a.until)+'</span>';
+  }
+
+  var views={
+    stats:function(){
+      range.hidden=false;
+      api("/api/admin/stats?dni="+days).then(function(s){
+        var r=s.daily.slice().reverse(),t=s.totals,u=sum(r,"unikalni"),q=sum(r,"szukanie"),b=sum(r,"zakup_start");
+        out.innerHTML='<h1>Statystyki</h1><p class="sub">Ostatnie '+s.days+' dni. Liczone bez ciasteczek: „osoby” to unikalni goście danego dnia.</p>'+
+          '<div class="tiles">'+tile(n(sum(r,"odslony")),"odsłon")+tile(n(u),"osób (suma dni)")+tile(n(q),"wyszukiwań · "+pct(q,u)+" osób")+
+          tile(n(b),"kliknięć „Kup” · "+pct(b,q)+" wyszukiwań")+tile(n(t.subscriptions),"aktywnych abonamentów")+tile(n(t.weeksActive),"aktywnych dostępów tygodniowych")+
+          tile(n(t.weeks),"kupionych tygodni w okresie")+tile(n(t.newUsers),"nowych kont · razem "+n(t.users))+tile(n(t.favorites),"zapisanych ulubionych")+'</div>'+
+          '<h2>Dzień po dniu</h2>'+table(["Dzień","Odsłony","Osoby","Wyszukiwania","Logowania","Kliknięcia „Kup”"],r.map(function(x){return"<tr><td>"+d(x.day)+"</td><td>"+n(x.odslony)+"</td><td>"+n(x.unikalni)+"</td><td>"+n(x.szukanie)+"</td><td>"+n(x.logowanie)+"</td><td>"+n(x.zakup_start)+"</td></tr>"}),"Jeszcze brak danych.")+
+          '<div class="two"><div><h2>Najczęściej oglądane</h2>'+list(s.pages,"Strona")+'</div><div><h2>Skąd przychodzą</h2>'+list(s.refs,"Źródło")+'</div></div>';
+      }).catch(fail);
+    },
+    users:function(q){
+      range.hidden=true;q=q||"";
+      api("/api/admin/users?q="+encodeURIComponent(q)).then(function(j){
+        out.innerHTML='<h1>Klienci</h1><p class="sub">Najnowsze konta na górze. Przyciski „+7 dni” i „+30 dni” dają darmowy dostęp (np. przy reklamacji), bez płatności.</p>'+
+          '<form class="bar" id="uf"><input id="uq" type="search" placeholder="Szukaj po e-mailu" value="'+esc(q)+'"><button class="btn">Szukaj</button></form>'+
+          table(["E-mail","Konto od","Dostęp","Ulubione","Wyszukiwanie","Ostatni e-mail","Akcje"],j.users.map(function(u){
+            return'<tr><td>'+esc(u.email)+'</td><td>'+ts(u.created_at)+'</td><td>'+access(u.access)+'</td><td>'+n(u.favorites)+'</td><td class="l">'+esc(u.search||"–")+'</td><td>'+ts(u.last_alert)+'</td>'+
+              '<td><button class="btn" data-gift="'+u.id+'" data-days="7">+7 dni</button> <button class="btn" data-gift="'+u.id+'" data-days="30">+30 dni</button></td></tr>'}),"Brak kont.");
+        document.getElementById("uf").onsubmit=function(e){e.preventDefault();views.users(document.getElementById("uq").value)};
+        out.querySelectorAll("[data-gift]").forEach(function(btn){btn.onclick=function(){
+          var row=btn.closest("tr").firstChild.textContent;
+          if(!confirm("Dać "+btn.dataset.days+" dni darmowego dostępu dla "+row+"?"))return;
+          api("/api/admin/users/"+btn.dataset.gift+"/gift",{days:+btn.dataset.days}).then(function(){views.users(q)}).catch(function(){alert("Nie udało się.")});
+        }});
+      }).catch(fail);
+    },
+    programs:function(){
+      range.hidden=true;
+      api("/api/admin/programs").then(function(j){
+        var src=Object.keys(j.bySource).map(function(k){return'<tr><td>'+esc(k==="seed"?"seed (przykładowe, do weryfikacji)":k)+'</td><td>'+n(j.bySource[k])+'</td></tr>'});
+        out.innerHTML='<h1>Nabory w bazie</h1><p class="sub">Stan bazy, z której korzysta wyszukiwarka. Źródła są sprawdzane codziennie o 6:00.</p>'+
+          '<div class="tiles">'+tile(n(j.total),"wszystkich")+tile(n(j.byStatus.open),"trwa")+tile(n(j.byStatus.soon),"wkrótce")+tile(n(j.byStatus.closed),"zakończonych")+tile(n(j.withDocuments),"z listą dokumentów (AI)")+'</div>'+
+          '<h2>Według źródła</h2>'+table(["Źródło","Nabory"],src)+
+          '<h2>Lista według terminu</h2>'+table(["Nazwa","Instytucja","Źródło","Stan","Termin","Kwota","Sprawdzono"],j.programs.map(function(p){
+            var st={open:"trwa",soon:"wkrótce",closed:"zakończony"}[p.status]||p.status;
+            return'<tr><td class="l">'+(p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>':esc(p.name))+'</td><td class="l">'+esc(p.op)+'</td><td>'+esc(p.source)+'</td><td>'+st+'</td><td>'+d(p.deadline)+'</td><td>'+(p.max?n(p.max)+" zł":"–")+'</td><td>'+d(p.checked)+'</td></tr>'}));
+      }).catch(fail);
+    },
+    alerts:function(){
+      range.hidden=true;
+      api("/api/admin/alerts").then(function(j){
+        var DN=["niedzielę","poniedziałek","wtorek","środę","czwartek","piątek","sobotę"];
+        var sch=j.schedule?"Co "+DN[j.schedule.weekday]+" od "+j.schedule.hour+":00. Najbliższa wysyłka: "+d(j.schedule.next)+".":"Wysyłka wyłączona (ALERTS_HOUR=0).";
+        out.innerHTML='<h1>E-maile z nowymi naborami</h1><p class="sub">'+esc(sch)+(j.lastRun?' Ostatnia: '+d(j.lastRun)+'.':"")+' Wysyłamy tylko abonentom i tylko, gdy jest coś nowego.</p>'+
+          '<div class="bar"><button class="btn pri" id="runNow">Wyślij teraz</button><span class="note">Wyśle tylko to, czego jeszcze nie wysłano.</span></div>'+
+          table(["Wysłano","Do","Nowe nabory","Kończące się ulubione"],j.log.map(function(l){return"<tr><td>"+ts(l.sent_at)+"</td><td>"+esc(l.email)+"</td><td>"+n(l.fresh)+"</td><td>"+n(l.reminders)+"</td></tr>"}),"Jeszcze nic nie wysłano.");
+        document.getElementById("runNow").onclick=function(){
+          if(!confirm("Wysłać teraz e-maile do abonentów, którzy mają coś nowego?"))return;
+          this.disabled=true;api("/api/admin/alerts/run",{}).then(function(r){alert("Wysłano: "+r.sent);views.alerts()}).catch(function(){alert("Nie udało się.")});
+        };
+      }).catch(fail);
+    }
+  };
+  document.getElementById("tabs").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;tab=b.dataset.t;
+    [].forEach.call(this.children,function(x){x.setAttribute("aria-selected",x===b)});views[tab]()});
+  range.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;days=+b.dataset.d;
+    [].forEach.call(this.children,function(x){x.setAttribute("aria-pressed",x===b)});views.stats()});
+  views.stats();
+})();
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Zadania okresowe serwera Dotacjo (uruchamiane przez timery systemd).
 #   wdrozenie  - gdy na main jest nowy kod (scalony PR), przebudowuje i restartuje serwis
-#   silnik     - pobiera nabory ze źródeł do bazy silnika
+#   silnik     - pobiera nabory ze źródeł do bazy silnika (z ANTHROPIC_API_KEY w .env: AI czyta ogłoszenia)
 #   kopia      - kopia baz SQLite do /var/backups/dotacjo (14 dni)
 set -euo pipefail
 cd /opt/dotacjo
@@ -18,7 +18,7 @@ case "${1:-}" in
     fi
     ;;
   silnik)
-    compose exec -T app sh -c 'cd "$SILNIK_DIR" && python3 -m dotacjomat update'
+    compose exec -T app sh -c 'cd "$SILNIK_DIR" && python3 -m dotacjomat update ${ANTHROPIC_API_KEY:+--ai}'
     ;;
   kopia)
     dzien=$(date +%F)

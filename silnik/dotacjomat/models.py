@@ -50,6 +50,8 @@ class Program:
     pkd_excluded: list = field(default_factory=list)   # prefiksy kodów PKD wykluczonych, np. ["01", "46.1"]
     docs: list = field(default_factory=list)           # linki do regulaminów (PDF) - wejście dla ekstrakcji AI
     how: str = ""
+    apply_where: str = ""                              # gdzie i jak złożyć wniosek, np. "w systemie LSI PARP"
+    documents: list = field(default_factory=list)      # dokumenty do przygotowania (z regulaminu)
     description: str = ""
     unknown: list = field(default_factory=list)
     ai_extracted: bool = False
@@ -94,6 +96,7 @@ class Program:
             "forms": self.forms or list(tx.FORMS), "sizes": self.sizes or list(tx.SIZES),
             "sectors": self.sectors or list(tx.SECTORS), "goals": self.goals,
             "requires": self.requires, "requires_all": self.requires_all, "how": self.how, "url": self.url,
+            "apply_where": self.apply_where, "documents": self.documents,
             "source": self.source, "checked": getattr(self, "checked", None),
         }
 

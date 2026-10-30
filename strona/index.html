@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<script src="/wniosek.js"></script>
 <style>
 /* Wygląd „Kalendarz naborów” (wybrany przez Kacpra 2026-10-29): jasne tło, jeden zielony akcent,
    czerwony tylko dla terminów kończących się w ciągu 30 dni. Wyniki to oś czasu ułożona według terminu.
@@ -166,6 +167,13 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .ev .match{color:var(--ink);font-size:13px;margin-top:6px}
 .ev .match b{color:var(--greenT)}
 .ev .src{font-size:12px;color:#8d9893;margin-top:3px}
+.howto{margin-top:8px;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:6px 12px;background:var(--surface)}
+.howto summary{cursor:pointer;font-weight:700;color:var(--greenT);padding:2px 0!important;font-size:13px}
+.howto summary::after{font-size:16px!important}
+.howto p{margin:6px 0 0!important;padding:0!important;color:var(--ink)!important;font-size:13px!important}
+.howto ul,.howto ol{margin:4px 0 6px;padding-left:20px;color:var(--ink)}
+.howto li{margin:2px 0}
+
 .ev .locknote{font-size:12px;color:#8d9893;margin-top:4px}
 .ev.lock h4{color:var(--ink);font-weight:700}
 .ev.free{background:linear-gradient(90deg,transparent,rgba(0,133,74,.04));}
@@ -474,8 +482,8 @@ footer a{color:var(--mut)}
         <ul>
           <li>wszystko z dostępu tygodniowego</li>
           <li>baza aktualizowana codziennie</li>
-          <li>e-mail, gdy pojawi się pasujący nabór</li>
-          <li>przypomnienie 14 dni przed końcem naboru</li>
+          <li>co poniedziałek e-mail z nowymi pasującymi naborami</li>
+          <li>przypomnienie o kończących się naborach z ulubionych</li>
           <li>zapisane programy i własny kalendarz</li>
         </ul>
         <a class="btn primary" href="/?kup=start#cennik" data-buy="start">Wybieram abonament</a>
@@ -498,7 +506,7 @@ footer a{color:var(--mut)}
       <details><summary>Informacje o naborach są publiczne. Za co płacę?</summary><p>Za czas i pewność. Ogłoszenia są rozrzucone po kilkudziesięciu stronach urzędów, agencji i funduszy, a warunki są ukryte w regulaminach. My codziennie zbieramy je w jednym miejscu, odrzucamy programy, z których Twoja firma nie może skorzystać, i porządkujemy resztę według dopasowania i terminu. W abonamencie pilnujemy też zmian: piszemy, gdy pojawi się nowy pasujący nabór albo zbliża się koniec terminu.</p></details>
       <details><summary>Nie mam jeszcze firmy. Czy coś dla mnie znajdziecie?</summary><p>Tak. Wybierz „Planuję założyć firmę”. Pokażemy dotację z urzędu pracy, projekty unijne na założenie działalności w Twoim województwie, środki z PFRON i ulgi w ZUS. Ważne: dotację z urzędu pracy dostaniesz tylko przed rejestracją firmy, więc nie zakładaj jej wcześniej.</p></details>
       <details><summary>Skąd bierzecie informacje?</summary><p>Wyłącznie z oficjalnych stron: Portalu Funduszy Europejskich, PARP, BGK, ARiMR, NFOŚiGW, PFRON, urzędów marszałkowskich i urzędów pracy. Przy każdym programie jest link do regulaminu u źródła.</p></details>
-      <details><summary>Jak często aktualizujecie bazę?</summary><p>Codziennie. Abonenci widzą zawsze najnowszy stan i dostają e-mail, gdy pojawi się pasujący nabór. Dostęp tygodniowy pokazuje bazę z dnia zakupu.</p></details>
+      <details><summary>Jak często aktualizujecie bazę?</summary><p>Codziennie. Abonenci widzą zawsze najnowszy stan, a w każdy poniedziałek dostają e-mail z nowymi naborami pasującymi do ich firmy. Dostęp tygodniowy pokazuje bazę z dnia zakupu.</p></details>
       <details><summary>Czy dostęp tygodniowy sam się przedłuży?</summary><p>Nie. Płacisz raz, korzystasz 7 dni i dostęp wygasa.</p></details>
       <details><summary>Jak anulować abonament?</summary><p>Po zalogowaniu wejdź w panel klienta i kliknij „Anuluj abonament”. Dostęp zostaje do końca opłaconego miesiąca, potem nie pobieramy już opłat.</p></details>
       <details><summary>Czy napiszecie za mnie wniosek?</summary><p>Nie. Pokazujemy, gdzie i kiedy złożyć wniosek i czego wymaga program. Wniosek składasz sam albo z wybranym doradcą.</p></details>
@@ -519,7 +527,7 @@ footer a{color:var(--mut)}
 <footer>
   <div class="wrap">
     <span>© 2026 Dotacjo. Informacje o naborach mają charakter pomocniczy; wiążący jest regulamin operatora programu.</span>
-    <span><a href="#faq">Pytania</a> · <a href="#cennik">Cennik</a> · Regulamin · Polityka prywatności</span>
+    <span><a href="/dotacje">Dotacje według województw</a> · <a href="#faq">Pytania</a> · <a href="#cennik">Cennik</a> · Regulamin · Polityka prywatności<a href="#" data-zgody hidden> · Ustawienia cookies</a></span>
   </div>
 </footer>
 
@@ -578,7 +586,7 @@ footer a{color:var(--mut)}
     var ck=parse(p.checked),src=[host(p.url)?"Źródło: "+esc(host(p.url)):"",ck&&p.source&&p.source!=="seed"?"sprawdzono "+fmt(ck):""].filter(Boolean).join(" · ");
     var fav=id&&!view.example?'<button type="button" class="fav" data-fav="'+esc(id)+'" aria-pressed="'+!!saved[id]+'">'+(saved[id]?"★ Zapisane":"☆ Zapisz")+'</button>':"";
     return '<div class="ev free'+(hot?" hot":"")+'">'+date+'<div><span class="freebadge">Pełny opis za darmo</span><h4>'+name+'</h4><p>'+[esc(p.op||""),when].filter(Boolean).join(" · ")+'</p>'+
-      (match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+fav+'</div>'+amount+'</div>';
+      (match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+(window.Wniosek?Wniosek.html(p):"")+fav+'</div>'+amount+'</div>';
   }
   function byDate(a,b){var x=parse(a.deadline),y=parse(b.deadline);if(x&&y)return x-y;if(x)return-1;if(y)return 1;return 0}
   function ordered(){
@@ -762,9 +770,14 @@ footer a{color:var(--mut)}
     search(q,company&&company.name||label(form),label(size).split(" (")[0]+" · "+label(woj)+(sec.value?" · "+label(sec):"")+(goal.value?" · "+goalLabel():""));
     reveal();
   });
+  // ---- wejście ze strony województwa (/dotacje/:woj): województwo już wybrane ----
+  var wojQ=(new URLSearchParams(location.search).get("woj")||"").replace(/[^a-z]/g,""),wojS=document.getElementById("fWoj");
+  if(wojQ&&wojS.querySelector('option[value="'+wojQ+'"]')){wojS.value=wojQ;syncDD()}
 })();
 </script>
 
 <script src="/konto.js"></script>
+<script src="/zgody.js" defer></script>
+<script src="/stat.js" defer></script>
 </body>
 </html>

@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<script src="/wniosek.js"></script>
 <style>
 /* Wygląd „Kalendarz naborów” (wybrany przez Kacpra 2026-10-29): jasne tło, jeden zielony akcent,
    czerwony tylko dla terminów kończących się w ciągu 30 dni. Wyniki to oś czasu ułożona według terminu.
@@ -166,6 +167,13 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .ev .match{color:var(--ink);font-size:13px;margin-top:6px}
 .ev .match b{color:var(--greenT)}
 .ev .src{font-size:12px;color:#8d9893;margin-top:3px}
+.howto{margin-top:8px;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:6px 12px;background:var(--surface)}
+.howto summary{cursor:pointer;font-weight:700;color:var(--greenT);padding:2px 0!important;font-size:13px}
+.howto summary::after{font-size:16px!important}
+.howto p{margin:6px 0 0!important;padding:0!important;color:var(--ink)!important;font-size:13px!important}
+.howto ul,.howto ol{margin:4px 0 6px;padding-left:20px;color:var(--ink)}
+.howto li{margin:2px 0}
+
 .ev .locknote{font-size:12px;color:#8d9893;margin-top:4px}
 .ev.lock h4{color:var(--ink);font-weight:700}
 .ev.free{background:linear-gradient(90deg,transparent,rgba(0,133,74,.04));}
@@ -260,6 +268,7 @@ body{background:var(--paper)}
 .appnav a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px}
 .appnav a:hover{color:var(--ink);background:var(--soft)}
 .appnav a[aria-current=page]{color:var(--greenT);background:var(--greenL)}
+@media (max-width:520px){.appbar .wrap{gap:6px}.appbar .logo img{width:104px}.appnav{gap:0}.appnav a{padding:8px 7px;font-size:13px}}
 .app{max-width:1240px;display:grid;grid-template-columns:330px minmax(0,1fr);gap:28px;align-items:start;padding-block:28px 72px}
 @media (max-width:900px){.app{grid-template-columns:minmax(0,1fr);gap:20px;padding-block:20px 56px}}
 .app .banner{grid-column:1/-1;background:var(--greenL);color:var(--greenT);font-weight:600;border-radius:12px;padding:14px 18px}
@@ -501,7 +510,7 @@ body{background:var(--paper)}
       var sub=[esc(p.op||""),p.level?"dofinansowanie "+esc(p.level.replace(" %","%")):"",when].filter(Boolean).join(" · ");
       var match=(p.why||[]).filter(function(w){return w.state==="ok"&&w.t}).slice(0,4).map(function(w){return w.t});
       var ck=parse(p.checked),src=[host(p.url)?"Źródło: "+esc(host(p.url)):"",ck&&p.source&&p.source!=="seed"?"sprawdzono "+fmt(ck):""].filter(Boolean).join(" · ");
-      return '<div class="ev'+(hot?" hot":"")+'">'+date+'<div><h4>'+esc(p.name)+'</h4><p>'+sub+'</p>'+(match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+
+      return '<div class="ev'+(hot?" hot":"")+'">'+date+'<div><h4>'+esc(p.name)+'</h4><p>'+sub+'</p>'+(match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+(window.Wniosek?Wniosek.html(p):"")+
         '<div class="acts"><button type="button" class="fav" data-fav="'+esc(id)+'" aria-pressed="'+!!saved[id]+'">'+(saved[id]?"★ Zapisane":"☆ Zapisz")+'</button>'+
         (p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">Ogłoszenie i regulamin →</a>':"")+'</div></div>'+
         '<div class="v">'+esc(p.max?"do "+zl(p.max):"")+'<small>'+esc(TYPE[p.type]||"")+'</small></div></div>';
@@ -555,7 +564,7 @@ body{background:var(--paper)}
     if(!me.user){gate("Zaloguj się","Wyszukiwarka jest dostępna po zalogowaniu, dla osób z aktywnym dostępem.",'<button class="btn primary" type="button" id="gl">Zaloguj się</button>');$("gl").onclick=function(){window.Konto&&Konto.login("/panel")};return}
     if(!me.access||!me.access.active){gate("Twój dostęp jest nieaktywny","Wykup dostęp tygodniowy albo abonament, aby korzystać z pełnej wyszukiwarki.",'<a class="btn primary" href="/?strona=1#cennik">Zobacz cennik</a><a class="btn ghost" href="/profil">Moje konto</a>');return}
     $("app").hidden=false;
-    if(/platnosc=ok/.test(location.search))$("paid").hidden=false;
+    if(/platnosc=ok/.test(location.search)){$("paid").hidden=false;var pl=(location.search.match(/plan=(\w+)/)||[])[1];try{if(!sessionStorage.getItem("dotacjo:kupiono")){sessionStorage.setItem("dotacjo:kupiono","1");(window.zgodyQ=window.zgodyQ||[]).push(["purchase",{value:pl==="week"?39:49,currency:"PLN",items:[{item_id:pl||"start"}]}])}}catch(e){}}
     fetch("/api/profile/favorites",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){(j.favorites||[]).forEach(function(f){saved[f.id]=true});draw()}).catch(function(){});
     fetch("/api/profile/search",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){
       var s=j.search;
@@ -571,6 +580,9 @@ body{background:var(--paper)}
 })();
 </script>
 <script src="/konto.js"></script>
+<footer data-zgody hidden><div class="wrap"><a href="#">Ustawienia cookies</a></div></footer>
 
+<script src="/zgody.js" defer></script>
+<script src="/stat.js" defer></script>
 </body>
 </html>

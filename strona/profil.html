@@ -62,6 +62,13 @@ main{padding-block:40px 80px}
 .pill.off{background:var(--soft);color:var(--mut)}
 .pill.warn{background:var(--amberL);color:var(--amber)}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.settings{margin-top:40px}
+.btn.danger{color:var(--red)}
+.btn.danger-fill{background:var(--red);color:#fff}
+.del{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.del label{font-size:14px;font-weight:700}
+.del input{font:500 15px var(--font);padding:11px 12px;border:1px solid var(--line);border-radius:10px;width:100%}
+.del .err{color:var(--red);font-size:14px}
 
 .sec{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .sec h2{font-size:26px}
@@ -156,10 +163,36 @@ footer a{color:var(--mut)}
     </div>
     <div class="filters" id="filters" role="group" aria-label="Filtruj według etapu"></div>
     <div class="list"><div class="tl" id="favs"></div></div>
+
+    <div class="top settings">
+      <section class="card" aria-labelledby="alH">
+        <span class="lbl">Powiadomienia e-mail</span>
+        <h2 id="alH">Nowe nabory i terminy</h2>
+        <span class="pill off" id="alPill">…</span>
+        <p id="alTxt">Raz w tygodniu, w poniedziałek rano: nowe nabory pasujące do Twojego wyszukiwania i ulubione nabory, które kończą się w ciągu dwóch tygodni. Gdy nie ma nic nowego, nie piszemy.</p>
+        <div class="row"><button type="button" class="btn ghost" id="alBtn" hidden></button></div>
+      </section>
+      <section class="card" aria-labelledby="rodoH">
+        <span class="lbl">Twoje dane</span>
+        <h2 id="rodoH">Pobierz albo usuń dane</h2>
+        <p>Możesz w każdej chwili pobrać kopię swoich danych (konto, ulubione, wyszukiwanie, historia dostępu) albo usunąć konto.</p>
+        <div class="row">
+          <a class="btn ghost" href="/api/profile/export" download>Pobierz moje dane</a>
+          <button type="button" class="btn link danger" id="delOpen">Usuń konto</button>
+        </div>
+        <form class="del" id="delForm" hidden>
+          <p><b>Usunięcie jest nieodwracalne.</b> Abonament zostanie od razu anulowany, a ulubione i zapisane wyszukiwanie znikną. Faktury zostają w systemie płatności, bo wymaga tego prawo podatkowe.</p>
+          <label for="delEmail">Wpisz swój e-mail, żeby potwierdzić</label>
+          <input id="delEmail" type="email" autocomplete="off" required>
+          <div class="row"><button type="submit" class="btn danger-fill">Usuń konto na zawsze</button><button type="button" class="btn link" id="delCancel">Anuluj</button></div>
+          <p class="err" id="delErr" hidden></p>
+        </form>
+      </section>
+    </div>
   </div>
 </main>
 
-<footer><div class="wrap">© 2026 Dotacjo · <a href="/#faq">Pytania</a> · <a href="/#cennik">Cennik</a></div></footer>
+<footer><div class="wrap">© 2026 Dotacjo · <a href="/#faq">Pytania</a> · <a href="/#cennik">Cennik</a><a href="#" data-zgody hidden> · Ustawienia cookies</a></div></footer>
 
 <script>
 (function(){
@@ -263,9 +296,31 @@ footer a{color:var(--mut)}
     api("/api/profile/search").then(function(j){search(j.search)}).catch(function(){search(null)});
     api("/api/profile/favorites").then(function(j){favs=j.favorites||[];drawFavs()}).catch(function(){favs=[];drawFavs()});
   }
-  document.addEventListener("konto:ready",function(e){start(e.detail||{})});
+  // ---- powiadomienia e-mail ----
+  function alerts(){
+    api("/api/profile/alerts").then(function(a){
+      var on=a.enabled&&a.included;
+      $("alPill").className="pill"+(on?"":" off");
+      $("alPill").textContent=!a.included?"W abonamencie miesięcznym":on?"Włączone":"Wyłączone";
+      if(!a.included){$("alTxt").textContent="Przy abonamencie miesięcznym w każdy poniedziałek wysyłamy e-mail z nowymi naborami pasującymi do Twojego wyszukiwania i przypominamy o kończących się naborach z ulubionych.";$("alBtn").hidden=true;return}
+      $("alBtn").hidden=false;$("alBtn").textContent=a.enabled?"Wyłącz powiadomienia":"Włącz powiadomienia";
+      $("alBtn").onclick=function(){api("/api/profile/alerts","PUT",{enabled:!a.enabled}).then(alerts)};
+    }).catch(function(){});
+  }
+  // ---- usunięcie konta ----
+  $("delOpen").addEventListener("click",function(){$("delForm").hidden=false;$("delEmail").focus()});
+  $("delCancel").addEventListener("click",function(){$("delForm").hidden=true});
+  $("delForm").addEventListener("submit",function(e){
+    e.preventDefault();$("delErr").hidden=true;
+    api("/api/profile/delete","POST",{confirm:$("delEmail").value}).then(function(){location.replace("/?usunieto=1")}).catch(function(st){
+      $("delErr").hidden=false;$("delErr").textContent=st===400?"Wpisany e-mail nie zgadza się z adresem konta.":"Nie udało się usunąć konta. Spróbuj ponownie albo napisz do nas.";
+    });
+  });
+  document.addEventListener("konto:ready",function(e){start(e.detail||{});if(e.detail&&e.detail.user)alerts()});
 })();
 </script>
 <script src="/konto.js"></script>
+<script src="/zgody.js" defer></script>
+<script src="/stat.js" defer></script>
 </body>
 </html>
