@@ -150,7 +150,7 @@ footer a{color:var(--mut)}
       </section>
     </div>
 
-    <div class="sec">
+    <div class="sec" id="ulubione">
       <h2>Ulubione nabory</h2>
       <a class="btn ghost" id="icsBtn" href="/api/profile/favorites.ics" download>📅 Dodaj terminy do kalendarza</a>
     </div>
@@ -257,6 +257,7 @@ footer a{color:var(--mut)}
   function start(me){
     if(!me.user){$("gate").hidden=false;return}
     $("app").hidden=false;$("logoutBtn").hidden=false;
+    if(me.access&&me.access.active){$("searchLink").href="/panel";$("searchLink").textContent="Wyszukiwarka"}
     if(/platnosc=ok/.test(location.search))$("paid").hidden=false;
     access(me);
     api("/api/profile/search").then(function(j){search(j.search)}).catch(function(){search(null)});

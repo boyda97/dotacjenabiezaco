@@ -572,6 +572,8 @@ footer a{color:var(--mut)}
   document.addEventListener("konto:ready",function(e){
     me=e.detail||{};
     var params=new URLSearchParams(location.search),back=params.get("wroc")&&load("dotacjo:wroc");
+    // opłacony dostęp: od razu do wyszukiwarki, bez części sprzedażowej (?strona=1 zostawia stronę główną)
+    if(me.access&&me.access.active&&!params.get("strona")){location.replace("/panel");return}
     if(me.user)fetch("/api/profile/favorites",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){(j.favorites||[]).forEach(function(f){saved[f.id]=true});if(lastView)render(lastView)}).catch(function(){});
     if(back){store("dotacjo:wroc");search(back.q,back.title,back.sub).then(function(){if(me.user&&back.fav)saveFav(back.fav)});return}
     if(params.get("profil")&&me.user){fetch("/api/profile/search",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){if(j.search){var l=String(j.search.label||"Moja firma").split("\n");search(j.search.query,l[0],l[1]||"")}});return}
