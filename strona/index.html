@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Dotacjo – dotacje dla firm ułożone według terminów</title>
 <meta name="description" content="Dotacjo codziennie zbiera nabory dotacji, pożyczek i grantów i układa je według terminu dla Twojej firmy albo planowanej działalności.">
+<link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/brand/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/brand/icons/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#003D2B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -14,9 +19,9 @@
    Zasada: mało elementów na raz, dużo światła, każda sekcja ma jeden cel. Zaufanie budują fakty
    (oficjalne źródła, płatności Stripe, jasne zasady), nigdy wymyślone opinie czy liczby. Stały jasny wygląd. */
 :root{
-  --paper:#fbfcf8; --surface:#ffffff; --soft:#eef4ef; --greenL:#e3f1e8;
+  --paper:#fbfcf8; --surface:#ffffff; --soft:#eef4ef; --greenL:#e6f5ec;
   --ink:#14211b; --mut:#5e6d66; --line:#e2e8e2;
-  --green:#11603f; --green-ink:#ffffff; --red:#c23b22; --redL:#fbe9e5;
+  --green:#00854A; --deep:#003D2B; --accent:#08D568; --greenT:#006f3d; --green-ink:#ffffff; --red:#c23b22; --redL:#fbe9e5;
   --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --r:14px; color-scheme:light;
 }
@@ -38,7 +43,7 @@ p{margin:0}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 15px/1 var(--font);padding:14px 20px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn.primary{background:var(--green);color:var(--green-ink)}
-.btn.primary:hover{background:#0c4f33}
+.btn.primary:hover{background:var(--deep)}
 .btn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
 .btn.ghost:hover{border-color:var(--mut)}
 .btn.sm{padding:10px 16px;font-size:14px}
@@ -46,9 +51,9 @@ p{margin:0}
 /* nagłówek */
 header{position:sticky;top:0;z-index:20;background:rgba(251,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
 header .wrap{display:flex;align-items:center;gap:28px;height:66px}
-.logo{display:flex;align-items:center;gap:9px;font:800 21px/1 var(--font);letter-spacing:-.03em;color:var(--green);text-decoration:none}
-.logo i{width:26px;height:26px;border-radius:7px;background:var(--green);display:grid;place-items:center}
-.logo i::after{content:"";width:12px;height:12px;border:2px solid #fff;border-radius:3px;border-top-width:4px}
+.logo{display:block;margin-right:auto;padding-block:4px}
+.logo img{display:block;width:160px;height:auto}
+@media (max-width:520px){.logo img{width:136px}}
 nav.main{display:flex;gap:4px;margin-left:auto}
 nav.main a{color:var(--mut);text-decoration:none;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px}
 nav.main a:hover{color:var(--ink);background:var(--soft)}
@@ -58,7 +63,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .hero{padding-block:56px 72px}
 .hero .wrap{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:48px;align-items:start}
 @media (max-width:960px){.hero .wrap{grid-template-columns:minmax(0,1fr);gap:36px}.hero{padding-block:32px 48px}}
-.updated{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--green);background:var(--greenL);padding:6px 12px;border-radius:999px}
+.updated{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--greenT);background:var(--greenL);padding:6px 12px;border-radius:999px}
 .updated::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}
 .hero h1{font-size:clamp(36px,5vw,56px);letter-spacing:-.04em;line-height:1.03;margin:18px 0 16px}
 .hero .lead{margin-bottom:28px}
@@ -75,6 +80,22 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .fld select,.fld input{display:block;width:100%;border:0;background:transparent;padding:2px 0 0;font:700 16px/1.4 var(--font);color:var(--ink);outline:none;text-overflow:ellipsis;cursor:pointer}
 .fld input{cursor:text}
 .fld input::placeholder{color:#a3aea8;font-weight:500}
+.fld em{font-style:normal;font-weight:500;color:#8d9893}
+/* własne listy wyboru zamiast systemowych (strzałki Windowsa wyglądały źle); <select> zostaje ukryty jako źródło wartości */
+.fld.sel{position:relative;padding:0}
+.fld.sel>span{position:absolute;left:15px;top:9px;pointer-events:none}
+.fld.sel select{position:absolute;inset:0;opacity:0;pointer-events:none}
+.dd{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:28px 14px 9px;font:700 16px/1.4 var(--font);color:var(--ink);text-align:left;cursor:pointer;border-radius:10px}
+.dd b{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd svg{flex:0 0 18px;width:18px;height:18px;color:var(--green);transition:transform .15s}
+.dd[aria-expanded=true] svg{transform:rotate(180deg)}
+.dd:focus-visible{outline:none}
+.menu{position:absolute;left:-1px;top:calc(100% + 6px);z-index:40;min-width:calc(100% + 2px);width:max-content;max-width:min(380px,calc(100vw - 32px));max-height:320px;overflow:auto;margin:0;padding:6px;list-style:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 16px 40px -12px rgba(20,33,27,.28)}
+.menu.right{left:auto;right:-1px}
+.menu li{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px;border-radius:8px;font-size:15px;font-weight:500;color:var(--ink);cursor:pointer}
+.menu li.act{background:var(--soft)}
+.menu li[aria-selected=true]{color:var(--green);font-weight:700}
+.menu li[aria-selected=true]::after{content:"✓";font-weight:800}
 #nip{letter-spacing:.03em;font-variant-numeric:tabular-nums}
 .hint{font-size:13px;color:var(--mut)}
 .hint:empty{display:none}
@@ -101,7 +122,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .ev{position:relative;display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 .ev:last-child{border-bottom:0}
 .ev::before{content:"";position:absolute;left:-24px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--surface);border:2.5px solid var(--green)}
-.date{background:var(--greenL);color:var(--green);border-radius:10px;text-align:center;padding:6px 0 5px;line-height:1}
+.date{background:var(--greenL);color:var(--greenT);border-radius:10px;text-align:center;padding:6px 0 5px;line-height:1}
 .date small{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .date b{display:block;font-size:22px;font-weight:800;letter-spacing:-.02em;margin-top:3px;font-variant-numeric:tabular-nums}
 .date.open{padding:10px 0}
@@ -119,7 +140,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .ev.lock .date{background:var(--soft);color:var(--mut)}
 .ev.lock::before{border-color:#c5cec8}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--soft);color:var(--green)}
+.tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--soft);color:var(--greenT)}
 .tag.cond{color:#8a5a00;background:#fbf3e2}
 .fav{margin-top:8px;font:700 12px/1 var(--font);padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--surface);color:var(--green);cursor:pointer}
 .fav:hover{border-color:var(--green)}
@@ -127,7 +148,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .empty{padding:20px 0;color:var(--mut);font-size:15px}
 .cal-foot{margin-top:10px;background:var(--greenL);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
 .cal-foot:has(#rMore:empty):has(a[hidden]){display:none}
-.cal-foot a{font-weight:800;color:var(--green);text-decoration:none}
+.cal-foot a{font-weight:800;color:var(--greenT);text-decoration:none}
 .cal-foot a:hover{text-decoration:underline}
 .sample{font-size:12px;color:var(--mut);margin-top:10px;text-align:center}
 @media (max-width:520px){
@@ -160,7 +181,7 @@ section.block.alt{background:var(--surface);border-block:1px solid var(--line)}
 .trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:760px){.trust{grid-template-columns:minmax(0,1fr)}}
 .tr{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:24px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line)}
-.tr .ic{width:44px;height:44px;border-radius:12px;background:var(--greenL);color:var(--green);display:grid;place-items:center}
+.tr .ic{width:44px;height:44px;border-radius:12px;background:var(--greenL);color:var(--greenT);display:grid;place-items:center}
 .tr h3{font-size:17px;margin-bottom:6px}
 .tr p{color:var(--mut);font-size:15px}
 
@@ -204,10 +225,10 @@ details[open] summary::after{content:"–"}
 details p{padding:0 22px 20px;color:var(--mut);max-width:65ch}
 
 .final{padding-block:0 96px}
-.final .box{border-radius:20px;padding:clamp(28px,5vw,48px);background:var(--green);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-.final .box p{color:#cfe5d8;margin-top:8px}
-.final .btn{background:#fff;color:var(--green)}
-.final .btn:hover{background:var(--greenL)}
+.final .box{border-radius:20px;padding:clamp(28px,5vw,48px);background:var(--deep);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.final .box p{color:#bfe3cf;margin-top:8px}
+.final .btn{background:var(--accent);color:var(--deep)}
+.final .btn:hover{background:#3be189}
 footer{border-top:1px solid var(--line);padding-block:28px 36px;font-size:13px;color:var(--mut);background:var(--surface)}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 footer a{color:var(--mut)}
@@ -217,7 +238,7 @@ footer a{color:var(--mut)}
 
 <header>
   <div class="wrap">
-    <a class="logo" href="#top"><i aria-hidden="true"></i>Dotacjo</a>
+    <a class="logo" href="#top"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="160" height="50"></a>
     <nav class="main" aria-label="Główna">
       <a href="#jak">Jak to działa</a>
       <a href="#zaufanie">Dlaczego my</a>
@@ -232,9 +253,9 @@ footer a{color:var(--mut)}
 <section class="hero">
   <div class="wrap">
     <div>
-      <span class="updated">Baza naborów aktualizowana codziennie</span>
-      <h1>Nie przegap terminu na swoją dotację</h1>
-      <p class="lead">Pokazujemy dotacje i pożyczki dla Twojej firmy w kolejności, w jakiej kończą się nabory. Od razu widzisz, co złożyć najpierw.</p>
+      <span class="updated">Nowe nabory sprawdzamy codziennie</span>
+      <h1>Sprawdź, jakie dotacje dostanie Twoja firma</h1>
+      <p class="lead">Odpowiedz na kilka pytań o firmę. Pokażemy pasujące dotacje i pożyczki, zaczynając od tych, którym najszybciej kończy się termin.</p>
 
       <div class="tabs" role="tablist" aria-label="Twoja sytuacja">
         <button type="button" role="tab" id="tabFirm" aria-selected="true" aria-controls="paneFirm">Mam firmę</button>
@@ -242,53 +263,53 @@ footer a{color:var(--mut)}
       </div>
 
       <form class="pane" id="paneFirm" role="tabpanel" aria-labelledby="tabFirm" novalidate>
-        <label class="fld"><span>NIP firmy (opcjonalnie, uzupełni dane)</span>
-          <input id="nip" name="nip" inputmode="numeric" autocomplete="off" maxlength="13" placeholder="np. 525-000-00-00" aria-describedby="nipHint"></label>
+        <label class="fld"><span>NIP firmy <em>(nieobowiązkowy)</em></span>
+          <input id="nip" name="nip" inputmode="numeric" autocomplete="off" maxlength="13" placeholder="Wpisz, a resztę uzupełnimy sami" aria-describedby="nipHint"></label>
         <p class="hint" id="nipHint"></p>
         <div class="grid2">
-          <label class="fld"><span>Województwo</span>
+          <div class="fld sel"><span>Województwo</span>
             <select id="fWoj">
-              <option value="dolnoslaskie">dolnośląskie</option><option value="kujawsko">kujawsko-pomorskie</option><option value="lubelskie">lubelskie</option><option value="lubuskie">lubuskie</option>
-              <option value="lodzkie">łódzkie</option><option value="malopolskie">małopolskie</option><option value="mazowieckie" selected>mazowieckie</option><option value="opolskie">opolskie</option>
-              <option value="podkarpackie">podkarpackie</option><option value="podlaskie">podlaskie</option><option value="pomorskie">pomorskie</option><option value="slaskie">śląskie</option>
-              <option value="swietokrzyskie">świętokrzyskie</option><option value="warminsko">warmińsko-mazurskie</option><option value="wielkopolskie">wielkopolskie</option><option value="zachodniopomorskie">zachodniopomorskie</option>
-            </select></label>
-          <label class="fld"><span>Forma prawna</span>
-            <select id="fForm"><option value="jdg">jednoosobowa działalność</option><option value="sc">spółka cywilna / jawna / partnerska</option><option value="zoo">spółka z o.o. / PSA</option><option value="sa">spółka akcyjna / komandytowa</option><option value="rolne">gospodarstwo rolne</option><option value="ngo">fundacja / stowarzyszenie</option></select></label>
-          <label class="fld"><span>Wielkość firmy</span>
-            <select id="fSize"><option value="micro">mikro (do 9 osób)</option><option value="small">mała (10–49 osób)</option><option value="medium">średnia (50–249 osób)</option><option value="large">duża (250+ osób)</option></select></label>
-          <label class="fld"><span>Branża</span>
-            <select id="fSector"><option value="">dowolna / nie wiem</option><option value="A">rolnictwo, leśnictwo, rybactwo</option><option value="C10">przetwórstwo rolno-spożywcze</option><option value="C">przetwórstwo przemysłowe, produkcja</option><option value="D">energetyka</option><option value="E">woda, ścieki, odpady</option><option value="F">budownictwo</option><option value="G">handel</option><option value="H">transport i logistyka</option><option value="I">zakwaterowanie i gastronomia</option><option value="J">IT, informacja i komunikacja</option><option value="M">usługi profesjonalne (doradztwo, marketing, projektowanie)</option><option value="N79">turystyka</option><option value="N">usługi administrowania</option><option value="P">edukacja</option><option value="Q">opieka zdrowotna i pomoc społeczna</option><option value="R">kultura, rozrywka, rekreacja</option><option value="S">pozostałe usługi</option></select></label>
+              <option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
+              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie" selected>Mazowieckie</option><option value="opolskie">Opolskie</option>
+              <option value="podkarpackie">Podkarpackie</option><option value="podlaskie">Podlaskie</option><option value="pomorskie">Pomorskie</option><option value="slaskie">Śląskie</option>
+              <option value="swietokrzyskie">Świętokrzyskie</option><option value="warminsko">Warmińsko-mazurskie</option><option value="wielkopolskie">Wielkopolskie</option><option value="zachodniopomorskie">Zachodniopomorskie</option>
+            </select></div>
+          <div class="fld sel"><span>Rodzaj firmy</span>
+            <select id="fForm"><option value="jdg">Jednoosobowa działalność</option><option value="sc">Spółka cywilna, jawna lub partnerska</option><option value="zoo">Spółka z o.o. lub PSA</option><option value="sa">Spółka akcyjna lub komandytowa</option><option value="rolne">Gospodarstwo rolne</option><option value="ngo">Fundacja lub stowarzyszenie</option></select></div>
+          <div class="fld sel"><span>Liczba pracowników</span>
+            <select id="fSize"><option value="micro">Mikrofirma (do 9 osób)</option><option value="small">Mała firma (10–49 osób)</option><option value="medium">Średnia firma (50–249 osób)</option><option value="large">Duża firma (250 i więcej osób)</option></select></div>
+          <div class="fld sel"><span>Branża</span>
+            <select id="fSector"><option value="">Wszystkie branże</option><option value="G">Handel</option><option value="F">Budownictwo</option><option value="C">Produkcja</option><option value="C10">Przetwórstwo spożywcze</option><option value="J">IT i komunikacja</option><option value="M">Usługi dla firm (marketing, doradztwo, projekty)</option><option value="I">Hotele i gastronomia</option><option value="N79">Turystyka</option><option value="H">Transport i logistyka</option><option value="A">Rolnictwo, leśnictwo, rybactwo</option><option value="D">Energetyka</option><option value="E">Woda, ścieki, odpady</option><option value="P">Edukacja</option><option value="Q">Zdrowie i opieka</option><option value="R">Kultura, sport, rekreacja</option><option value="N">Usługi administracyjne</option><option value="S">Inne usługi</option></select></div>
         </div>
-        <label class="fld"><span>Na co szukasz pieniędzy?</span>
-          <select id="fGoal"><option value="">na cokolwiek</option><option value="sprzet">maszyny, urządzenia, sprzęt</option><option value="digital">oprogramowanie, IT, e-commerce</option><option value="marketing">marketing, promocja, www</option><option value="szkolenia">szkolenia i kompetencje</option><option value="oze">fotowoltaika, pompy ciepła, magazyny energii</option><option value="efektywnosc">efektywność energetyczna</option><option value="budowa">budowa, remont, adaptacja</option><option value="pojazdy">pojazdy, elektromobilność</option><option value="badania">badania i rozwój</option><option value="ai">AI, robotyzacja, Przemysł 4.0</option><option value="eksport">eksport, targi</option><option value="zatrudnienie">zatrudnienie, staże</option><option value="doradztwo">doradztwo, audyty</option><option value="plynnosc">kapitał obrotowy</option></select></label>
-        <button class="btn primary" type="submit">Pokaż mój kalendarz naborów</button>
+        <div class="fld sel"><span>Na co potrzebujesz pieniędzy?</span>
+          <select id="fGoal"><option value="">Na dowolny cel</option><option value="sprzet">Maszyny i sprzęt</option><option value="digital">Oprogramowanie, strona, sklep internetowy</option><option value="marketing">Marketing i promocja</option><option value="szkolenia">Szkolenia</option><option value="oze">Fotowoltaika, pompa ciepła, magazyn energii</option><option value="efektywnosc">Oszczędzanie energii</option><option value="budowa">Budowa lub remont</option><option value="pojazdy">Samochody i elektromobilność</option><option value="badania">Badania i nowe produkty</option><option value="ai">Automatyzacja, roboty, AI</option><option value="eksport">Eksport i targi</option><option value="zatrudnienie">Zatrudnienie pracowników</option><option value="doradztwo">Doradztwo i audyty</option><option value="plynnosc">Bieżące wydatki firmy</option></select></div>
+        <button class="btn primary" type="submit">Pokaż pasujące dotacje</button>
       </form>
 
       <form class="pane" id="paneStart" role="tabpanel" aria-labelledby="tabStart" hidden novalidate>
         <div class="grid2">
-          <label class="fld"><span>Województwo</span>
+          <div class="fld sel"><span>Województwo</span>
             <select id="sWoj">
-              <option value="dolnoslaskie">dolnośląskie</option><option value="kujawsko">kujawsko-pomorskie</option><option value="lubelskie">lubelskie</option><option value="lubuskie">lubuskie</option>
-              <option value="lodzkie">łódzkie</option><option value="malopolskie">małopolskie</option><option value="mazowieckie" selected>mazowieckie</option><option value="opolskie">opolskie</option>
-              <option value="podkarpackie">podkarpackie</option><option value="podlaskie">podlaskie</option><option value="pomorskie">pomorskie</option><option value="slaskie">śląskie</option>
-              <option value="swietokrzyskie">świętokrzyskie</option><option value="warminsko">warmińsko-mazurskie</option><option value="wielkopolskie">wielkopolskie</option><option value="zachodniopomorskie">zachodniopomorskie</option>
-            </select></label>
-          <label class="fld"><span>Wiek</span>
-            <select id="sWiek"><option value="mlody">do 29 lat</option><option value="30" selected>30 lat i więcej</option></select></label>
+              <option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
+              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie" selected>Mazowieckie</option><option value="opolskie">Opolskie</option>
+              <option value="podkarpackie">Podkarpackie</option><option value="podlaskie">Podlaskie</option><option value="pomorskie">Pomorskie</option><option value="slaskie">Śląskie</option>
+              <option value="swietokrzyskie">Świętokrzyskie</option><option value="warminsko">Warmińsko-mazurskie</option><option value="wielkopolskie">Wielkopolskie</option><option value="zachodniopomorskie">Zachodniopomorskie</option>
+            </select></div>
+          <div class="fld sel"><span>Wiek</span>
+            <select id="sWiek"><option value="mlody">Do 29 lat</option><option value="30" selected>30 lat lub więcej</option></select></div>
         </div>
-        <label class="fld"><span>Twoja sytuacja teraz</span>
+        <div class="fld sel"><span>Czym się teraz zajmujesz?</span>
           <select id="sStatus">
-            <option value="pup" selected>zarejestrowany(-a) w PUP jako bezrobotny(-a)</option>
-            <option value="praca">pracuję na etacie lub umowie</option>
-            <option value="nauka">uczę się lub studiuję</option>
-            <option value="inne">nie pracuję, ale nie jestem w PUP</option>
-          </select></label>
-        <label class="fld"><span>Gmina lub miasto zamieszkania</span>
+            <option value="pup" selected>Jestem zarejestrowany(-a) jako bezrobotny(-a)</option>
+            <option value="praca">Pracuję na etacie lub umowie</option>
+            <option value="nauka">Uczę się lub studiuję</option>
+            <option value="inne">Nie pracuję i nie jestem w urzędzie pracy</option>
+          </select></div>
+        <label class="fld"><span>Miejscowość <em>(nieobowiązkowa)</em></span>
           <input id="sGmina" autocomplete="address-level2" placeholder="np. Pruszków"></label>
         <div class="checks">
-          <label><input type="checkbox" id="sNiep"> mam orzeczenie o niepełnosprawności</label>
-          <label><input type="checkbox" id="sByla"> w ostatnich 12 miesiącach prowadziłem(-am) firmę</label>
+          <label><input type="checkbox" id="sNiep"> Mam orzeczenie o niepełnosprawności</label>
+          <label><input type="checkbox" id="sByla"> Prowadziłem(-am) firmę w ostatnich 12 miesiącach</label>
         </div>
         <button class="btn primary" type="submit">Pokaż dotacje na start</button>
       </form>
@@ -501,7 +522,7 @@ footer a{color:var(--mut)}
     document.getElementById("rSum").textContent=v.sum;
     document.getElementById("rN").textContent=v.n;
     document.getElementById("rMore").textContent=v.more||"";
-    rList.innerHTML=v.items.map(ev).join("")||(v.loading?"":'<p class="empty">Brak pasujących naborów dla tych danych. Zmień cel lub branżę na „na cokolwiek”.</p>');
+    rList.innerHTML=v.items.map(ev).join("")||(v.loading?"":'<p class="empty">Brak pasujących naborów dla tych danych. Wybierz „Na dowolny cel” albo „Wszystkie branże”.</p>');
     if(sample)sample.hidden=!v.example;
     if(foot){foot.hidden=!v.footHref;if(v.footHref){foot.href=v.footHref;foot.textContent=v.footText}}
   }
@@ -512,7 +533,7 @@ footer a{color:var(--mut)}
   function item(p){
     var base={a:p.max?"do "+zl(p.max):"",k:TYPE[p.type]||"",d:p.deadline||null,c:p.status==="soon"?"wkrótce":"ciągły"};
     if(p.locked)return Object.assign(base,{lock:true,n:"🔒 "+(TYPE[p.type]?TYPE[p.type][0].toUpperCase()+TYPE[p.type].slice(1):"Wsparcie")+" · "+(STATUS[p.status]||""),o:p.score!=null?"dopasowanie "+p.score+"%":""});
-    var tags=(p.why||[]).filter(function(w){return w.state!=="fail"}).slice(0,3).map(function(w){return[w.state==="ok"?"ok":"cond",w.t]});
+    var tags=(p.why||[]).filter(function(w){return w.state==="ok"&&w.t}).slice(0,3).map(function(w){return["ok",w.t]});
     if(p.id!=null)shown[p.id]=p;
     return Object.assign(base,{n:p.name,o:p.op||p.level||"",t:tags,url:p.url,fid:p.id!=null?String(p.id):null});
   }
@@ -551,6 +572,8 @@ footer a{color:var(--mut)}
   document.addEventListener("konto:ready",function(e){
     me=e.detail||{};
     var params=new URLSearchParams(location.search),back=params.get("wroc")&&load("dotacjo:wroc");
+    // opłacony dostęp: od razu do wyszukiwarki, bez części sprzedażowej (?strona=1 zostawia stronę główną)
+    if(me.access&&me.access.active&&!params.get("strona")){location.replace("/panel");return}
     if(me.user)fetch("/api/profile/favorites",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){(j.favorites||[]).forEach(function(f){saved[f.id]=true});if(lastView)render(lastView)}).catch(function(){});
     if(back){store("dotacjo:wroc");search(back.q,back.title,back.sub).then(function(){if(me.user&&back.fav)saveFav(back.fav)});return}
     if(params.get("profil")&&me.user){fetch("/api/profile/search",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){if(j.search){var l=String(j.search.label||"Moja firma").split("\n");search(j.search.query,l[0],l[1]||"")}});return}
@@ -566,6 +589,42 @@ footer a{color:var(--mut)}
   tabS.addEventListener("click",function(){mode("start")});
   document.querySelectorAll("[data-go]").forEach(function(a){a.addEventListener("click",function(){mode(a.dataset.go)})});
   mode("firm");render(Object.assign({example:true,footHref:"#cennik",footText:"Odblokuj kalendarz →"},EXAMPLE));
+
+  // ---- listy wyboru: przycisk + rozwijana lista w stylu strony, wartość trzyma ukryty <select> ----
+  var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  var dds=[];
+  document.querySelectorAll(".fld.sel").forEach(function(fld){
+    var sel=fld.querySelector("select"),cap=fld.querySelector("span").textContent.replace(/\s*\(.*\)$/,"");
+    sel.tabIndex=-1;sel.setAttribute("aria-hidden","true");
+    var btn=document.createElement("button");btn.type="button";btn.className="dd";btn.setAttribute("aria-haspopup","listbox");btn.setAttribute("aria-expanded","false");
+    var menu=document.createElement("ul");menu.className="menu";menu.setAttribute("role","listbox");menu.hidden=true;menu.setAttribute("aria-label",cap);
+    fld.appendChild(btn);fld.appendChild(menu);
+    var act=-1;
+    function sync(){btn.innerHTML="<b>"+esc(sel.options[sel.selectedIndex].text)+"</b>"+CHEV;btn.setAttribute("aria-label",cap+": "+sel.options[sel.selectedIndex].text)}
+    function hilite(i){act=i;[].forEach.call(menu.children,function(li,j){li.classList.toggle("act",j===i);if(j===i)li.scrollIntoView({block:"nearest"})})}
+    function open(){
+      dds.forEach(function(d){if(d.close!==close)d.close()});
+      menu.innerHTML=[].map.call(sel.options,function(o,i){return '<li role="option" data-i="'+i+'" aria-selected="'+(i===sel.selectedIndex)+'">'+esc(o.text)+'</li>'}).join("");
+      menu.hidden=false;menu.classList.remove("right");btn.setAttribute("aria-expanded","true");
+      if(menu.getBoundingClientRect().right>document.documentElement.clientWidth-8)menu.classList.add("right");
+      hilite(sel.selectedIndex);
+    }
+    function close(){if(menu.hidden)return;menu.hidden=true;btn.setAttribute("aria-expanded","false")}
+    function pick(i){sel.selectedIndex=i;sel.dispatchEvent(new Event("change",{bubbles:true}));sync();close();btn.focus()}
+    btn.addEventListener("click",function(){menu.hidden?open():close()});
+    menu.addEventListener("mousemove",function(e){var li=e.target.closest("li");if(li&&+li.dataset.i!==act)hilite(+li.dataset.i)});
+    menu.addEventListener("click",function(e){var li=e.target.closest("li");if(li)pick(+li.dataset.i)});
+    btn.addEventListener("keydown",function(e){
+      var n=sel.options.length;
+      if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();if(menu.hidden)open();else hilite((act+(e.key==="ArrowDown"?1:n-1))%n)}
+      else if((e.key==="Enter"||e.key===" ")&&!menu.hidden){e.preventDefault();pick(act)}
+      else if(e.key==="Escape"||e.key==="Tab")close();
+      else if(e.key.length===1&&!menu.hidden){var k=e.key.toLowerCase();for(var j=1;j<=n;j++){var x=(act+j)%n;if(sel.options[x].text.toLowerCase().indexOf(k)===0){hilite(x);break}}}
+    });
+    sync();dds.push({sync:sync,close:close});
+  });
+  document.addEventListener("click",function(e){if(!e.target.closest(".fld.sel"))dds.forEach(function(d){d.close()})});
+  function syncDD(){dds.forEach(function(d){d.sync()})}
 
   // ---- planuję założyć firmę ----
   pS.addEventListener("submit",function(e){
@@ -595,6 +654,7 @@ footer a{color:var(--mut)}
       if(!company){hint.className="hint";hint.textContent="Nie ma tej firmy w wykazie VAT. Wybierz dane poniżej.";return}
       if(company.region)document.getElementById("fWoj").value=company.region;
       if(company.form)document.getElementById("fForm").value=company.form;
+      syncDD();
       hint.className="hint ok";hint.textContent="✓ "+(company.name||"Firma znaleziona")+". Sprawdź dane poniżej.";
     }).catch(function(){hint.textContent="Rejestr nie odpowiada. Wybierz dane poniżej."});
   });

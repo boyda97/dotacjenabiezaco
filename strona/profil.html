@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Mój profil – Dotacjo</title>
 <meta name="robots" content="noindex">
+<link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/brand/icons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/brand/icons/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#003D2B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
@@ -12,9 +17,9 @@
 /* Profil w tym samym stylu co strona główna („Kalendarz naborów”): dostęp i abonament, zapisane wyszukiwanie,
    ulubione nabory na osi terminów z etapem przygotowania i notatką, eksport do kalendarza. */
 :root{
-  --paper:#fbfcf8; --surface:#ffffff; --soft:#eef4ef; --greenL:#e3f1e8;
+  --paper:#fbfcf8; --surface:#ffffff; --soft:#eef4ef; --greenL:#e6f5ec;
   --ink:#14211b; --mut:#5e6d66; --line:#e2e8e2;
-  --green:#11603f; --red:#c23b22; --redL:#fbe9e5; --amber:#8a5a00; --amberL:#fbf3e2;
+  --green:#00854A; --deep:#003D2B; --accent:#08D568; --greenT:#006f3d; --red:#c23b22; --redL:#fbe9e5; --amber:#8a5a00; --amberL:#fbf3e2;
   --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
@@ -28,7 +33,7 @@ p{margin:0}
 .wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 14px/1 var(--font);padding:11px 16px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn.primary{background:var(--green);color:#fff}
-.btn.primary:hover{background:#0c4f33}
+.btn.primary:hover{background:var(--deep)}
 .btn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
 .btn.ghost:hover{border-color:var(--mut)}
 .btn.link{background:none;border:0;padding:8px 4px;color:var(--mut);font-weight:600}
@@ -36,16 +41,16 @@ p{margin:0}
 
 header{position:sticky;top:0;z-index:20;background:rgba(251,252,248,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
 header .wrap{display:flex;align-items:center;gap:16px;height:66px}
-.logo{display:flex;align-items:center;gap:9px;font:800 21px/1 var(--font);letter-spacing:-.03em;color:var(--green);text-decoration:none;margin-right:auto}
-.logo i{width:26px;height:26px;border-radius:7px;background:var(--green);display:grid;place-items:center}
-.logo i::after{content:"";width:12px;height:12px;border:2px solid #fff;border-radius:3px;border-top-width:4px}
+.logo{display:block;margin-right:auto;padding-block:4px}
+.logo img{display:block;width:160px;height:auto}
+@media (max-width:520px){.logo img{width:136px}}
 @media (max-width:480px){#searchLink{display:none}}
 
 main{padding-block:40px 80px}
 .hello{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:28px}
 .hello h1{font-size:clamp(28px,4vw,38px)}
 .hello p{color:var(--mut);margin-top:6px}
-.banner{background:var(--greenL);color:var(--green);font-weight:600;border-radius:12px;padding:14px 18px;margin-bottom:20px}
+.banner{background:var(--greenL);color:var(--greenT);font-weight:600;border-radius:12px;padding:14px 18px;margin-bottom:20px}
 
 .top{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:40px}
 @media (max-width:760px){.top{grid-template-columns:minmax(0,1fr)}}
@@ -53,7 +58,7 @@ main{padding-block:40px 80px}
 .card .lbl{font-size:13px;font-weight:700;color:var(--green)}
 .card h2{font-size:22px}
 .card p{color:var(--mut);font-size:15px}
-.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--greenL);color:var(--green);width:max-content}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--greenL);color:var(--greenT);width:max-content}
 .pill.off{background:var(--soft);color:var(--mut)}
 .pill.warn{background:var(--amberL);color:var(--amber)}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
@@ -71,7 +76,7 @@ main{padding-block:40px 80px}
 .ev{position:relative;display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:6px 14px;align-items:start;padding:16px 0;border-bottom:1px solid var(--line)}
 .ev:last-child{border-bottom:0}
 .ev::before{content:"";position:absolute;left:-24px;top:30px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:2.5px solid var(--green);box-sizing:border-box}
-.date{background:var(--greenL);color:var(--green);border-radius:10px;text-align:center;padding:6px 0 5px;line-height:1}
+.date{background:var(--greenL);color:var(--greenT);border-radius:10px;text-align:center;padding:6px 0 5px;line-height:1}
 .date small{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .date b{display:block;font-size:22px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}
 .date.open{padding:10px 0}
@@ -110,7 +115,7 @@ footer a{color:var(--mut)}
 <body>
 <header>
   <div class="wrap">
-    <a class="logo" href="/"><i aria-hidden="true"></i>Dotacjo</a>
+    <a class="logo" href="/"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="160" height="50"></a>
     <a class="btn ghost" id="searchLink" href="/">Szukaj dotacji</a>
     <button type="button" class="btn link" id="logoutBtn" hidden>Wyloguj</button>
   </div>
@@ -145,7 +150,7 @@ footer a{color:var(--mut)}
       </section>
     </div>
 
-    <div class="sec">
+    <div class="sec" id="ulubione">
       <h2>Ulubione nabory</h2>
       <a class="btn ghost" id="icsBtn" href="/api/profile/favorites.ics" download>📅 Dodaj terminy do kalendarza</a>
     </div>
@@ -252,6 +257,7 @@ footer a{color:var(--mut)}
   function start(me){
     if(!me.user){$("gate").hidden=false;return}
     $("app").hidden=false;$("logoutBtn").hidden=false;
+    if(me.access&&me.access.active){$("searchLink").href="/panel";$("searchLink").textContent="Wyszukiwarka"}
     if(/platnosc=ok/.test(location.search))$("paid").hidden=false;
     access(me);
     api("/api/profile/search").then(function(j){search(j.search)}).catch(function(){search(null)});

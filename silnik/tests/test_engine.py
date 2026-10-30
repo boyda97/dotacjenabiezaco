@@ -69,11 +69,17 @@ class MatchingTest(unittest.TestCase):
         self.assertFalse(score(prog(goals=["oze"]), firm(goals=["digital"]), TODAY).eligible)
         self.assertFalse(score(prog(status="closed"), f, TODAY).eligible)
 
-    def test_unknown_criteria_are_not_rejected(self):
-        r = score(prog(regions=None, sizes=None, unknown=["regions", "sizes"]), firm(), TODAY)
+    def test_unknown_criteria_hidden_by_default(self):
+        # strona pokazuje tylko sprawdzone dopasowania
+        p = prog(regions=None, sizes=None, unknown=["regions", "sizes"])
+        self.assertFalse(score(p, firm(), TODAY).eligible)
+        self.assertFalse(score(prog(goals=[]), firm(goals=["digital"]), TODAY).eligible)
+
+    def test_unknown_criteria_are_not_rejected_in_preview(self):
+        r = score(prog(regions=None, sizes=None, unknown=["regions", "sizes"]), firm(), TODAY, strict=False)
         self.assertTrue(r.eligible)
         self.assertIn("check", [x.state for x in r.reasons])
-        full = score(prog(), firm(), TODAY)
+        full = score(prog(), firm(), TODAY, strict=False)
         self.assertLess(r.score, full.score)
 
     def test_pkd_exclusion(self):
@@ -84,8 +90,10 @@ class MatchingTest(unittest.TestCase):
         a = prog(source_id="a", deadline="2026-12-31")
         b = prog(source_id="b", deadline="2026-11-05")
         c = prog(source_id="c", regions=["mazowieckie"], sizes=None, unknown=["sizes"])
-        keys = [r.program.source_id for r in rank([a, b, c], firm(), TODAY)]
+        keys = [r.program.source_id for r in rank([a, b, c], firm(), TODAY, strict=False)]
         self.assertEqual(keys, ["b", "a", "c"])
+        keys = [r.program.source_id for r in rank([a, b, c], firm(), TODAY)]
+        self.assertEqual(keys, ["b", "a"])
 
 
 class FounderTest(unittest.TestCase):
