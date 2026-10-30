@@ -845,5 +845,1130 @@
   "direct_support": false,
   "note": "pomoc techniczna dla instytucji",
   "name": "Priorytet 5. Pomoc techniczna"
+ },
+ "nfosigw:5d9005894feb": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Zielone gminy i parki narodowe - renowacja energetyczna budynków"
+ },
+ "nfosigw:bf95dc93e3c3": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Przestrzeń dla przyrody Część 5) Zielone gminy - stawiając na bioróżnorodność"
+ },
+ "nfosigw:4dbf625657c0": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie FENX.02.04 Adaptacja do zmian klimatu, zapobieganie klęskom i katastro"
+ },
+ "portal_fe:033752977aba": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.3 ALMA - staże zagraniczne dla młodych (352/26)"
+ },
+ "portal_fe:31abc4a659c6": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Inwestycje w infrastrukturę, sprzęt i wyposażenie podmiotów funkcjonujących w ob"
+ },
+ "portal_fe:29871641cdbb": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "17.1 Zintegrowana terytorialnie gotowość cywilna i infrastruktura krytyczna"
+ },
+ "portal_fe:53ceb25eefe6": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.5 Odpady i gospodarka o obiegu zamkniętym"
+ },
+ "portal_fe:00abb39d8579": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.2. Zarządzanie Lokalną Strategią Rozwoju"
+ },
+ "portal_fe:1e753491f211": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.8 Gospodarka wodno-ściekowa (002/26)"
+ },
+ "portal_fe:0e1b1241a029": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.1 Poprawa regionalnej dostępności transportowej"
+ },
+ "portal_fe:b2b68e87f1e7": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.24 Zrównoważone korzystanie ze środowiska"
+ },
+ "portal_fe:45e453573109": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "13.2 Infrastruktura ochrony ludności i obrony cywilnej"
+ },
+ "portal_fe:564e92b6632e": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "jst",
+   "ngo"
+  ],
+  "sizes": null,
+  "goals": [
+   "szkolenia",
+   "zatrudnienie"
+  ],
+  "note": "zdrowe miejsce pracy, firma może złożyć wniosek dla swoich pracowników",
+  "name": "6.3 Zdrowy, aktywny i kompetentny pracownik"
+ },
+ "portal_fe:f50af54f94fc": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.8 Edukacja dorosłych"
+ },
+ "portal_fe:eb94b3a37f8c": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 13.4 Odporny cyfrowo region [nabór nr FEKP.13.04-IZ.00-317/26]"
+ },
+ "portal_fe:d98bc8612b18": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "3.4 Zrównoważona gospodarka wodno-ściekowa"
+ },
+ "portal_fe:dea2996d3cb5": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.3 Wspieranie efektywności energetycznej i energooszczędności w ramach ZIT"
+ },
+ "portal_fe:571954d6e41a": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 2.9 Mała retencja i adaptacja do zmian klimatu w regionie [nabór nr FE"
+ },
+ "portal_fe:b88264b726ba": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.5 Usługi społeczne"
+ },
+ "portal_fe:0ef9a7690cd6": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 4.3 Infrastruktura drogowa [nabór nr FEKP.04.03-IZ.00-318/26]"
+ },
+ "portal_fe:01eb1a70d278": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "13.1 Wzmacnianie bezpieczeństwa wodnego"
+ },
+ "portal_fe:00940b30d5f5": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.1 Zrównoważony rozwój miejskich obszarów funkcjonalnych Nr naboru FEPK.06.01-I"
+ },
+ "portal_fe:631c2e82660a": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Wypracowanie i wdrożenie pilotażowych modeli spółdzielczych służących włączeniu "
+ },
+ "portal_fe:6b24074b6f1b": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.3 Wzrost dostępności lokalnych usług społecznych"
+ },
+ "portal_fe:5a50f3c72a0e": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.1 Zrównoważony rozwój miejskich obszarów funkcjonalnych Nr naboru FEPK.06.01-I"
+ },
+ "portal_fe:daf41e964607": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.5 Infrastruktura edukacji - ZIT"
+ },
+ "portal_fe:67e7aa64dd2c": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.1 Zrównoważony rozwój miejskich obszarów funkcjonalnych Nr naboru FEPK.06.01-I"
+ },
+ "portal_fe:42c27fcb4533": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "12.1 Rewitalizacja obszarów miejskich"
+ },
+ "portal_fe:0e41f0c018b3": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.2 Zwiększenie odporności i gotowości cywilnej w szkołach (typ B)"
+ },
+ "portal_fe:b99780741eee": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "18.2 Gotowość cywilna w szkołach i placówkach oświatowych (001/26)"
+ },
+ "portal_fe:0fb59ce996af": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:10565f376834": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.1 Rozwój lokalnej edukacji i kształcenia"
+ },
+ "portal_fe:1e7f496e433c": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.1 Lokalna energia odnawialna"
+ },
+ "portal_fe:cada833aff6b": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 2.8 Wsparcie służb ratowniczych [nabór nr FEKP.02.08-IZ.00-316/26]"
+ },
+ "portal_fe:55cbde8d0a0d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "17.1 Zintegrowana terytorialnie gotowość cywilna i infrastruktura krytyczna"
+ },
+ "portal_fe:6991a94e9188": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.5 Usługi społeczne"
+ },
+ "portal_fe:1b1ffa4b616f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom. Wsparcie mik"
+ },
+ "portal_fe:474a8b6909f2": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Podnoszenie poziomu życ"
+ },
+ "portal_fe:a3c09702c893": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.18 Ochrona przyrody – ZIT"
+ },
+ "portal_fe:c284f1ecbe8b": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "18.2 Edukacja na rzecz rozwijania zdolności obronnych i odporności"
+ },
+ "portal_fe:173a10846d3d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.1 Lokalna energia odnawialna"
+ },
+ "portal_fe:7fe2a6c7270e": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.6 Edukacja przedszkolna"
+ },
+ "portal_fe:64c44ef8daea": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:7d7f542af3db": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.10 Edukacja zawodowa na obszarach objętych Strategią ZIT SOM"
+ },
+ "portal_fe:ccf74a2d870d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 6.7 Inwestycje w infrastrukturę kształcenia zawodowego w tym PUZ [nabó"
+ },
+ "portal_fe:1b005f39ae5d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.1 Lokalna energia odnawialna"
+ },
+ "portal_fe:54453c7e494f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 9.2 Skuteczna informacja i komunikacja FEDKP [nabór nr FEKP.09.02-IZ.0"
+ },
+ "portal_fe:0a4b1553bb59": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "1.1 Efektywność energetyczna. Poprawa efektywności energetycznej w budynkach uży"
+ },
+ "portal_fe:65210d448203": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.17 Integracja społeczno-ekonomiczna obywateli państw trzecich w regionie"
+ },
+ "portal_fe:3635d18c3aea": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.24 Usługi społeczne i zdrowotne - [nabór Nr FEKP.08.24-IZ.00-313/26]"
+ },
+ "portal_fe:81f6a8f9d1cf": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.24 Usługi społeczne i zdrowotne [nabór Nr FEKP.08.24-IZ.00-312/26]"
+ },
+ "portal_fe:d1c4eb8a74ec": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.1 Wzmocnienie bezpieczeństwa i odporności regionalnej Wielkopolski"
+ },
+ "portal_fe:acceccfb11de": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "17.1 Zintegrowana terytorialnie gotowość cywilna i infrastruktura krytyczna"
+ },
+ "portal_fe:e0bff8aa07dd": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.2 Zwiększenie lokalnej aktywności społeczno-zawodowej"
+ },
+ "portal_fe:7b6aa2260aa8": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 6.8 Inwestycje w infrastrukturę społeczną [nabór nr FEKP.06.08-IZ.00-3"
+ },
+ "portal_fe:89f492437133": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.1 Skuteczna edukacja"
+ },
+ "portal_fe:1f0300f3eba9": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.3 Bezpieczeństwo infrastruktury obronnej"
+ },
+ "portal_fe:a929e964b735": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.13 Włączenie społeczne (002/26)"
+ },
+ "portal_fe:2714b2b69d56": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:281ec65402e0": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.19 Integracja społeczna"
+ },
+ "portal_fe:9dcb65ad9e0d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:26fc7963a877": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.18 Integracja i aktywizacja społeczna oraz wsparcie potencjału w ramach ZIT – "
+ },
+ "portal_fe:8c0aa6cd0254": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.18 Integracja i aktywizacja społeczna oraz wsparcie potencjału w ramach ZIT (Z"
+ },
+ "portal_fe:8b7045605eeb": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.2 Wzmocnienie kompetencji uczniów nr FEMA.07.02-IP.01-133/26"
+ },
+ "portal_fe:dcf0e6a81533": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.24 Usługi społeczne i zdrowotne - [nabór Nr FEKP.08.24-IZ.00-309/26]"
+ },
+ "portal_fe:b0d89fa302ab": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.2 Wzmocnienie kompetencji uczniów nr FEMA.07.02-IP.01-134/26 dla regionu mazow"
+ },
+ "portal_fe:6c06b5355182": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 2.8 Wsparcie służb ratowniczych [nabór nr FEKP.02.08-IZ.00-310/26]"
+ },
+ "portal_fe:3d9beeae0b5e": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.2 Niskoemisyjny transport miejski w ramach ZIT"
+ },
+ "portal_fe:b44d0e6fbb31": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.3 Infrastruktura w edukacji zawodowej nr FEMA.05.03-IP.01-095/26 dla RWS i RMR"
+ },
+ "portal_fe:552755b4731d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.2 Rozwój transportu zbiorowego i poprawa bezpieczeństwa ruchu w ramach program"
+ },
+ "portal_fe:fd92d2929c12": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.4 Rozwój szkolnictwa branżowego FESW.08.04-IZ.00-004/26"
+ },
+ "portal_fe:7ef48f415988": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 13.2 Przywracanie równowagi wodnej na obszarach oddziaływania kopalń, "
+ },
+ "portal_fe:c6ebf133f84d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:a513d5468791": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:630688c61059": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "14.6 Wsparcie mieszkańców Podkarpacia w zakresie gotowości cywilnej wobec sytuac"
+ },
+ "portal_fe:4f66d82da578": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "17.1 Zintegrowana terytorialnie gotowość cywilna i infrastruktura krytyczna"
+ },
+ "portal_fe:e8434857e608": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.3 Wzrost dostępności lokalnych usług społecznych"
+ },
+ "portal_fe:737f65d312db": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:3fb159022d87": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "08.05 Usługi społeczne i zdrowotne, nr FEMA.08.05-IP.01-138/26 dla regionu mazow"
+ },
+ "portal_fe:beab0ef06837": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "08.05 Usługi społeczne i zdrowotne, nr FEMA.08.05-IP.01-137/26 dla regionu warsz"
+ },
+ "portal_fe:3ee5791629f3": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Kultura i zrównoważona turystyka"
+ },
+ "portal_fe:5644b8aa2b81": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "08.05 Usługi społeczne i zdrowotne, nr FEMA.08.05-IP.01-136/26 dla regionu mazow"
+ },
+ "portal_fe:c05fe9027889": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.5 Usługi społeczne i zdrowotne, nr FEMA.08.05-IP.01-135/26 dla regionu warszaw"
+ },
+ "portal_fe:130268cd981f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.3. Zintegrowana terytorialnie efektywność energetyczna"
+ },
+ "portal_fe:8cac9d8ce686": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.2 Wsparcie osób młodych na regionalnym rynku pracy"
+ },
+ "portal_fe:4b82c8df62aa": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.11 Wychowanie przedszkolne – [nabór Nr FEKP.08.11-IZ.00-306/26]"
+ },
+ "portal_fe:567ad610fd08": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Szkolne i przedszkolne zespoły reagowania kryzysowego"
+ },
+ "portal_fe:5aa45b1a3951": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.13 Wysokiej jakości system włączenia społecznego"
+ },
+ "portal_fe:cab42e923394": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Rozumiem siebie, rozumiem innych. Opracowanie koncepcji wzmacniania kompetencji "
+ },
+ "portal_fe:404f7200bb23": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "FERC.02.01 nabór nr XII niekonkurencyjny (System Monitorowania Kształcenia Praco"
+ },
+ "portal_fe:2133e34f36ee": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 08.25 Usługi wsparcia rodziny i pieczy zastępczej – [nabór Nr FEKP.08."
+ },
+ "portal_fe:058caec0e971": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "14.2 Cyberbezpieczeństwo w szkołach podstawowych i ponadpodstawowych"
+ },
+ "portal_fe:e29154de8bae": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.23 Efektywność energetyczna – ZIT Radomsko-Piotrków Trybunalski-Bełchatów"
+ },
+ "portal_fe:fdab9f590ee1": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.29 Dostosowanie do zmian klimatu, zapobieganie klęskom i katastrofom – ZIT Tom"
+ },
+ "portal_fe:e14f733c9dc4": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "14.1 Kształcenie zawodowe w obronności i cyberbezpieczeństwie"
+ },
+ "portal_fe:610603fc53cb": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.6 Kultura i turystyka - ZIT Tomaszów Mazowiecki-Opoczno"
+ },
+ "portal_fe:421533aaf6bf": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.4 Mobilność lokalna w transformacji"
+ },
+ "portal_fe:db94bd2f42e8": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.2 Wzmocnienie kompetencji uczniów nr FEMA.07.02-IP.01-132/26 dla regionu mazow"
+ },
+ "portal_fe:7146cab200c6": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.2 Wzmocnienie kompetencji uczniów nr FEMA.07.02-IP.01-131/26 dla regionu warsz"
+ },
+ "portal_fe:b0ef268b6394": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.2 Zwiększenie odporności i gotowości cywilnej w szkołach (typ A)"
+ },
+ "portal_fe:562736f89ba6": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.2 Wzmocnienie kompetencji uczniów nr FEMA.07.02-IP.01-130/26 dla regionu mazow"
+ },
+ "portal_fe:0b3cc74c6436": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.2 Wzmocnienie kompetencji uczniów nr FEMA.07.02-IP.01-129/26 dla regionu warsz"
+ },
+ "portal_fe:10e907bb4ebc": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.6 Usługi społeczne na rzecz rodzin"
+ },
+ "portal_fe:5c5cb56fec25": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.6 Usługi społeczne na rzecz rodzin"
+ },
+ "portal_fe:00e30ea3eadf": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.5 Ochrona środowiska pracy"
+ },
+ "portal_fe:bc18bb54ae4b": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.5 Usługi społeczne"
+ },
+ "portal_fe:9c919e070e51": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.8 Gospodarka wodno - ściekowa"
+ },
+ "portal_fe:d6480d43c3a7": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "18.1 Przystępne cenowo i zrównoważone mieszkania na obszarach górniczych (528/26"
+ },
+ "portal_fe:5be3155cd9a9": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Nabór konkurencyjny nr FEDS.16.01-IZ.00-527/26, Działanie 16.1 Przystępne cenowo"
+ },
+ "portal_fe:f763870594bb": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.8 Integracja obywateli państw trzecich na rynku pracy"
+ },
+ "portal_fe:c810cc47e4b9": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.12 Ochrona bioróżnorodności (007/26)"
+ },
+ "portal_fe:3af0e1e58c96": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.12 Ochrona bioróżnorodności (008/26)"
+ },
+ "portal_fe:810edd628aed": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Testowanie wdrożenia usługi zatrudnienia wspomaganego"
+ },
+ "portal_fe:d9d4cfb83b8c": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.1 Aktywna  integracja (003/26)"
+ },
+ "portal_fe:a422a7539326": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "3.2 Mobilność miejska – ZIT Schemat A – ZIT MOF Olsztyn (003/26)"
+ },
+ "portal_fe:8eee735372fc": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "14.01 Bezpieczeństwo wodne"
+ },
+ "portal_fe:eb5854287758": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.3 Przestrzeń społeczna wysokiej jakości"
+ },
+ "portal_fe:66acb8a7e913": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.3 Budowanie potencjału partnerów społecznych oraz organizacji społeczeństwa ob"
+ },
+ "portal_fe:9643e7b8fd73": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Centra Usług Społecznych - III edycja (tryb niekonkurencyjny)"
+ },
+ "portal_fe:4a8d09d753dd": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "1.5 Wzrost konkurencyjności podlaskich przedsiębiorstw"
+ },
+ "portal_fe:682c9918eb26": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.8 Dostosowanie do zmian klimatu, zapobieganie klęskom i katastrofom"
+ },
+ "portal_fe:d4bac4168f16": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "11.1 Wspieranie rozbudowy połączeń wzajemnych oraz powiązanej infrastruktury ele"
+ },
+ "portal_fe:9f552023803c": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4. Aktywny Południowy Bałtyk, Wzmocnienie zdolności współpracy, Projekty małej s"
+ },
+ "portal_fe:ef0e86f7f75f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4. Aktywny Południowy Bałtyk, Wzmocnienie zdolności współpracy"
+ },
+ "portal_fe:0993e4053080": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.4 Wzmocnienie lokalnej aktywnej integracji społecznej"
+ },
+ "portal_fe:b94d0f37029f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:58702863962e": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:c21ec368f818": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.1 Lokalna energia odnawialna"
+ },
+ "portal_fe:bb313fca6742": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.1 Lokalna energia odnawialna"
+ },
+ "portal_fe:be861f944294": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.12 Ochrona bioróżnorodności (005/26)"
+ },
+ "portal_fe:47b16e18845a": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.12 Ochrona bioróżnorodności (004/26)"
+ },
+ "portal_fe:eba5ced34ee6": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.8 Gospodarka wodno-ściekowa (001/26)"
+ },
+ "portal_fe:620d3938ce6d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.1 Efektywność energetyczna (005/26)"
+ },
+ "portal_fe:b425c4b8f2a9": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "FEDR.03.01-IW.03-004/26 Wsparcie na inwestycje lub działania związane z tworzeni"
+ },
+ "portal_fe:65b867a0432c": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.12 Ochrona bioróżnorodności (006/26)"
+ },
+ "portal_fe:3c9f5d7cdbfc": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "1. Innowacyjny Południowy Bałtyk, Cyfryzacja regionu"
+ },
+ "portal_fe:add81847e3a7": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.3 Przestrzeń społeczna wysokiej jakości"
+ },
+ "portal_fe:c55d3184d326": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.12 Ochrona bioróżnorodności (003/26)"
+ },
+ "portal_fe:cac954a68b04": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.12 Edukacja osób dorosłych"
+ },
+ "portal_fe:bd7e566ad4f4": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.17 Rozwój oferty klastrów dla firm - nabór dla koordynatorów Ponadregionalnych"
+ },
+ "portal_fe:7fd7419330f5": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.1 Rewitalizacja miejska"
+ },
+ "portal_fe:89f167059b6d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.3 Lokalna rewitalizacja"
+ },
+ "portal_fe:60c12f49f635": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.17 Rozwój oferty klastrów dla firm"
+ },
+ "portal_fe:117798e356d9": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.2 First Team"
+ },
+ "portal_fe:db79400b0571": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Lokalna kultura i turystyka"
+ },
+ "portal_fe:12214e138bfd": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "1.9 Rozwój kompetencji cyfrowych (KRC Skalowanie II nabór)"
+ },
+ "portal_fe:a5c59a8381c3": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.14 Usługi rozwojowe dla kadr administracji samorządowej (350/26)"
+ },
+ "portal_fe:f0a0d3b6d7c3": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.6 Zintegrowana terytorialnie energia odnawialna"
+ },
+ "portal_fe:38e77dec22e9": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "17.2 Kształcenie zawodowe dla bezpieczeństwa"
+ },
+ "portal_fe:5c5d10d8f93f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "10.3 Budowa ekosystemu instytucji otoczenia biznesu oraz wsparcie publicznej inf"
+ },
+ "portal_fe:24376d4cfe18": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.6 Zintegrowana terytorialnie energia odnawialna"
+ },
+ "portal_fe:074a7acf8a79": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.3 Wsparcie infrastruktury zdrowotnej na wypadek sytuacji kryzysowej lub konfl"
+ },
+ "portal_fe:7c659801ea7a": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.3 Wsparcie infrastruktury zdrowotnej na wypadek sytuacji kryzysowej lub konfl"
+ },
+ "portal_fe:3c5ae17c4f1b": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.3 Wsparcie infrastruktury zdrowotnej na wypadek sytuacji kryzysowej lub konfl"
+ },
+ "portal_fe:9850e32bcec6": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.3 Wsparcie infrastruktury zdrowotnej na wypadek sytuacji kryzysowej lub konfl"
+ },
+ "portal_fe:9c49fda14736": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.1 Wzmocnienie cyberbezpieczeństwa oraz rozwój odpornej infrastruktury przetwar"
+ },
+ "portal_fe:43ead2cf8081": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.2 Zintegrowana terytorialnie mobilność miejska"
+ },
+ "portal_fe:26ac77749cad": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "15.1 Infrastruktura lotniskowa FESW.15.01-IZ.00-001/26"
+ },
+ "portal_fe:32341abf8c95": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.6 Zwiększanie odporności na zmiany klimatu i klęski żywiołowe w ramach ZIT"
+ },
+ "portal_fe:50fec8023fea": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "3.2 Rozwój zrównoważonej mobilności miejskiej w ramach ZIT"
+ },
+ "portal_fe:80002cbcb404": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "11.1 Rewitalizacja zdegradowanych obszarów miejskich"
+ },
+ "portal_fe:068c6e6985e0": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 2.8 Wsparcie służb ratowniczych [nabór nr FEKP.02.08-IZ.00-297/26]"
+ },
+ "portal_fe:abf5581762f8": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.5. Wspieranie zatrudnienia w regionie – projekty podmiotów innych niż PUP"
+ },
+ "portal_fe:18888de00a0b": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "14.1 Wzmocnienie lokalnych systemów dostępu do wody FESW.14.01-IZ.00-001/26"
+ },
+ "portal_fe:48c497800062": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.4 Kultura i zrównoważona turystyka"
+ },
+ "portal_fe:7b80fd2deb81": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.8 Ochrona przyrody i różnorodności biologicznej, nr naboru FEPK.02.08-IZ.00-00"
+ },
+ "portal_fe:5d326c639744": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.2 Zintegrowana terytorialnie kultura i turystyka miejska"
+ },
+ "portal_fe:3fe52907f920": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "1.5 Rozwój i podnoszenie jakości e-usług sektora publicznego"
+ },
+ "portal_fe:153320a5210d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4. Wzmocnienie zaufania, wspólne kształtowanie rozwoju transgranicznego, Meklemb"
+ },
+ "portal_fe:b5bf29942024": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "3. Umożliwienie lepszego uczestnictwa w transgranicznym życiu codziennym poprzez"
+ },
+ "portal_fe:003256111f71": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "jst",
+   "ngo"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "regions": [
+   "zachodniopomorskie"
+  ],
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "Interreg PL-DE, MŚP jako partner projektu innowacyjnego",
+  "name": "1. Aktywizacja transgranicznych potencjałów innowacyjności, Meklemburgia - Pomor"
+ },
+ "portal_fe:9457d6096a1b": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.2 Zintegrowana terytorialnie mobilność miejska"
+ },
+ "portal_fe:3fddd9e2f6eb": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "13.2 Infrastruktura drogowa podwójnego przeznaczenia, Fundusze Europejskie na In"
+ },
+ "portal_fe:826e410f3476": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2. Turystyka - kształcenie, Czechy - Polska"
+ },
+ "portal_fe:c0759d8e6cf8": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.6 Zintegrowana terytorialnie energia odnawialna"
+ },
+ "portal_fe:e2d0fba906ec": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.1 Rozwój miast i miejskich obszarów funkcjonalnych (ZIT) FESW.06.01-IZ.00-001/"
+ },
+ "portal_fe:7ffd077de8fc": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.3 Wzmacnianie lokalnych potencjałów na obszarach innych niż obszary miejskie F"
+ },
+ "portal_fe:707be99ffddf": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.3 Wzmacnianie lokalnych potencjałów na obszarach innych niż obszary miejskie F"
+ },
+ "portal_fe:c49eba288bd8": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Działanie 5.19 Regionalne ścieżki rowerowe VeloMałopolska, typ projektu A"
+ },
+ "portal_fe:75e742d3390f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.3. Zintegrowana terytorialnie efektywność energetyczna"
+ },
+ "portal_fe:2c7e1a3d1969": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.4. Zintegrowane terytorialnie inwestycje społeczne"
+ },
+ "portal_fe:fedc7ebd7460": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.2 Zintegrowane terytorialnie inwestycje w edukację"
+ },
+ "portal_fe:172922a0d56a": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.12 Zintegrowana terytorialnie ochrona przyrody"
+ },
+ "portal_fe:d274d701af70": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.2 Porty morskie i śródlądowe drogi wodne w TEN‐T, Fundusze Europejskie na Infr"
+ },
+ "portal_fe:d2d6078be50d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.11 Edukacja zawodowa na obszarach objętych Strategią IIT"
+ },
+ "portal_fe:95c090e023a9": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.20 Rozwój usług społecznych, w tym usług świadczonych w społeczności lokalnej "
+ },
+ "portal_fe:fe9fab5e2d03": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.10 Edukacja zawodowa na obszarach objętych Strategią ZIT"
+ },
+ "portal_fe:e625ffaab65e": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.19 Rozwój usług społecznych, w tym usług świadczonych w społeczności lokalnej "
+ },
+ "portal_fe:d7527288ed05": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.2 Rozwój obszarów innych niż miejskie (IIT)"
+ },
+ "portal_fe:e672c0d6f666": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "7.1 Rozwój obszarów miejskich (ZIT)"
+ },
+ "portal_fe:0dcaf0fc7dd4": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "3.1 Czysty transport miejski (ZIT)"
+ },
+ "portal_fe:fa38f70210f1": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.8 Zwiększenie efektywności energetycznej budynków użyteczności publicznej (IIT"
+ },
+ "portal_fe:f35d7185b217": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.14 Adaptacja do zmian klimatu (IIT)"
+ },
+ "portal_fe:f79ba67ec1c7": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.13 Adaptacja do zmian klimatu (ZIT)"
+ },
+ "portal_fe:e6444620c02f": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.7 Zwiększenie efektywności energetycznej budynków użyteczności publicznej (ZIT"
+ },
+ "portal_fe:02620cdf9ef4": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "9.2 Rozwój ZIT (305/25)"
+ },
+ "portal_fe:75e63f7d5a42": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.1. Infrastruktura drogowa FESW.04.01-IZ.00-001/25"
+ },
+ "portal_fe:13bf5bd27d04": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.1 Rozwój miast i miejskich obszarów funkcjonalnych (ZIT) FESW.06.01-IZ.00-003/"
+ },
+ "portal_fe:c6d6ff8e93df": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.7 Bezpieczeństwo morskie i śródlądowe drogi wodne poza TEN‐T, Fundusze Europej"
+ },
+ "portal_fe:9c1f1e9e6eae": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "6.1 Rozwój miast i miejskich obszarów funkcjonalnych (ZIT) FESW.06.01-IZ.00-002/"
+ },
+ "portal_fe:4a26376434ad": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "ZMIANA TERMINU: 5.9 Dostępne i efektywne usługi zdrowotne"
+ },
+ "portal_fe:faf11d5c550c": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.3 Infrastruktura energetyczna, Fundusze Europejskie na Infrastrukturę, Klimat"
+ },
+ "portal_fe:7fa7fe130778": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.6 Integracja społeczna"
+ },
+ "portal_fe:fbf6518f3105": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.5 Usługi społeczne świadczone w społeczności lokalnej"
+ },
+ "portal_fe:b67978006014": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.3 Wsparcie jakości edukacji"
+ },
+ "portal_fe:394a456d0c3d": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "8.4 Wsparcie osób dorosłych w zdobywaniu kompetencji"
+ },
+ "portal_fe:e76aec4244b3": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.7 Bezpieczeństwo morskie i śródlądowe drogi wodne poza TEN‐T, Fundusze Europej"
+ },
+ "portal_fe:877783773ca1": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.1 Infrastruktura transportowa"
+ },
+ "portal_fe:2780cdb3ee93": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "Rozwój zdolności uczniów poza edukacją formalną, nabór nr FEPK.08.01-IZ.00-001/2"
+ },
+ "portal_fe:10ec90741fee": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.1 Drogi w sieci bazowej TEN‐T, Fundusze Europejskie na Infrastrukturę, Klimat"
+ },
+ "portal_fe:f375878f97bb": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.3 Drogi i bezpieczeństwo ruchu drogowego, Fundusze Europejskie na Infrastruktu"
+ },
+ "portal_fe:09a955455f69": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.3 Drogi i bezpieczeństwo ruchu drogowego, Fundusze Europejskie na Infrastruktu"
+ },
+ "portal_fe:b6fa961a79df": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.1 Drogi w sieci kompleksowej TEN‐T, Fundusze Europejskie na Infrastrukturę, Kl"
+ },
+ "portal_fe:8ce3d87c67ff": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.2 Infrastruktura rowerowa"
+ },
+ "portal_fe:31bf7566abf1": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "4.1 Infrastruktura transportowa"
+ },
+ "portal_fe:49a2ed4c7992": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "5.10 Rozwój i wzmocnienie potencjału turystycznego regionu"
+ },
+ "portal_fe:c77269a89ac7": {
+  "direct_support": false,
+  "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
+  "name": "2.23 Ochrona przyrody i jej zasobów"
  }
 }
