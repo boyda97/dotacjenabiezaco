@@ -173,6 +173,17 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .howto p{margin:6px 0 0!important;padding:0!important;color:var(--ink)!important;font-size:13px!important}
 .howto ul,.howto ol{margin:4px 0 6px;padding-left:20px;color:var(--ink)}
 .howto li{margin:2px 0}
+.ev .meta{font-size:13px;color:var(--mut);margin-top:3px}
+.kind{display:inline-block;font-size:11.5px;font-weight:700;color:var(--greenT);background:var(--greenL);border-radius:99px;padding:2px 8px;margin-right:6px}
+.acts{align-items:center}
+.acts .howto{margin-top:0;border:0;padding:0;background:none}
+.acts .howto summary{display:inline-flex;gap:4px;justify-content:flex-start;list-style:none;font:700 12px/1 var(--font)!important;padding:6px 10px!important;border:1px solid var(--line);border-radius:7px;background:var(--surface)}
+.acts .howto summary::-webkit-details-marker{display:none}
+.acts .howto summary::after{content:" ▾";font-size:12px!important}
+.acts .howto[open]{flex-basis:100%;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--surface)}
+.acts .howto[open] summary{border:0;padding:2px 0!important}
+.acts .howto[open] summary::after{content:" ▴"}
+.howto .src{font-size:12px!important;color:#8d9893!important}
 
 .ev .locknote{font-size:12px;color:#8d9893;margin-top:4px}
 .ev.lock h4{color:var(--ink);font-weight:700}
@@ -309,7 +320,7 @@ body{background:var(--paper)}
     <a class="logo" href="/panel"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="160" height="50"></a>
     <nav class="appnav" aria-label="Panel">
       <a href="/panel" aria-current="page">Wyszukiwarka</a>
-      <a href="/profil#ulubione">Ulubione</a>
+      <a href="/ulubione">Ulubione</a>
       <a href="/profil">Konto</a>
     </nav>
   </div>
@@ -507,13 +518,16 @@ body{background:var(--paper)}
       var t=parse(p.deadline),n=t?daysTo(t):null,far=n!=null&&n>365,hot=n!=null&&n<30,id=String(p.id);
       var date=!t?'<div class="date open"><small>'+(p.status==="soon"?"wkrótce":"ciągły")+'</small></div>':far?'<div class="date yr"><small>do</small><b>'+t.getFullYear()+'</b></div>':'<div class="date"><small>'+MON[t.getMonth()]+'</small><b>'+t.getDate()+'</b></div>';
       var when=!t?(p.status==="soon"?"nabór wkrótce":"nabór ciągły"):far?"termin programu "+fmt(t):'<span class="left">'+left(n)+'</span>';
-      var sub=[esc(p.op||""),p.level?"dofinansowanie "+esc(p.level.replace(" %","%")):"",when].filter(Boolean).join(" · ");
+      // Zwięzła karta: nazwa i kwota, rodzaj z terminem i dla kogo; reszta po kliknięciu „Szczegóły i jak złożyć”.
       var match=(p.why||[]).filter(function(w){return w.state==="ok"&&w.t}).slice(0,4).map(function(w){return w.t});
+      var meta='<span class="kind">'+esc((TYPE[p.type]||"wsparcie").toLowerCase())+'</span>'+when+(p.level?" · dofinansowanie "+esc(p.level.replace(" %","%")):"");
       var ck=parse(p.checked),src=[host(p.url)?"Źródło: "+esc(host(p.url)):"",ck&&p.source&&p.source!=="seed"?"sprawdzono "+fmt(ck):""].filter(Boolean).join(" · ");
-      return '<div class="ev'+(hot?" hot":"")+'">'+date+'<div><h4>'+esc(p.name)+'</h4><p>'+sub+'</p>'+(match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+(window.Wniosek?Wniosek.html(p):"")+
+      var before=(p.op?'<p><b>Kto prowadzi:</b> '+esc(p.op)+'</p>':"")+(match.length?'<p><b>Pasuje, bo:</b> '+esc(match.join(", "))+'</p>':"");
+      var after=(p.url?'<p><a href="'+esc(p.url)+'" target="_blank" rel="noopener">Ogłoszenie i regulamin →</a></p>':"")+(src?'<p class="src">'+src+'</p>':"");
+      return '<div class="ev'+(hot?" hot":"")+'">'+date+'<div><h4>'+esc(p.name)+'</h4><p class="meta">'+meta+'</p>'+
         '<div class="acts"><button type="button" class="fav" data-fav="'+esc(id)+'" aria-pressed="'+!!saved[id]+'">'+(saved[id]?"★ Zapisane":"☆ Zapisz")+'</button>'+
-        (p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">Ogłoszenie i regulamin →</a>':"")+'</div></div>'+
-        '<div class="v">'+esc(p.max?"do "+zl(p.max):"")+'<small>'+esc(TYPE[p.type]||"")+'</small></div></div>';
+        (window.Wniosek?Wniosek.html(p,{title:"Szczegóły i jak złożyć",before:before,after:after}):"")+'</div></div>'+
+        '<div class="v">'+esc(p.max?"do "+zl(p.max):"")+'</div></div>';
     }).join("")||'<p class="empty">'+(programs.length?"Żaden nabór nie pasuje do tych filtrów.":"Brak pasujących naborów. Spróbuj „Na dowolny cel” albo „Wszystkie branże”.")+'</p>';
     $("subtitle").textContent=last?last.sub:"";
   }

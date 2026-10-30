@@ -173,6 +173,18 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .howto p{margin:6px 0 0!important;padding:0!important;color:var(--ink)!important;font-size:13px!important}
 .howto ul,.howto ol{margin:4px 0 6px;padding-left:20px;color:var(--ink)}
 .howto li{margin:2px 0}
+.ev .meta{font-size:13px;color:var(--mut);margin-top:3px}
+.kind{display:inline-block;font-size:11.5px;font-weight:700;color:var(--greenT);background:var(--greenL);border-radius:99px;padding:2px 8px;margin-right:6px}
+.acts{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+.acts .fav{margin-top:0}
+.acts .howto{margin-top:0;border:0;padding:0;background:none}
+.acts .howto summary{display:inline-flex;gap:4px;justify-content:flex-start;list-style:none;font:700 12px/1 var(--font)!important;padding:6px 10px!important;border:1px solid var(--line);border-radius:7px;background:var(--surface)}
+.acts .howto summary::-webkit-details-marker{display:none}
+.acts .howto summary::after{content:" ▾";font-size:12px!important}
+.acts .howto[open]{flex-basis:100%;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--surface)}
+.acts .howto[open] summary{border:0;padding:2px 0!important}
+.acts .howto[open] summary::after{content:" ▴"}
+.howto .src{font-size:12px!important;color:#8d9893!important}
 
 .ev .locknote{font-size:12px;color:#8d9893;margin-top:4px}
 .ev.lock h4{color:var(--ink);font-weight:700}
@@ -585,8 +597,12 @@ footer a{color:var(--mut)}
     var name=p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>':esc(p.name);
     var ck=parse(p.checked),src=[host(p.url)?"Źródło: "+esc(host(p.url)):"",ck&&p.source&&p.source!=="seed"?"sprawdzono "+fmt(ck):""].filter(Boolean).join(" · ");
     var fav=id&&!view.example?'<button type="button" class="fav" data-fav="'+esc(id)+'" aria-pressed="'+!!saved[id]+'">'+(saved[id]?"★ Zapisane":"☆ Zapisz")+'</button>':"";
-    return '<div class="ev free'+(hot?" hot":"")+'">'+date+'<div><span class="freebadge">Pełny opis za darmo</span><h4>'+name+'</h4><p>'+[esc(p.op||""),when].filter(Boolean).join(" · ")+'</p>'+
-      (match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+(window.Wniosek?Wniosek.html(p):"")+fav+'</div>'+amount+'</div>';
+    // Zwięzła karta jak w wyszukiwarce: szczegóły i instrukcja po kliknięciu.
+    var meta='<span class="kind">'+esc((TYPE[p.type]||"wsparcie").toLowerCase())+'</span>'+when;
+    var before=(p.op?'<p><b>Kto prowadzi:</b> '+esc(p.op)+'</p>':"")+(match.length?'<p><b>Pasuje, bo:</b> '+esc(match.join(", "))+'</p>':"");
+    var after=(p.url?'<p><a href="'+esc(p.url)+'" target="_blank" rel="noopener">Ogłoszenie i regulamin →</a></p>':"")+(src?'<p class="src">'+src+'</p>':"");
+    return '<div class="ev free'+(hot?" hot":"")+'">'+date+'<div><span class="freebadge">Pełny opis za darmo</span><h4>'+name+'</h4><p class="meta">'+meta+'</p>'+
+      '<div class="acts">'+fav+(window.Wniosek?Wniosek.html(p,{title:"Szczegóły i jak złożyć",before:before,after:after}):"")+'</div></div>'+amount.replace(/<small>.*?<\/small>/,"")+'</div>';
   }
   function byDate(a,b){var x=parse(a.deadline),y=parse(b.deadline);if(x&&y)return x-y;if(x)return-1;if(y)return 1;return 0}
   function ordered(){

@@ -104,7 +104,7 @@ td.l{text-align:left;white-space:normal;min-width:180px}
       api("/api/admin/programs").then(function(j){
         var src=Object.keys(j.bySource).map(function(k){return'<tr><td>'+esc(k==="seed"?"seed (przykładowe, do weryfikacji)":k)+'</td><td>'+n(j.bySource[k])+'</td></tr>'});
         out.innerHTML='<h1>Nabory w bazie</h1><p class="sub">Stan bazy, z której korzysta wyszukiwarka. Źródła są sprawdzane codziennie o 6:00.</p>'+
-          '<div class="tiles">'+tile(n(j.total),"wszystkich")+tile(n(j.byStatus.open),"trwa")+tile(n(j.byStatus.soon),"wkrótce")+tile(n(j.byStatus.closed),"zakończonych")+tile(n(j.withDocuments),"z listą dokumentów (AI)")+'</div>'+
+          '<div class="tiles">'+tile(n(j.total),"wszystkich")+tile(n(j.byStatus.open),"trwa")+tile(n(j.byStatus.soon),"wkrótce")+tile(n(j.byStatus.closed),"zakończonych")+tile(n(j.reviewed),"sprawdzonych ręcznie")+'</div>'+
           '<h2>Według źródła</h2>'+table(["Źródło","Nabory"],src)+
           '<h2>Lista według terminu</h2>'+table(["Nazwa","Instytucja","Źródło","Stan","Termin","Kwota","Sprawdzono"],j.programs.map(function(p){
             var st={open:"trwa",soon:"wkrótce",closed:"zakończony"}[p.status]||p.status;

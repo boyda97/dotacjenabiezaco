@@ -98,6 +98,7 @@ class Program:
             "requires": self.requires, "requires_all": self.requires_all, "how": self.how, "url": self.url,
             "apply_where": self.apply_where, "documents": self.documents,
             "source": self.source, "checked": getattr(self, "checked", None),
+            "reviewed": self.ai_extracted,
         }
 
     @classmethod
