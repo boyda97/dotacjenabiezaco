@@ -73,7 +73,7 @@ def _process(store, p, use_ai, http, today, reviews=None):
 def _for_clients(p) -> bool:
     """AI czyta tylko nabory, które mogą trafić do klientów (firmy, rolnicy, zakładający firmę).
     Nabory już rozpoznane jako tylko dla gmin i urzędów pomijamy - to ok. 2/3 Portalu FE i spory koszt."""
-    return p.forms is None or bool(set(p.forms) & (set(tx.BUSINESS_FORMS) | {"none", "rolne"}))
+    return p.forms is None or bool(set(p.forms) & set(tx.CLIENT_FORMS))
 
 
 def _ai(p, http=None):

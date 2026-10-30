@@ -3,7 +3,7 @@
 Raz w tygodniu Claude czyta nabory, które mogą trafić do klientów (`python -m dotacjomat przeglad`),
 i zapisuje ocenę w data/przeglad.json: {klucz naboru: {pola}}. Pipeline nakłada ją przy każdej
 aktualizacji. Pola są opcjonalne - wpisuje się tylko to, co trzeba poprawić względem heurystyki:
-  direct_support  false = wsparcie nie trafia do samej firmy (firma byłaby tylko realizatorem) -> nabór znika dla firm
+  direct_support  false = wsparcie nie trafia do samej firmy ani gospodarstwa (byłyby tylko realizatorem) -> nabór znika dla klientów
   forms, sizes, sectors (null = wszystkie branże), goals, regions (null = cała Polska),
   min_pln, max_pln, requires, requires_all, pkd_excluded, how, apply_where, documents, note (uzasadnienie)
 """
@@ -33,9 +33,9 @@ def apply(p: Program, d: dict) -> Program:
         if key in d:
             setattr(p, attr, d[key])
     if d.get("direct_support") is False:
-        p.forms = [f for f in (p.forms or tx.FORMS) if f not in tx.BUSINESS_FORMS and f != "none"] or ["jst"]
-    resolved = {k for k in ("regions", "forms", "sizes", "sectors", "goals") if k in d or k == "forms" and "direct_support" in d}
-    p.unknown = sorted(set(p.unknown) - resolved)
+        p.forms = [f for f in (p.forms or tx.FORMS) if f not in tx.CLIENT_FORMS] or ["jst"]
+    # Po przeglądzie nic nie jest "nieznane": pola bez wpisu Claude uznał za poprawne.
+    p.unknown = []
     p.ai_extracted = True
     return p
 

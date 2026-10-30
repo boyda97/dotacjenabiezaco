@@ -343,6 +343,14 @@ class ReviewTest(unittest.TestCase):
         q = prog(sectors=None, regions=None, forms=list(tx.BUSINESS_FORMS), sizes=list(tx.MSP))
         review.apply(q, {"sectors": ["J"], "max_pln": 500000})
         self.assertEqual((q.sectors, q.max), (["J"], 500000))
+        # Ukryty nabór znika też dla gospodarstw, a po przeglądzie nic nie zostaje "nieznane".
+        r = prog(forms=["jst", "ngo", "rolne"], regions=None)
+        review.apply(r, {"direct_support": False})
+        self.assertEqual(r.forms, ["jst", "ngo"])
+        a = prog(source="arimr", forms=["rolne"], sizes=None, regions=None)
+        a.unknown = ["regions", "sizes"]
+        review.apply(a, {"sectors": ["A"]})
+        self.assertEqual(a.unknown, [])
 
     def test_pipeline_applies_review(self):
         from dotacjomat.sources import Source

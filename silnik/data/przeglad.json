@@ -1,1 +1,849 @@
-{"_info": "Oceny naborów z cotygodniowego przeglądu Claude. Opis pól: dotacjomat/review.py."}
+{
+ "_info": "Oceny naborów z cotygodniowego przeglądu Claude. Opis pól: dotacjomat/review.py.",
+ "nfosigw:769f685d0f0f": {
+  "direct_support": false,
+  "note": "nagłówek priorytetu, nie nabór",
+  "name": "Transformacja energetyczna"
+ },
+ "nfosigw:873889701f4b": {
+  "forms": [
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "large"
+  ],
+  "sectors": [
+   "D"
+  ],
+  "goals": [
+   "budowa"
+  ],
+  "note": "operatorzy sieci dystrybucyjnych",
+  "name": "Budowa/rozbudowa sieci elektroenergetycznych na potrzeby ogólnodostępnych stacji"
+ },
+ "nfosigw:bdcf5e7b2270": {
+  "forms": [
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "medium",
+   "large"
+  ],
+  "sectors": [
+   "B",
+   "C"
+  ],
+  "goals": [
+   "oze"
+  ],
+  "note": "przemysł energochłonny",
+  "name": "Przemysł energochłonny – OZE*"
+ },
+ "nfosigw:813b9dc4823b": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A",
+   "D"
+  ],
+  "goals": [
+   "oze"
+  ],
+  "note": "OZE na wsi: rolnicy, spółdzielnie energetyczne, firmy",
+  "name": "Energia dla wsi*"
+ },
+ "nfosigw:e5d1ff5ca96e": {
+  "direct_support": false,
+  "note": "osoby fizyczne, nowe domy",
+  "name": "Moje Ciepło*"
+ },
+ "nfosigw:e6b91dbb76b5": {
+  "forms": [
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "D"
+  ],
+  "goals": [
+   "oze",
+   "efektywnosc",
+   "budowa"
+  ],
+  "note": "przedsiębiorstwa ciepłownicze",
+  "name": "Magazyny ciepła w ciepłownictwie systemowym*"
+ },
+ "nfosigw:9a7f538a7367": {
+  "direct_support": false,
+  "note": "szpitale",
+  "name": "Poprawa efektywności energetycznej budynków szpitalnych*"
+ },
+ "nfosigw:eb61fbf6e210": {
+  "direct_support": false,
+  "note": "szkoły i JST",
+  "name": "Poprawa efektywności energetycznej budynków edukacyjnych*"
+ },
+ "nfosigw:9ab3a100b522": {
+  "forms": [
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "D"
+  ],
+  "goals": [
+   "oze",
+   "efektywnosc",
+   "budowa"
+  ],
+  "note": "przedsiębiorstwa ciepłownicze",
+  "name": "Fundusz Transformacji Ciepłownictwa"
+ },
+ "nfosigw:5c1a6c941b55": {
+  "direct_support": false,
+  "note": "nagłówek priorytetu",
+  "name": "Poprawa jakości powietrza"
+ },
+ "nfosigw:5ab2bb5a5376": {
+  "direct_support": false,
+  "note": "osoby fizyczne",
+  "name": "Dofinansowanie przydomowych magazynów energii Część 2) finansowanie ze środków F"
+ },
+ "nfosigw:2f27df0b9940": {
+  "direct_support": false,
+  "note": "osoby fizyczne",
+  "name": "Czyste Powietrze"
+ },
+ "nfosigw:233e1af5ba8a": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "D",
+   "G",
+   "H"
+  ],
+  "goals": [
+   "pojazdy",
+   "budowa"
+  ],
+  "note": "stacje ładowania dla ciężarówek",
+  "name": "Wsparcie budowy lub rozbudowy ogólnodostępnej stacji ładowania dla transportu ci"
+ },
+ "nfosigw:dc25abb270e4": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "C",
+   "C10",
+   "E",
+   "F",
+   "G",
+   "H"
+  ],
+  "goals": [
+   "pojazdy"
+  ],
+  "note": "zakup/leasing ciężarówek zeroemisyjnych",
+  "name": "Wsparcie zakupu lub leasingu pojazdów zeroemisyjnych kategorii N2 i N3*"
+ },
+ "nfosigw:2f17efe87b1e": {
+  "direct_support": false,
+  "note": "JST i operatorzy komunikacji publicznej",
+  "name": "Czysty transport publiczny"
+ },
+ "nfosigw:d5edc2922223": {
+  "direct_support": false,
+  "note": "nagłówek priorytetu",
+  "name": "Gospodarka o obiegu zamkniętym, w tym gospodarowanie odpadami, ochrona wód i gos"
+ },
+ "nfosigw:0cc1757b1686": {
+  "direct_support": false,
+  "note": "gminy",
+  "name": "Usuwanie nielegalnie nagromadzonych odpadów"
+ },
+ "nfosigw:bb9179f44165": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "E"
+  ],
+  "goals": [
+   "goz",
+   "budowa"
+  ],
+  "note": "tylko projekty z FEnIKS 1.4/1.5",
+  "name": "Współfinansowanie projektów dotyczących gospodarki odpadami, gospodarki o obiegu"
+ },
+ "nfosigw:3b05493a57e6": {
+  "direct_support": false,
+  "note": "gminy górnicze",
+  "name": "Zmniejszenie uciążliwości wynikających z wydobywania kopalin"
+ },
+ "nfosigw:cd6863cdf900": {
+  "direct_support": false,
+  "note": "gminy i spółki komunalne",
+  "name": "Gospodarka wodno-ściekowa w aglomeracjach Część 1) Gospodarka ściekowa w ramach "
+ },
+ "nfosigw:4e31b4493502": {
+  "direct_support": false,
+  "note": "gminy i spółki komunalne",
+  "name": "Gospodarka wodno-ściekowa w aglomeracjach Część 2) Współfinansowanie projektów P"
+ },
+ "nfosigw:440a655f7f03": {
+  "direct_support": false,
+  "note": "gminy",
+  "name": "Gospodarka wodno-ściekowa poza granicami aglomeracji"
+ },
+ "nfosigw:b4cf00e4e112": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "sectors": [
+   "A",
+   "C10",
+   "D",
+   "E"
+  ],
+  "goals": [
+   "oze"
+  ],
+  "note": "biogazownie z kogeneracją",
+  "name": "Wysokosprawna kogeneracja z biogazu wytwarzanego z biomasy, w tym z odpadów komu"
+ },
+ "nfosigw:c10ffd36bb8c": {
+  "forms": [
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "D",
+   "E"
+  ],
+  "goals": [
+   "goz",
+   "budowa"
+  ],
+  "note": "instalacje termicznego przekształcania odpadów",
+  "name": "Budowa instalacji termicznego przekształcania odpadów niebezpiecznych oraz osadó"
+ },
+ "nfosigw:d051282ecbb9": {
+  "direct_support": false,
+  "note": "ochrona przyrody: parki, RDOŚ, NGO",
+  "name": "Ochrona różnorodności biologicznej i funkcji ekosystemów"
+ },
+ "nfosigw:cd2de7b6503c": {
+  "direct_support": false,
+  "note": "ochrona przyrody: parki, RDOŚ, NGO",
+  "name": "Przestrzeń dla przyrody Część 1) Współfinansowanie projektów Programu Fundusze E"
+ },
+ "nfosigw:20932c527adf": {
+  "direct_support": false,
+  "note": "ochrona przyrody: parki, RDOŚ, NGO",
+  "name": "Przestrzeń dla przyrody Część 2) W stronę zielonej turystyki: zeroemisyjny trans"
+ },
+ "nfosigw:76e123f6ebb6": {
+  "direct_support": false,
+  "note": "ochrona przyrody: parki, RDOŚ, NGO",
+  "name": "Przestrzeń dla przyrody Część 3) Ochrona zagrożonych gatunków i siedlisk przyrod"
+ },
+ "nfosigw:5c4b35a4c0d1": {
+  "direct_support": false,
+  "note": "ochrona przyrody: parki, RDOŚ, NGO",
+  "name": "Przestrzeń dla przyrody Część 4) Nasze ekosystemy"
+ },
+ "nfosigw:a287689f7ba5": {
+  "direct_support": false,
+  "note": "nagłówek priorytetu",
+  "name": "Monitoring środowiska"
+ },
+ "nfosigw:c88c40075618": {
+  "direct_support": false,
+  "note": "nagłówek priorytetu",
+  "name": "Ekspertyzy środowiskowe"
+ },
+ "nfosigw:2b10a7473496": {
+  "direct_support": false,
+  "note": "instytuty geologiczne",
+  "name": "Poznanie budowy geologicznej na rzecz kraju"
+ },
+ "nfosigw:dacd57eaa931": {
+  "direct_support": false,
+  "note": "zlecenia ministra",
+  "name": "Wsparcie Ministra Klimatu i Środowiska w zakresie realizacji polityki klimatyczn"
+ },
+ "nfosigw:d4bf99ad2dc7": {
+  "direct_support": false,
+  "note": "tylko beneficjenci programu LIFE",
+  "name": "Współfinansowanie Programu LIFE"
+ },
+ "nfosigw:055c12688d32": {
+  "direct_support": false,
+  "note": "uszkodzony wiersz tabeli LIFE",
+  "name": "2025-06-18"
+ },
+ "nfosigw:a1180d4e9d89": {
+  "direct_support": false,
+  "note": "uszkodzony wiersz tabeli LIFE",
+  "name": "2026-05-12"
+ },
+ "nfosigw:e16451ccf8a0": {
+  "direct_support": false,
+  "note": "WFOŚiGW",
+  "name": "Wsparcie działań wojewódzkich funduszy ochrony środowiska i gospodarki wodnej na"
+ },
+ "nfosigw:7c14c792bf58": {
+  "direct_support": false,
+  "note": "edukacja ekologiczna: NGO i JST",
+  "name": "Edukacja ekologiczna"
+ },
+ "nfosigw:3a9a722ca36d": {
+  "direct_support": false,
+  "note": "edukacja ekologiczna: NGO i JST",
+  "name": "Edukacja ekologiczna Część 2) Współfinansowanie projektów Programu Fundusze Euro"
+ },
+ "nfosigw:f16882a26ba4": {
+  "direct_support": false,
+  "note": "edukacja ekologiczna: NGO i JST",
+  "name": "Edukacja ekologiczna Część 1) Edukacja ekologiczna na lata 2021-2028"
+ },
+ "nfosigw:789038769c1f": {
+  "direct_support": false,
+  "note": "edukacja ekologiczna: NGO i JST",
+  "name": "Edukacja ekologiczna w regionach"
+ },
+ "nfosigw:89f4bd3e0d97": {
+  "direct_support": false,
+  "note": "JST",
+  "name": "Adaptacja do zmian klimatu"
+ },
+ "nfosigw:947365d552c7": {
+  "direct_support": false,
+  "note": "służby ratownicze",
+  "name": "Ogólnopolski program finansowania służb ratowniczych Część 1) Dofinansowanie zak"
+ },
+ "nfosigw:092fbe962593": {
+  "direct_support": false,
+  "note": "JST i spółki wodne",
+  "name": "Mikroretencja"
+ },
+ "nfosigw:964060bb755b": {
+  "direct_support": false,
+  "note": "budynki publiczne",
+  "name": "Działania FENX. 01.01 Efektywność Energetyczna Typ projektu: Poprawa efektywnośc"
+ },
+ "nfosigw:9c38987d7f87": {
+  "direct_support": false,
+  "note": "JST",
+  "name": "Działanie FENX.01.02 Adaptacja terenów zurbanizowanych do zmian klimatu Typ proj"
+ },
+ "nfosigw:8a8d49494f12": {
+  "direct_support": false,
+  "note": "Wody Polskie, Lasy Państwowe",
+  "name": "Działanie: FENX.02.04 Adaptacja do zmian klimatu, zapobieganie klęskom i katastr"
+ },
+ "nfosigw:d0cbc7033f48": {
+  "direct_support": false,
+  "note": "instytucje publiczne",
+  "name": "Działanie: FENX.02.04 Adaptacja do zmian klimatu, zapobieganie klęskom i katastr"
+ },
+ "arimr:53f7ca928cfd": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet"
+  ],
+  "note": "pszczelarze",
+  "name": "Pszczelarze mogą składać wnioski o wsparcie - nabór trwa"
+ },
+ "arimr:8c2c990ff473": {
+  "forms": [
+   "rolne"
+  ],
+  "sectors": [
+   "A",
+   "C10"
+  ],
+  "goals": [
+   "sprzet",
+   "budowa"
+  ],
+  "note": "rolnicy z przetwórstwem w gospodarstwie",
+  "name": "Kończy się nabór wniosków na rozwój małego przetwórstwa w gospodarstwach - czas "
+ },
+ "arimr:8cb5812e975e": {
+  "forms": [
+   "rolne"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "note": "rolnicy",
+  "name": "Cztery programy wsparcia dla rolników - nabory trwają do 16 listopada"
+ },
+ "arimr:21974372b900": {
+  "forms": [
+   "rolne"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "plynnosc"
+  ],
+  "note": "pożyczka dla rolników z zaległościami",
+  "name": "Pożyczka na spłatę zobowiązań producentów rolnych - wnioski są przyjmowane do 2 "
+ },
+ "arimr:59c153616745": {
+  "direct_support": false,
+  "note": "wnioskują firmy szkoleniowe, nie rolnicy",
+  "name": "Wsparcie na specjalistyczne szkolenia dla rolników - więcej czasu na wnioski"
+ },
+ "arimr:8036ca7a5cb9": {
+  "forms": [
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A",
+   "C10"
+  ],
+  "goals": [
+   "marketing"
+  ],
+  "note": "grupy producentów w systemach jakości",
+  "name": "Rozwój współpracy producentów w ramach systemów jakości żywności - wkrótce nabór"
+ },
+ "arimr:cc3e169d1fab": {
+  "forms": [
+   "rolne"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet"
+  ],
+  "note": "hodowcy bydła",
+  "name": "Buhaje z refundacją 7 tys. zł. Wciąż można składać wnioski"
+ },
+ "arimr:b29ec1ea85a9": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "sectors": [
+   "A",
+   "C10",
+   "M"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "grupy operacyjne EPI",
+  "name": "Współpraca Grup Operacyjnych EPI - zakres Realizacja Operacji: nabór startuje 30"
+ },
+ "arimr:c80c0e001ca1": {
+  "forms": [
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A",
+   "C10"
+  ],
+  "goals": [
+   "marketing"
+  ],
+  "note": "grupy producentów",
+  "name": "Promowanie, informowanie i marketing dotyczący żywności wytwarzanej w ramach sys"
+ },
+ "ncbr:d1f87e25f899": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "C10",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "B+R żywność i dietetyka",
+  "name": "Przez żołądek do zdrowia. Rusza nowy nabór NCBR"
+ },
+ "ncbr:c93cea00a688": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "międzynarodowe konsorcja badawcze, zdrowie",
+  "name": "THCS Joint Transnational Call 2027: wkrótce ruszy piąty konkurs partnerstwa na r"
+ },
+ "ncbr:65d19d55b926": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "C",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "międzynarodowe konsorcja badawcze, diagnostyka",
+  "name": "NanoDiagNCD (JTC10 2027) - nowy konkurs w ramach partnerstwa ERA4Health, start w"
+ },
+ "ncbr:6669c0d2d740": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "międzynarodowe konsorcja badawcze, zdrowie",
+  "name": "IICS4all (JTC9 2027) - nowy konkurs w partnerstwie ERA4Health, start w październ"
+ },
+ "portal_fe:a65ccd8abd9b": {
+  "sizes": [
+   "large"
+  ],
+  "note": "tylko duże przedsiębiorstwa",
+  "name": "15.1 Zwiększenie potencjału przemysłu obronnego - przedsiębiorstwa dostarczające"
+ },
+ "portal_fe:b25ff46b6cb1": {
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "doradztwo",
+   "badania"
+  ],
+  "name": "2.12 Granty na Eurogranty"
+ },
+ "portal_fe:342d3b70257c": {
+  "direct_support": false,
+  "note": "tylko startupy po inkubacji na Platformach startowych",
+  "name": "1.1 Platformy startowe dla nowych pomysłów, Komponent IIa – Wsparcie rozwoju dzi"
+ },
+ "portal_fe:0aebb8912833": {
+  "direct_support": false,
+  "note": "JST, parki krajobrazowe",
+  "name": "3.10 Ochrona bioróżnorodności na obszarach poza formami ochrony przyrody"
+ },
+ "portal_fe:d966b50dc055": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Nadnotecka Grupa Ryback"
+ },
+ "portal_fe:2a1fbbdfd0b8": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Nadnotecka Grupa Ryback"
+ },
+ "portal_fe:15e31564be6d": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Nadnotecka Grupa Ryback"
+ },
+ "portal_fe:d4bb7cb2b8eb": {
+  "note": "sprawdzone, bez zmian",
+  "name": "8.4 Zdrowy pracownik"
+ },
+ "portal_fe:52ae7e35d2a8": {
+  "note": "sprawdzone, bez zmian",
+  "name": "13.01 Zdolności przemysłowe dla obronności i technologii podwójnego zastosowania"
+ },
+ "portal_fe:1be626a60310": {
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "badania",
+   "sprzet",
+   "budowa"
+  ],
+  "name": "12.1 Badania i innowacje dla bezpiecznej gospodarki"
+ },
+ "portal_fe:a4ca5465259d": {
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "name": "1.1 Ścieżka SMART – nabór projektów B+R"
+ },
+ "portal_fe:0b68b3f34bde": {
+  "note": "sprawdzone, bez zmian",
+  "name": "7.3 Rozwój kadr regionalnej gospodarki"
+ },
+ "portal_fe:8dfeb1552b28": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (GR \"Opolszczyzna\", Cel "
+ },
+ "portal_fe:c89b0aae212e": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (GR \"Opolszczyzna\", Cel "
+ },
+ "portal_fe:1bd8139a198c": {
+  "direct_support": false,
+  "note": "tylko startupy po inkubacji na Platformach startowych",
+  "name": "1.1 Platformy startowe dla nowych pomysłów – komponent IIb – Wsparcie rozwoju dz"
+ },
+ "portal_fe:80d43facaa2b": {
+  "note": "sprawdzone, bez zmian",
+  "name": "14.1 Rozwój technologii dual-use"
+ },
+ "portal_fe:f902e07d8d8a": {
+  "direct_support": false,
+  "note": "projekty szkoleniowe realizują instytucje szkoleniowe",
+  "name": "15.1 Podnoszenie kompetencji pracodawców oraz ich kadr w obszarach bezpieczeństw"
+ },
+ "portal_fe:4f35bc03d0cf": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Rybacka Lokalna Grupa D"
+ },
+ "portal_fe:40596b434678": {
+  "direct_support": false,
+  "note": "JST, parki krajobrazowe",
+  "name": "3.9 Ochrona bioróżnorodności na obszarach objętych formami ochrony przyrody"
+ },
+ "portal_fe:e635e9872df1": {
+  "direct_support": false,
+  "note": "projekty szkoleniowe realizują instytucje szkoleniowe",
+  "name": "15.1 Podnoszenie kompetencji pracodawców oraz ich kadr w obszarach bezpieczeństw"
+ },
+ "portal_fe:8f17c76341a4": {
+  "sectors": null,
+  "note": "wszystkie branże MŚP",
+  "name": "1.5 Zwiększenie potencjału MŚP i rozwój regionalnego ekosystemu innowacji FESW.0"
+ },
+ "portal_fe:f68f7fe78df7": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "FEDR.03.01-IW.03-007/26 Działania informacyjne lub promocyjne upowszechniające w"
+ },
+ "portal_fe:4600660555a4": {
+  "direct_support": false,
+  "note": "rybackie LGD: edukacja/promocja, JST i NGO",
+  "name": "FEDR.03.01-IW.03-006/26 Działania informacyjne lub promocyjne upowszechniające w"
+ },
+ "portal_fe:66b48010c290": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet",
+   "budowa",
+   "start"
+  ],
+  "note": "dywersyfikacja dochodów w sektorze rybackim",
+  "name": "FEDR.03.01-IW.03-001/26 Wspieranie podmiotów sektora rybackiego w zakresie dywer"
+ },
+ "portal_fe:46253ac92483": {
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "doradztwo",
+   "badania"
+  ],
+  "note": "usługi doradcze, bez pieniędzy",
+  "name": "2.14 HORIZON BRIDGE"
+ },
+ "portal_fe:505a9e931170": {
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "name": "1.2 Inwestycje przedsiębiorstw  w badania i innowacje"
+ },
+ "portal_fe:3a60ccdb77be": {
+  "note": "sprawdzone, bez zmian",
+  "name": "2.7 Lubelskie MŚP na rynkach zagranicznych"
+ },
+ "portal_fe:c357aa7cffb5": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "name": "2.11 Innowacje w OZE"
+ },
+ "portal_fe:0678ee4377f7": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "sizes": [
+   "micro",
+   "small"
+  ],
+  "name": "2.2 Innowacje w efektywności energetycznej"
+ },
+ "portal_fe:f9ecec1aee9e": {
+  "sectors": [
+   "C",
+   "C10",
+   "J",
+   "M"
+  ],
+  "name": "2.24 Polskie Mosty Technologiczne"
+ },
+ "portal_fe:818090c86e23": {
+  "sectors": [
+   "C",
+   "J",
+   "M"
+  ],
+  "name": "2.33 Kredyt na wytwarzanie produktów podwójnego zastosowania"
+ },
+ "portal_fe:898bbc35e54a": {
+  "note": "sprawdzone, bez zmian",
+  "name": "14.1 Wsparcie przedsiębiorstw w sektorze obronnym i bezpieczeństwa"
+ },
+ "portal_fe:fe20d8e11149": {
+  "note": "sprawdzone, bez zmian",
+  "name": "11.1 Inwestycje dla bezpieczeństwa i obrony, typ projektu Wsparcie przedsiębiors"
+ },
+ "portal_fe:386acb70ba89": {
+  "note": "sprawdzone, bez zmian",
+  "name": "13.1 Wsparcie przemysłu obronnego FESW.13.01-IZ.00-001/26"
+ },
+ "portal_fe:0022a2f2a725": {
+  "direct_support": false,
+  "note": "JST, renaturyzacja",
+  "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom, Renaturyzacj"
+ },
+ "portal_fe:6d7406abb652": {
+  "direct_support": false,
+  "note": "pomoc techniczna dla instytucji",
+  "name": "Priorytet 5. Pomoc techniczna"
+ }
+}

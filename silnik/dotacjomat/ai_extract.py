@@ -134,7 +134,7 @@ def apply(program: Program, data: dict) -> Program:
     program.forms = data["forms"] or program.forms
     if data.get("direct_support") is False and program.forms:
         # firma byłaby tu tylko realizatorem projektu dla innych - nie pokazujemy naboru firmom
-        program.forms = [f for f in program.forms if f not in tx.BUSINESS_FORMS and f != "none"] or ["jst"]
+        program.forms = [f for f in program.forms if f not in tx.CLIENT_FORMS] or ["jst"]
     program.sizes = data["sizes"] or program.sizes
     program.sectors = None if data["all_sectors"] or not data["sectors"] else data["sectors"]
     program.pkd_excluded = data["pkd_excluded"]
