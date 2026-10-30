@@ -80,13 +80,22 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .fld select,.fld input{display:block;width:100%;border:0;background:transparent;padding:2px 0 0;font:700 16px/1.4 var(--font);color:var(--ink);outline:none;text-overflow:ellipsis;cursor:pointer}
 .fld input{cursor:text}
 .fld input::placeholder{color:#a3aea8;font-weight:500}
-.fld em{font-style:normal;font-weight:500;color:#8d9893}
+.fld em,.goals em{font-style:normal;font-weight:500;color:#8d9893}
+.fld.err{border-color:var(--red);box-shadow:0 0 0 3px var(--redL)}
+.goals{border:0;margin:2px 0 0;padding:0;min-width:0}
+.goals legend{font-size:13px;font-weight:600;color:var(--mut);padding:0;margin-bottom:8px}
+.tiles{display:flex;flex-wrap:wrap;gap:8px}
+.tiles button{font:600 14px/1.2 var(--font);padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.tiles button:hover{border-color:var(--green)}
+.tiles button[aria-pressed=true]{background:var(--greenL);border-color:var(--green);color:var(--greenT)}
+.tiles button[aria-pressed=true]::before{content:"✓ ";font-weight:800}
 /* własne listy wyboru zamiast systemowych (strzałki Windowsa wyglądały źle); <select> zostaje ukryty jako źródło wartości */
 .fld.sel{position:relative;padding:0}
 .fld.sel>span{position:absolute;left:15px;top:9px;pointer-events:none}
 .fld.sel select{position:absolute;inset:0;opacity:0;pointer-events:none}
 .dd{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:28px 14px 9px;font:700 16px/1.4 var(--font);color:var(--ink);text-align:left;cursor:pointer;border-radius:10px}
 .dd b{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd b.ph{color:#8d9893;font-weight:600}
 .dd svg{flex:0 0 18px;width:18px;height:18px;color:var(--green);transition:transform .15s}
 .dd[aria-expanded=true] svg{transform:rotate(180deg)}
 .dd:focus-visible{outline:none}
@@ -136,7 +145,6 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .ev.hot::before{border-color:var(--red)}
 .ev.hot .date{background:var(--redL);color:var(--red)}
 .ev.hot .left{color:var(--red);font-weight:600}
-.ev.lock h4{color:#8d9893;font-weight:600}
 .ev.lock .date{background:var(--soft);color:var(--mut)}
 .ev.lock::before{border-color:#c5cec8}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
@@ -146,10 +154,22 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .fav:hover{border-color:var(--green)}
 .fav[aria-pressed=true]{background:var(--greenL);border-color:var(--greenL)}
 .empty{padding:20px 0;color:var(--mut);font-size:15px}
-.cal-foot{margin-top:10px;background:var(--greenL);border-radius:12px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:14px}
-.cal-foot:has(#rMore:empty):has(a[hidden]){display:none}
-.cal-foot a{font-weight:800;color:var(--greenT);text-decoration:none}
-.cal-foot a:hover{text-decoration:underline}
+.rtools{display:flex;flex-wrap:wrap;gap:8px 12px;justify-content:space-between;padding:14px 0 4px}
+.seg{display:flex;gap:3px;padding:3px;background:var(--soft);border-radius:9px}
+.seg button{font:600 12.5px/1 var(--font);padding:7px 10px;border:0;border-radius:7px;background:none;color:var(--mut);cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(20,33,27,.12)}
+.rfoot{display:grid;gap:10px;margin-top:8px}
+.rfoot>.btn{justify-self:center}
+.unlock{background:var(--greenL);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.unlock p{font-size:13.5px;color:var(--ink);flex:1 1 260px}
+.freebadge{display:inline-block;font-size:11px;font-weight:700;color:var(--greenT);background:var(--greenL);border-radius:6px;padding:3px 7px;margin-bottom:5px}
+.ev .match{color:var(--ink);font-size:13px;margin-top:6px}
+.ev .match b{color:var(--greenT)}
+.ev .src{font-size:12px;color:#8d9893;margin-top:3px}
+.ev .locknote{font-size:12px;color:#8d9893;margin-top:4px}
+.ev.lock h4{color:var(--ink);font-weight:700}
+.ev.free{background:linear-gradient(90deg,transparent,rgba(0,133,74,.04));}
+.date.yr b{font-size:17px}
 .sample{font-size:12px;color:var(--mut);margin-top:10px;text-align:center}
 @media (max-width:520px){
   .cal{padding:18px 14px 14px;border-radius:16px}
@@ -167,7 +187,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 
 /* sekcje */
 section.block{padding-block:88px}
-section.block.alt{background:var(--surface);border-block:1px solid var(--line)}
+section.block.alt{background:#F3FAF6;border-block:1px solid #dcefe3}
 .head{display:grid;gap:12px;margin-bottom:40px;max-width:680px}
 @media (max-width:700px){section.block{padding-block:60px}.head{margin-bottom:28px}}
 
@@ -180,7 +200,7 @@ section.block.alt{background:var(--surface);border-block:1px solid var(--line)}
 /* zaufanie */
 .trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media (max-width:760px){.trust{grid-template-columns:minmax(0,1fr)}}
-.tr{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:24px;border-radius:var(--r);background:var(--paper);border:1px solid var(--line)}
+.tr{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
 .tr .ic{width:44px;height:44px;border-radius:12px;background:var(--greenL);color:var(--greenT);display:grid;place-items:center}
 .tr h3{font-size:17px;margin-bottom:6px}
 .tr p{color:var(--mut);font-size:15px}
@@ -254,8 +274,8 @@ footer a{color:var(--mut)}
   <div class="wrap">
     <div>
       <span class="updated">Nowe nabory sprawdzamy codziennie</span>
-      <h1>Sprawdź, jakie dotacje dostanie Twoja firma</h1>
-      <p class="lead">Odpowiedz na kilka pytań o firmę. Pokażemy pasujące dotacje i pożyczki, zaczynając od tych, którym najszybciej kończy się termin.</p>
+      <h1>Sprawdź, jakie dotacje pasują do Twojej firmy</h1>
+      <p class="lead">Na start lub rozwój. Znajdź dostępne programy, sprawdź warunki i pilnuj terminów w jednym miejscu.</p>
 
       <div class="tabs" role="tablist" aria-label="Twoja sytuacja">
         <button type="button" role="tab" id="tabFirm" aria-selected="true" aria-controls="paneFirm">Mam firmę</button>
@@ -269,29 +289,44 @@ footer a{color:var(--mut)}
         <div class="grid2">
           <div class="fld sel"><span>Województwo</span>
             <select id="fWoj">
-              <option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
-              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie" selected>Mazowieckie</option><option value="opolskie">Opolskie</option>
+              <option value="">Wybierz województwo</option><option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
+              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie">Mazowieckie</option><option value="opolskie">Opolskie</option>
               <option value="podkarpackie">Podkarpackie</option><option value="podlaskie">Podlaskie</option><option value="pomorskie">Pomorskie</option><option value="slaskie">Śląskie</option>
               <option value="swietokrzyskie">Świętokrzyskie</option><option value="warminsko">Warmińsko-mazurskie</option><option value="wielkopolskie">Wielkopolskie</option><option value="zachodniopomorskie">Zachodniopomorskie</option>
             </select></div>
-          <div class="fld sel"><span>Rodzaj firmy</span>
-            <select id="fForm"><option value="jdg">Jednoosobowa działalność</option><option value="sc">Spółka cywilna, jawna lub partnerska</option><option value="zoo">Spółka z o.o. lub PSA</option><option value="sa">Spółka akcyjna lub komandytowa</option><option value="rolne">Gospodarstwo rolne</option><option value="ngo">Fundacja lub stowarzyszenie</option></select></div>
+          
           <div class="fld sel"><span>Liczba pracowników</span>
             <select id="fSize"><option value="micro">Mikrofirma (do 9 osób)</option><option value="small">Mała firma (10–49 osób)</option><option value="medium">Średnia firma (50–249 osób)</option><option value="large">Duża firma (250 i więcej osób)</option></select></div>
-          <div class="fld sel"><span>Branża</span>
-            <select id="fSector"><option value="">Wszystkie branże</option><option value="G">Handel</option><option value="F">Budownictwo</option><option value="C">Produkcja</option><option value="C10">Przetwórstwo spożywcze</option><option value="J">IT i komunikacja</option><option value="M">Usługi dla firm (marketing, doradztwo, projekty)</option><option value="I">Hotele i gastronomia</option><option value="N79">Turystyka</option><option value="H">Transport i logistyka</option><option value="A">Rolnictwo, leśnictwo, rybactwo</option><option value="D">Energetyka</option><option value="E">Woda, ścieki, odpady</option><option value="P">Edukacja</option><option value="Q">Zdrowie i opieka</option><option value="R">Kultura, sport, rekreacja</option><option value="N">Usługi administracyjne</option><option value="S">Inne usługi</option></select></div>
+          
         </div>
-        <div class="fld sel"><span>Na co potrzebujesz pieniędzy?</span>
-          <select id="fGoal"><option value="">Na dowolny cel</option><option value="sprzet">Maszyny i sprzęt</option><option value="digital">Oprogramowanie, strona, sklep internetowy</option><option value="marketing">Marketing i promocja</option><option value="szkolenia">Szkolenia</option><option value="oze">Fotowoltaika, pompa ciepła, magazyn energii</option><option value="efektywnosc">Oszczędzanie energii</option><option value="budowa">Budowa lub remont</option><option value="pojazdy">Samochody i elektromobilność</option><option value="badania">Badania i nowe produkty</option><option value="ai">Automatyzacja, roboty, AI</option><option value="eksport">Eksport i targi</option><option value="zatrudnienie">Zatrudnienie pracowników</option><option value="doradztwo">Doradztwo i audyty</option><option value="plynnosc">Bieżące wydatki firmy</option></select></div>
-        <button class="btn primary" type="submit">Pokaż pasujące dotacje</button>
+        
+        <div class="fld sel"><span>Rodzaj firmy</span>
+            <select id="fForm"><option value="jdg">Jednoosobowa działalność</option><option value="sc">Spółka cywilna, jawna lub partnerska</option><option value="zoo">Spółka z o.o. lub PSA</option><option value="sa">Spółka akcyjna lub komandytowa</option><option value="rolne">Gospodarstwo rolne</option><option value="ngo">Fundacja lub stowarzyszenie</option></select></div>
+        <div class="fld sel"><span>Branża</span>
+            <select id="fSector"><option value="">Wszystkie branże</option><option value="G">Handel</option><option value="F">Budownictwo</option><option value="C">Produkcja</option><option value="C10">Przetwórstwo spożywcze</option><option value="J">IT i komunikacja</option><option value="M">Usługi dla firm (marketing, doradztwo, projekty)</option><option value="I">Hotele i gastronomia</option><option value="N79">Turystyka</option><option value="H">Transport i logistyka</option><option value="A">Rolnictwo, leśnictwo, rybactwo</option><option value="D">Energetyka</option><option value="E">Woda, ścieki, odpady</option><option value="P">Edukacja</option><option value="Q">Zdrowie i opieka</option><option value="R">Kultura, sport, rekreacja</option><option value="N">Usługi administracyjne</option><option value="S">Inne usługi</option></select></div>
+        <fieldset class="goals"><legend>Na co potrzebujesz pieniędzy? <em>(możesz wybrać kilka)</em></legend>
+          <input type="hidden" id="fGoal" value="">
+          <div class="tiles">
+            <button type="button" data-goal="" aria-pressed="true">Pokaż wszystkie cele</button>
+            <button type="button" data-goal="sprzet" aria-pressed="false">Sprzęt i maszyny</button>
+            <button type="button" data-goal="digital" aria-pressed="false">IT i internet</button>
+            <button type="button" data-goal="szkolenia" aria-pressed="false">Szkolenia</button>
+            <button type="button" data-goal="oze,efektywnosc" aria-pressed="false">Energia</button>
+            <button type="button" data-goal="badania,ai" aria-pressed="false">Rozwój i innowacje</button>
+            <button type="button" data-goal="marketing,eksport" aria-pressed="false">Marketing i eksport</button>
+            <button type="button" data-goal="budowa" aria-pressed="false">Budowa i remont</button>
+            <button type="button" data-goal="zatrudnienie" aria-pressed="false">Zatrudnienie</button>
+          </div>
+        </fieldset>
+        <button class="btn primary" type="submit">Sprawdź dostępne dotacje</button>
       </form>
 
       <form class="pane" id="paneStart" role="tabpanel" aria-labelledby="tabStart" hidden novalidate>
         <div class="grid2">
           <div class="fld sel"><span>Województwo</span>
             <select id="sWoj">
-              <option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
-              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie" selected>Mazowieckie</option><option value="opolskie">Opolskie</option>
+              <option value="">Wybierz województwo</option><option value="dolnoslaskie">Dolnośląskie</option><option value="kujawsko">Kujawsko-pomorskie</option><option value="lubelskie">Lubelskie</option><option value="lubuskie">Lubuskie</option>
+              <option value="lodzkie">Łódzkie</option><option value="malopolskie">Małopolskie</option><option value="mazowieckie">Mazowieckie</option><option value="opolskie">Opolskie</option>
               <option value="podkarpackie">Podkarpackie</option><option value="podlaskie">Podlaskie</option><option value="pomorskie">Pomorskie</option><option value="slaskie">Śląskie</option>
               <option value="swietokrzyskie">Świętokrzyskie</option><option value="warminsko">Warmińsko-mazurskie</option><option value="wielkopolskie">Wielkopolskie</option><option value="zachodniopomorskie">Zachodniopomorskie</option>
             </select></div>
@@ -311,7 +346,7 @@ footer a{color:var(--mut)}
           <label><input type="checkbox" id="sNiep"> Mam orzeczenie o niepełnosprawności</label>
           <label><input type="checkbox" id="sByla"> Prowadziłem(-am) firmę w ostatnich 12 miesiącach</label>
         </div>
-        <button class="btn primary" type="submit">Pokaż dotacje na start</button>
+        <button class="btn primary" type="submit">Sprawdź dotacje na start</button>
       </form>
       <ul class="assure">
         <li>sprawdzenie bezpłatne</li>
@@ -325,8 +360,12 @@ footer a{color:var(--mut)}
         <div class="who" id="rWho"></div>
         <div class="sum"><b id="rSum"></b><span id="rN"></span></div>
       </div>
+      <div class="rtools" id="rTools" hidden>
+        <div class="seg" role="group" aria-label="Rodzaj wsparcia"><button type="button" data-type="" aria-pressed="true">Wszystkie</button><button type="button" data-type="dotacja" aria-pressed="false">Dotacje</button><button type="button" data-type="pozyczka" aria-pressed="false">Pożyczki</button></div>
+        <div class="seg" role="group" aria-label="Sortowanie"><button type="button" data-sort="score" aria-pressed="true">Najlepiej dopasowane</button><button type="button" data-sort="date" aria-pressed="false">Najbliższy termin</button></div>
+      </div>
       <div class="tl" id="rList"></div>
-      <div class="cal-foot"><span id="rMore"></span><a href="#cennik">Odblokuj kalendarz →</a></div>
+      <div class="rfoot" id="rFoot"></div>
       <p class="sample">Przykładowy wynik. Kwoty i terminy poglądowe.</p>
     </aside>
   </div>
@@ -426,7 +465,7 @@ footer a{color:var(--mut)}
           <li class="no">codzienne aktualizacje</li>
           <li class="no">przypomnienia o terminach</li>
         </ul>
-        <a class="btn ghost" href="#top" data-buy="week">Kup tydzień dostępu</a>
+        <a class="btn ghost" href="/?kup=week#cennik" data-buy="week">Kup tydzień dostępu</a>
       </div>
       <div class="plan main">
         <span class="badge">Polecany</span>
@@ -439,7 +478,7 @@ footer a{color:var(--mut)}
           <li>przypomnienie 14 dni przed końcem naboru</li>
           <li>zapisane programy i własny kalendarz</li>
         </ul>
-        <a class="btn primary" href="#top" data-buy="start">Wybieram abonament</a>
+        <a class="btn primary" href="/?kup=start#cennik" data-buy="start">Wybieram abonament</a>
       </div>
     </div>
     <div class="pay">
@@ -455,7 +494,8 @@ footer a{color:var(--mut)}
   <div class="wrap">
     <div class="head"><span class="eyebrow">Pytania</span><h2>Najczęstsze pytania</h2></div>
     <div class="faq">
-      <details><summary>Co zobaczę za darmo?</summary><p>Liczbę pasujących programów i najlepiej dopasowany program z pełnym opisem. Nazwy i warunki pozostałych naborów odblokujesz w dostępie tygodniowym lub w abonamencie.</p></details>
+      <details><summary>Co zobaczę za darmo?</summary><p>Liczbę pasujących programów, najlepiej dopasowany program z pełnym opisem, a przy pozostałych: rodzaj wsparcia, na co jest przeznaczone, region, kwotę, poziom dofinansowania i termin. Nazwy programów, instytucje, linki do ogłoszeń i pełne warunki odblokujesz w dostępie tygodniowym lub w abonamencie.</p></details>
+      <details><summary>Informacje o naborach są publiczne. Za co płacę?</summary><p>Za czas i pewność. Ogłoszenia są rozrzucone po kilkudziesięciu stronach urzędów, agencji i funduszy, a warunki są ukryte w regulaminach. My codziennie zbieramy je w jednym miejscu, odrzucamy programy, z których Twoja firma nie może skorzystać, i porządkujemy resztę według dopasowania i terminu. W abonamencie pilnujemy też zmian: piszemy, gdy pojawi się nowy pasujący nabór albo zbliża się koniec terminu.</p></details>
       <details><summary>Nie mam jeszcze firmy. Czy coś dla mnie znajdziecie?</summary><p>Tak. Wybierz „Planuję założyć firmę”. Pokażemy dotację z urzędu pracy, projekty unijne na założenie działalności w Twoim województwie, środki z PFRON i ulgi w ZUS. Ważne: dotację z urzędu pracy dostaniesz tylko przed rejestracją firmy, więc nie zakładaj jej wcześniej.</p></details>
       <details><summary>Skąd bierzecie informacje?</summary><p>Wyłącznie z oficjalnych stron: Portalu Funduszy Europejskich, PARP, BGK, ARiMR, NFOŚiGW, PFRON, urzędów marszałkowskich i urzędów pracy. Przy każdym programie jest link do regulaminu u źródła.</p></details>
       <details><summary>Jak często aktualizujecie bazę?</summary><p>Codziennie. Abonenci widzą zawsze najnowszy stan i dostają e-mail, gdy pojawi się pasujący nabór. Dostęp tygodniowy pokazuje bazę z dnia zakupu.</p></details>
@@ -493,80 +533,113 @@ footer a{color:var(--mut)}
   var today=new Date();today.setHours(0,0,0,0);
   var MON=["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"];
   function parse(iso){if(!iso)return null;var t=new Date(String(iso).slice(0,10)+"T00:00:00");return isNaN(t)?null:t}
-  function left(t){var n=Math.round((t-today)/864e5);return n<0?"nabór zakończony":n===0?"ostatni dzień":"zostało "+n+(n===1?" dzień":" dni")}
-
-  // ---- przykład na start (zanim ktoś wypełni formularz); daty liczone od dziś ----
-  function ahead(n){var t=new Date(today);t.setDate(t.getDate()+n);return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0")}
-  var EXAMPLE={who:"Agencja marketingowa, JDG<small>mikrofirma · dolnośląskie · oprogramowanie</small>",sum:"7",n:"pasujących programów",more:"+ 3 kolejne terminy",items:[
-    {n:"Bony na innowacje dla MŚP – Dolny Śląsk",o:"DIP Wrocław",a:"250 tys. zł",k:"dotacja",d:ahead(16),t:[["ok","mikrofirma"],["ok","dolnośląskie"]]},
-    {lock:true,n:"🔒 Dotacja · nabór trwa",o:"dopasowanie 92%",a:"850 tys. zł",k:"dotacja",d:ahead(42)},
-    {lock:true,n:"🔒 Pożyczka · nabór trwa",o:"dopasowanie 90%",a:"1 mln zł",k:"pożyczka",d:ahead(57)},
-    {lock:true,n:"🔒 Dotacja · nabór ciągły",o:"dopasowanie 88%",a:"100 tys. zł",k:"dotacja",c:"ciągły"}
-  ]};
-
+  function days(t){return Math.round((t-today)/864e5)}
+  function fmt(t){return String(t.getDate()).padStart(2,"0")+"."+String(t.getMonth()+1).padStart(2,"0")+"."+t.getFullYear()}
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function zl(n){if(!n)return"";if(n>=1e6)return(Math.round(n/1e5)/10).toString().replace(".",",")+" mln zł";if(n>=1e3)return Math.round(n/1e3)+" tys. zł";return n+" zł"}
-  var foot=document.querySelector(".cal-foot a"),sample=document.querySelector(".cal .sample"),rList=document.getElementById("rList");
-  function ev(p){
-    var t=parse(p.d),hot=t&&(t-today)/864e5<30;
-    var date=t?'<div class="date"><small>'+MON[t.getMonth()]+'</small><b>'+t.getDate()+'</b></div>':'<div class="date open"><small>'+esc(p.c||"ciągły")+'</small></div>';
-    var when=t?'<span class="left">'+left(t)+'</span>':p.d?esc(p.d):"";
-    var name=p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.n)+'</a>':esc(p.n);
-    var sub=[p.o?esc(p.o):"",when].filter(Boolean).join(" · ");
-    var tags=(p.t||[]).length?'<div class="tags">'+p.t.map(function(x){return '<span class="tag '+x[0]+'">'+(x[0]==="ok"?"✓ ":"! ")+esc(x[1])+'</span>'}).join("")+'</div>':"";
-    var fav=p.fid?'<button type="button" class="fav" data-fav="'+esc(p.fid)+'" aria-pressed="'+!!saved[p.fid]+'">'+(saved[p.fid]?"★ Zapisane":"☆ Zapisz")+'</button>':"";
-    return '<div class="ev'+(hot?" hot":"")+(p.lock?" lock":"")+'">'+date+'<div><h4>'+name+'</h4><p>'+sub+'</p>'+tags+fav+'</div><div class="v">'+esc(p.a)+'<small>'+esc(p.k||"")+'</small></div></div>';
-  }
-  function render(v){
-    document.getElementById("rWho").innerHTML=v.who;
-    document.getElementById("rSum").textContent=v.sum;
-    document.getElementById("rN").textContent=v.n;
-    document.getElementById("rMore").textContent=v.more||"";
-    rList.innerHTML=v.items.map(ev).join("")||(v.loading?"":'<p class="empty">Brak pasujących naborów dla tych danych. Wybierz „Na dowolny cel” albo „Wszystkie branże”.</p>');
-    if(sample)sample.hidden=!v.example;
-    if(foot){foot.hidden=!v.footHref;if(v.footHref){foot.href=v.footHref;foot.textContent=v.footText}}
-  }
+  function host(u){try{return new URL(u).hostname.replace(/^www\./,"")}catch(e){return""}}
+  var TYPE={dotacja:"Dotacja",pozyczka:"Pożyczka",mieszane:"Dotacja z pożyczką"};
+  var GOAL={sprzet:"sprzęt i maszyny",budowa:"budowę i remont",nieruchomosc:"nieruchomości",pojazdy:"pojazdy",digital:"oprogramowanie i IT",ai:"automatyzację i AI",badania:"badania i rozwój",wzornictwo:"wzornictwo",ip:"ochronę patentową",oze:"energię odnawialną",efektywnosc:"oszczędzanie energii",goz:"recykling",szkolenia:"szkolenia",zatrudnienie:"zatrudnienie",doradztwo:"doradztwo",eksport:"eksport",marketing:"marketing",start:"założenie firmy",plynnosc:"bieżące wydatki"};
+  var PERSON={bezrobotny:"dla osób zarejestrowanych w urzędzie pracy",poszukujacy:"dla poszukujących pracy",bierny:"dla osób biernych zawodowo",do30:"dla osób do 30 lat",pow50:"dla osób 50+",kobieta:"dla kobiet",niepelnosprawnosc:"dla osób z niepełnosprawnością",student:"dla studentów",absolwent:"dla absolwentów",obszar_wiejski:"na obszarach wiejskich",bez_dg_12m:"bez firmy w ostatnich 12 miesiącach"};
+  function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}
 
-  // ---- prawdziwe wyniki z silnika: /api/programs, ułożone według terminu ----
-  var STATUS={open:"nabór trwa",soon:"nabór wkrótce",closed:"nabór zamknięty"},TYPE={dotacja:"dotacja",pozyczka:"pożyczka",mieszane:"dotacja + pożyczka"};
-  var SHOW=6,last=null,showAll=false,me=null,saved={},shown={},lastView=null;
-  function item(p){
-    var base={a:p.max?"do "+zl(p.max):"",k:TYPE[p.type]||"",d:p.deadline||null,c:p.status==="soon"?"wkrótce":"ciągły"};
-    if(p.locked)return Object.assign(base,{lock:true,n:"🔒 "+(TYPE[p.type]?TYPE[p.type][0].toUpperCase()+TYPE[p.type].slice(1):"Wsparcie")+" · "+(STATUS[p.status]||""),o:p.score!=null?"dopasowanie "+p.score+"%":""});
-    var tags=(p.why||[]).filter(function(w){return w.state==="ok"&&w.t}).slice(0,3).map(function(w){return["ok",w.t]});
-    if(p.id!=null)shown[p.id]=p;
-    return Object.assign(base,{n:p.name,o:p.op||p.level||"",t:tags,url:p.url,fid:p.id!=null?String(p.id):null});
+  // ---- przykład, zanim ktoś wyszuka (osobny dla firmy i dla zakładających firmę); daty liczone od dziś ----
+  function ahead(n){var t=new Date(today);t.setDate(t.getDate()+n);return t.getFullYear()+"-"+String(t.getMonth()+1).padStart(2,"0")+"-"+String(t.getDate()).padStart(2,"0")}
+  var EXAMPLES={
+    firm:{title:"Agencja marketingowa",sub:"Mikrofirma · Dolnośląskie · oprogramowanie",locked:true,programs:[
+      {name:"Bony na innowacje dla MŚP – Dolny Śląsk",op:"DIP Wrocław",type:"dotacja",deadline:ahead(16),max:250000,url:"https://dip.wroclaw.pl",why:[{state:"ok",t:"Twoje województwo"},{state:"ok",t:"mikrofirma"},{state:"ok",t:"jednoosobowa działalność"}]},
+      {locked:true,type:"dotacja",deadline:ahead(42),max:850000,level:"do 70 %",regions:null,goals:["digital","szkolenia"]},
+      {locked:true,type:"pozyczka",deadline:ahead(57),max:1000000,regions:["dolnoslaskie"],goals:["sprzet","digital"]},
+      {locked:true,type:"dotacja",max:100000,level:"do 80 %",regions:null,goals:["szkolenia","doradztwo"]}]},
+    start:{title:"Planowana działalność",sub:"Mazowieckie · 30+ · zarejestrowany w urzędzie pracy",locked:true,programs:[
+      {name:"Dotacja z urzędu pracy na podjęcie działalności",op:"Powiatowy urząd pracy",type:"dotacja",max:45000,url:"https://psz.praca.gov.pl",why:[{state:"ok",t:"zarejestrowana w urzędzie pracy jako bezrobotna"},{state:"ok",t:"wsparcie na założenie firmy"}]},
+      {locked:true,type:"dotacja",deadline:ahead(24),max:40000,regions:["mazowieckie"],goals:["start"],requires:["bezrobotny","bierny"]},
+      {locked:true,type:"pozyczka",max:150000,regions:null,goals:["start"]},
+      {locked:true,type:"dotacja",deadline:ahead(70),max:60000,regions:null,goals:["start"],requires:["niepelnosprawnosc"]}]}
+  };
+
+  var PAGE=6,view=null,shownN=PAGE,sortBy="score",onlyType="",last=null,me=null,saved={},shown={};
+  var rList=document.getElementById("rList"),foot=document.getElementById("rFoot"),tools=document.getElementById("rTools"),sample=document.querySelector(".cal .sample");
+
+  function card(p){
+    var t=parse(p.deadline),n=t?days(t):null,far=n!=null&&n>365,hot=n!=null&&n<30;
+    var date=!t?'<div class="date open"><small>'+(p.status==="soon"?"wkrótce":"ciągły")+'</small></div>':
+      far?'<div class="date yr"><small>do</small><b>'+t.getFullYear()+'</b></div>':'<div class="date"><small>'+MON[t.getMonth()]+'</small><b>'+t.getDate()+'</b></div>';
+    var when=!t?(p.status==="soon"?"nabór wkrótce":"nabór ciągły"):far?"termin programu "+fmt(t):n<0?"nabór zakończony":n===0?"ostatni dzień naboru":'<span class="left">zostało '+n+(n===1?" dzień":" dni")+'</span>';
+    var amount='<div class="v">'+esc(p.max?"do "+zl(p.max):"")+'<small>'+esc((TYPE[p.type]||"").toLowerCase())+'</small></div>';
+    if(p.locked){
+      var goals=(p.goals||[]).filter(function(g){return GOAL[g]}).slice(0,3).map(function(g){return GOAL[g]});
+      var facts=[p.regions?"Twoje województwo":"cała Polska",p.level?"dofinansowanie "+p.level.replace(" %","%"):"",(p.requires||[]).concat(p.requires_all||[]).filter(function(x){return PERSON[x]}).slice(0,1).map(function(x){return PERSON[x]})[0]||""].filter(Boolean);
+      return '<div class="ev lock'+(hot?" hot":"")+'">'+date+'<div><h4>'+esc((TYPE[p.type]||"Wsparcie")+(goals.length?" na "+goals.join(", "):""))+'</h4><p>'+esc(cap(facts.join(" · ")))+' · '+when+'</p><p class="locknote">🔒 Nazwa, instytucja i link do ogłoszenia po odblokowaniu</p></div>'+amount+'</div>';
+    }
+    var id=p.id!=null?String(p.id):"";if(id)shown[id]=p;
+    var match=(p.why||[]).filter(function(w){return w.state==="ok"&&w.t}).slice(0,3).map(function(w){return w.t});
+    var name=p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noopener">'+esc(p.name)+'</a>':esc(p.name);
+    var ck=parse(p.checked),src=[host(p.url)?"Źródło: "+esc(host(p.url)):"",ck&&p.source&&p.source!=="seed"?"sprawdzono "+fmt(ck):""].filter(Boolean).join(" · ");
+    var fav=id&&!view.example?'<button type="button" class="fav" data-fav="'+esc(id)+'" aria-pressed="'+!!saved[id]+'">'+(saved[id]?"★ Zapisane":"☆ Zapisz")+'</button>':"";
+    return '<div class="ev free'+(hot?" hot":"")+'">'+date+'<div><span class="freebadge">Pełny opis za darmo</span><h4>'+name+'</h4><p>'+[esc(p.op||""),when].filter(Boolean).join(" · ")+'</p>'+
+      (match.length?'<p class="match"><b>Pasuje:</b> '+esc(match.join(", "))+'</p>':"")+(src?'<p class="src">'+src+'</p>':"")+fav+'</div>'+amount+'</div>';
   }
   function byDate(a,b){var x=parse(a.deadline),y=parse(b.deadline);if(x&&y)return x-y;if(x)return-1;if(y)return 1;return 0}
-  function search(q,title,sub){
-    var who=esc(title)+"<small>"+esc(sub)+"</small>";
-    last={q:q,title:title,sub:sub};
-    render({who:who,sum:"",n:"Szukam…",items:[],more:"",loading:true});
-    return fetch("/api/programs?"+new URLSearchParams(q),{credentials:"same-origin"}).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
-      var ps=(d.programs||[]).slice().sort(byDate);
-      var list=showAll||d.locked?ps:ps.slice(0,SHOW),hidden=ps.length-list.length;
-      if(me&&me.user)fetch("/api/profile/search",{method:"PUT",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q,label:title+"\n"+sub})}).catch(function(){});
-      shown={};
-      render(lastView={who:who,sum:String(ps.length),n:ps.length===1?"pasujący program":"pasujących programów",items:list.map(item),
-        more:d.locked&&ps.length>1?"Nazwy i warunki po wykupieniu dostępu":hidden>0?"+ "+hidden+" kolejnych terminów":"",
-        footHref:d.locked&&ps.length>1?"#cennik":hidden>0?"#wyniki":"",footText:d.locked?"Odblokuj kalendarz →":"Pokaż wszystkie →"});
-    }).catch(function(){render({who:who,sum:"",n:"",items:[],more:"Nie udało się pobrać wyników. Spróbuj za chwilę."})});
+  function ordered(){
+    var ps=view.programs.filter(function(p){return !onlyType||p.type===onlyType||p.type==="mieszane"});
+    var idx=ps.map(function(p,i){return[p,i]});
+    idx.sort(function(a,b){
+      if(!a[0].locked!==!b[0].locked)return a[0].locked?1:-1;           // darmowy, pełny opis zawsze na górze
+      return sortBy==="date"?(byDate(a[0],b[0])||a[1]-b[1]):a[1]-b[1];    // silnik zwraca już od najlepiej dopasowanych
+    });
+    return idx.map(function(x){return x[0]});
   }
-  if(foot)foot.addEventListener("click",function(e){if(foot.getAttribute("href")==="#wyniki"&&last){e.preventDefault();showAll=true;search(last.q,last.title,last.sub)}});
+  function plural(n){return n===1?"pasujący program":n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?"pasujące programy":"pasujących programów"}
+  function draw(){
+    if(!view)return;
+    document.getElementById("rWho").innerHTML=esc(view.title)+"<small>"+esc(view.sub)+"</small>";
+    if(view.loading){document.getElementById("rSum").textContent="";document.getElementById("rN").textContent="Szukam…";rList.innerHTML="";foot.innerHTML="";tools.hidden=true;return}
+    if(view.error){rList.innerHTML='<p class="empty">Nie udało się pobrać wyników. Spróbuj za chwilę.</p>';foot.innerHTML="";tools.hidden=true;return}
+    var ps=ordered(),list=ps.slice(0,shownN),rest=ps.length-list.length;
+    document.getElementById("rSum").textContent=String(view.programs.length);
+    document.getElementById("rN").textContent=plural(view.programs.length);
+    tools.hidden=view.example||view.programs.length<2;
+    shown={};
+    rList.innerHTML=list.map(card).join("")||'<p class="empty">'+(view.programs.length?"Brak naborów tego rodzaju.":"Nie znaleźliśmy sprawdzonych naborów dla tych danych. Wybierz „Wszystkie cele” albo „Wszystkie branże”.")+'</p>';
+    var html="";
+    if(rest>0)html+='<button type="button" class="btn ghost sm" id="more">Pokaż kolejne ('+Math.min(rest,PAGE)+' z '+rest+')</button>';
+    if(view.locked&&view.programs.some(function(p){return p.locked}))html+='<div class="unlock"><p>Po odblokowaniu zobaczysz nazwy programów, instytucje, linki do ogłoszeń i pełne warunki. W abonamencie przypominamy o terminach.</p><a class="btn primary sm" href="#cennik">Odblokuj od 39 zł</a></div>';
+    foot.innerHTML=html;
+    if(sample)sample.hidden=!view.example;
+  }
+  foot.addEventListener("click",function(e){if(e.target.id==="more"){shownN+=PAGE;draw()}});
+  tools.addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    if(b.dataset.sort){sortBy=b.dataset.sort;tools.querySelectorAll("[data-sort]").forEach(function(x){x.setAttribute("aria-pressed",x===b)})}
+    else{onlyType=b.dataset.type;tools.querySelectorAll("[data-type]").forEach(function(x){x.setAttribute("aria-pressed",x===b)})}
+    shownN=PAGE;draw();
+  });
+  function example(m){if(!view||view.example){view=Object.assign({example:true},EXAMPLES[m==="start"?"start":"firm"]);shownN=PAGE;draw()}}
+
+  // ---- prawdziwe wyniki z silnika: /api/programs ----
+  function search(q,title,sub){
+    last={q:q,title:title,sub:sub};
+    view={title:title,sub:sub,loading:true,programs:[]};shownN=PAGE;draw();
+    return fetch("/api/programs?"+new URLSearchParams(q),{credentials:"same-origin"}).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(d){
+      if(me&&me.user)fetch("/api/profile/search",{method:"PUT",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({query:q,label:title+"\n"+sub})}).catch(function(){});
+      view={title:title,sub:sub,locked:!!d.locked,programs:d.programs||[]};draw();
+    }).catch(function(){view={title:title,sub:sub,error:true,programs:[]};draw()});
+  }
 
   // ---- ulubione: „☆ Zapisz” przy wyniku; bez logowania zapamiętujemy wybór i wracamy po zalogowaniu ----
   function store(k,v){try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
   function load(k){try{return JSON.parse(localStorage.getItem(k)||"null")}catch(e){return null}}
   function saveFav(id){
     var p=shown[id];if(!p)return Promise.resolve();
-    saved[id]=true;if(lastView)render(lastView);
+    saved[id]=true;draw();
     return fetch("/api/profile/favorites/"+encodeURIComponent(id),{method:"PUT",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify({program:p})})
-      .then(function(r){if(!r.ok)throw r.status}).catch(function(){delete saved[id];if(lastView)render(lastView)});
+      .then(function(r){if(!r.ok)throw r.status}).catch(function(){delete saved[id];draw()});
   }
   rList.addEventListener("click",function(e){
     var b=e.target.closest("[data-fav]");if(!b)return;var id=b.dataset.fav;
     if(!me||!me.user){store("dotacjo:wroc",{q:last.q,title:last.title,sub:last.sub,fav:id});if(window.Konto)window.Konto.login("/?wroc=1#wyniki");return}
-    if(saved[id]){delete saved[id];render(lastView);fetch("/api/profile/favorites/"+encodeURIComponent(id),{method:"DELETE",credentials:"same-origin"});return}
+    if(saved[id]){delete saved[id];draw();fetch("/api/profile/favorites/"+encodeURIComponent(id),{method:"DELETE",credentials:"same-origin"});return}
     saveFav(id);
   });
   document.addEventListener("konto:ready",function(e){
@@ -574,7 +647,7 @@ footer a{color:var(--mut)}
     var params=new URLSearchParams(location.search),back=params.get("wroc")&&load("dotacjo:wroc");
     // opłacony dostęp: od razu do wyszukiwarki, bez części sprzedażowej (?strona=1 zostawia stronę główną)
     if(me.access&&me.access.active&&!params.get("strona")){location.replace("/panel");return}
-    if(me.user)fetch("/api/profile/favorites",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){(j.favorites||[]).forEach(function(f){saved[f.id]=true});if(lastView)render(lastView)}).catch(function(){});
+    if(me.user)fetch("/api/profile/favorites",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){(j.favorites||[]).forEach(function(f){saved[f.id]=true});draw()}).catch(function(){});
     if(back){store("dotacjo:wroc");search(back.q,back.title,back.sub).then(function(){if(me.user&&back.fav)saveFav(back.fav)});return}
     if(params.get("profil")&&me.user){fetch("/api/profile/search",{credentials:"same-origin"}).then(function(r){return r.json()}).then(function(j){if(j.search){var l=String(j.search.label||"Moja firma").split("\n");search(j.search.query,l[0],l[1]||"")}});return}
     if(last)search(last.q,last.title,last.sub);
@@ -584,11 +657,11 @@ footer a{color:var(--mut)}
 
   // ---- zakładki ----
   var tabF=document.getElementById("tabFirm"),tabS=document.getElementById("tabStart"),pF=document.getElementById("paneFirm"),pS=document.getElementById("paneStart");
-  function mode(m){var s=m==="start";tabF.setAttribute("aria-selected",!s);tabS.setAttribute("aria-selected",s);pF.hidden=s;pS.hidden=!s}
+  function mode(m){var s=m==="start";tabF.setAttribute("aria-selected",!s);tabS.setAttribute("aria-selected",s);pF.hidden=s;pS.hidden=!s;example(m)}
   tabF.addEventListener("click",function(){mode("firm")});
   tabS.addEventListener("click",function(){mode("start")});
   document.querySelectorAll("[data-go]").forEach(function(a){a.addEventListener("click",function(){mode(a.dataset.go)})});
-  mode("firm");render(Object.assign({example:true,footHref:"#cennik",footText:"Odblokuj kalendarz →"},EXAMPLE));
+  mode("firm");
 
   // ---- listy wyboru: przycisk + rozwijana lista w stylu strony, wartość trzyma ukryty <select> ----
   var CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
@@ -600,7 +673,7 @@ footer a{color:var(--mut)}
     var menu=document.createElement("ul");menu.className="menu";menu.setAttribute("role","listbox");menu.hidden=true;menu.setAttribute("aria-label",cap);
     fld.appendChild(btn);fld.appendChild(menu);
     var act=-1;
-    function sync(){btn.innerHTML="<b>"+esc(sel.options[sel.selectedIndex].text)+"</b>"+CHEV;btn.setAttribute("aria-label",cap+": "+sel.options[sel.selectedIndex].text)}
+    function sync(){btn.innerHTML="<b"+(sel.value===""&&sel.id.slice(1)==="Woj"?' class="ph"':"")+">"+esc(sel.options[sel.selectedIndex].text)+"</b>"+CHEV;btn.setAttribute("aria-label",cap+": "+sel.options[sel.selectedIndex].text)}
     function hilite(i){act=i;[].forEach.call(menu.children,function(li,j){li.classList.toggle("act",j===i);if(j===i)li.scrollIntoView({block:"nearest"})})}
     function open(){
       dds.forEach(function(d){if(d.close!==close)d.close()});
@@ -626,14 +699,36 @@ footer a{color:var(--mut)}
   document.addEventListener("click",function(e){if(!e.target.closest(".fld.sel"))dds.forEach(function(d){d.close()})});
   function syncDD(){dds.forEach(function(d){d.sync()})}
 
+  // ---- województwo jest wymagane: zamiast domyślnego „mazowieckie” pytamy wprost ----
+  function needWoj(sel){
+    if(sel.value)return false;
+    var f=sel.closest(".fld");f.classList.add("err");f.querySelector(".dd").click();
+    sel.addEventListener("change",function(){f.classList.remove("err")},{once:true});
+    return true;
+  }
+  // ---- cele jako kafelki: można wybrać kilka; „Pokaż wszystkie cele” czyści wybór ----
+  var goalIn=document.getElementById("fGoal"),tiles=[].slice.call(document.querySelectorAll(".tiles button"));
+  function setGoals(v){
+    var on=String(v||"").split(",").filter(Boolean);
+    tiles.forEach(function(b){var g=b.dataset.goal.split(",").filter(Boolean);b.setAttribute("aria-pressed",g.length?g.some(function(x){return on.indexOf(x)>=0}):!on.length)});
+    goalIn.value=on.join(",");
+  }
+  tiles.forEach(function(b){b.addEventListener("click",function(){
+    if(!b.dataset.goal)return setGoals("");
+    var on=goalIn.value.split(",").filter(Boolean),g=b.dataset.goal.split(","),has=g.some(function(x){return on.indexOf(x)>=0});
+    on=has?on.filter(function(x){return g.indexOf(x)<0}):on.concat(g);
+    setGoals(on.join(","));
+  })});
+  function goalLabel(){return tiles.filter(function(b){return b.dataset.goal&&b.getAttribute("aria-pressed")==="true"}).map(function(b){return b.textContent}).join(", ")}
+
   // ---- planuję założyć firmę ----
   pS.addEventListener("submit",function(e){
     e.preventDefault();
+    if(needWoj(document.getElementById("sWoj")))return;
     var woj=document.getElementById("sWoj"),wiek=document.getElementById("sWiek").value,st=document.getElementById("sStatus").value,niep=document.getElementById("sNiep").checked,byla=document.getElementById("sByla").checked,gm=document.getElementById("sGmina").value.trim();
     var person=[];
     if(st==="pup")person.push("bezrobotny");else if(st==="nauka")person.push("student");else if(st==="inne")person.push("bierny");
     if(wiek==="mlody")person.push("do30");if(niep)person.push("niepelnosprawnosc");if(!byla)person.push("bez_dg_12m");
-    showAll=false;
     search({region:woj.value,form:"none",size:"start",goals:"start",person:person.join(",")},
       "Planowana działalność",(gm?gm+", ":"")+label(woj)+" · "+(wiek==="mlody"?"do 29 lat":"30+")+(niep?" · z orzeczeniem":""));
     reveal();
@@ -660,10 +755,10 @@ footer a{color:var(--mut)}
   });
   pF.addEventListener("submit",function(e){
     e.preventDefault();
+    if(needWoj(document.getElementById("fWoj")))return;
     var woj=document.getElementById("fWoj"),form=document.getElementById("fForm"),size=document.getElementById("fSize"),sec=document.getElementById("fSector"),goal=document.getElementById("fGoal");
     var q={region:woj.value,form:form.value,size:size.value};if(sec.value)q.sector=sec.value;if(goal.value)q.goals=goal.value;
-    showAll=false;
-    search(q,company&&company.name||label(form),label(size).split(" (")[0]+" · "+label(woj)+(sec.value?" · "+label(sec):""));
+    search(q,company&&company.name||label(form),label(size).split(" (")[0]+" · "+label(woj)+(sec.value?" · "+label(sec):"")+(goal.value?" · "+goalLabel():""));
     reveal();
   });
 })();

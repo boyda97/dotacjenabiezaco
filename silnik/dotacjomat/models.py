@@ -94,6 +94,7 @@ class Program:
             "forms": self.forms or list(tx.FORMS), "sizes": self.sizes or list(tx.SIZES),
             "sectors": self.sectors or list(tx.SECTORS), "goals": self.goals,
             "requires": self.requires, "requires_all": self.requires_all, "how": self.how, "url": self.url,
+            "source": self.source, "checked": getattr(self, "checked", None),
         }
 
     @classmethod

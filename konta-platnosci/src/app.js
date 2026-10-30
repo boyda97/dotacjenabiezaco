@@ -5,9 +5,9 @@ import { getAccess } from "./entitlements.js";
 import { createProfile } from "./profile.js";
 import { cleanNip, createCompanyLookup, validNip } from "./company.js";
 
-// Pola programu widoczne bez opłaconego dostępu – wystarczą do paska
-// "N programów, łącznie X zł, najbliższy termin", ale nie zdradzają nazwy ani źródła.
-const TEASER_FIELDS = ["id", "type", "status", "deadline", "max", "score"];
+// Pola programu widoczne bez opłaconego dostępu: wystarczą, żeby ocenić, czy warto odblokować
+// (cel, region, kwota, poziom dofinansowania, termin), ale nie zdradzają nazwy, operatora ani linku.
+const TEASER_FIELDS = ["id", "type", "status", "deadline", "max", "level", "regions", "goals", "requires", "requires_all", "score"];
 const FREE_FULL_PROGRAMS = 1; // pierwszy program w pełni odblokowany (próbka)
 
 export function createApp({
