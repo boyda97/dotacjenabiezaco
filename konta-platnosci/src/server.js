@@ -26,7 +26,7 @@ const app = createApp({
   db, cfg, stripe, mailer, loadPrograms, lookupCompany: createCompanyLookup({ gusKey: cfg.gusKey }),
   catalog: silnik ? createCatalog(silnik) : undefined,
 });
-// Alerty e-mail dla abonentów raz dziennie (od ALERTS_HOUR czasu polskiego)
+// Alerty e-mail dla abonentów raz w tygodniu (poniedziałek od ALERTS_HOUR czasu polskiego)
 if (loadPrograms) scheduleAlerts({ db, cfg, mailer, loadPrograms });
 
 // Sprzątanie wygasłych sesji i tokenów raz na godzinę

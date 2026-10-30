@@ -16,8 +16,9 @@ export function loadConfig(overrides = {}) {
     resendApiKey: env.RESEND_API_KEY || "",
     mailFrom: env.MAIL_FROM || "Dotacjo <logowanie@dotacjo.pl>",
     alertsFrom: env.ALERTS_FROM || "Dotacjo <alerty@dotacjo.pl>",
-    // Alerty e-mail: codziennie od tej godziny (czas polski). 0 = wyłączone.
+    // Alerty e-mail: raz w tygodniu, w dniu ALERTS_WEEKDAY (1 = poniedziałek) od ALERTS_HOUR (czas polski). 0 = wyłączone.
     alertsHour: Number(env.ALERTS_HOUR ?? 7),
+    alertsWeekday: Number(env.ALERTS_WEEKDAY ?? 1),
 
     // Adresy e-mail z dostępem do /admin (statystyki), po przecinku.
     adminEmails: (env.ADMIN_EMAILS || "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean),

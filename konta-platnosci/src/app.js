@@ -7,6 +7,7 @@ import { cleanNip, createCompanyLookup, validNip } from "./company.js";
 import { checkUnsubscribe, setAlertsEnabled } from "./alerts.js";
 import { createStats } from "./stats.js";
 import { createSeo } from "./seo.js";
+import { createAdmin } from "./admin.js";
 
 // Pola programu widoczne bez opłaconego dostępu: wystarczą, żeby ocenić, czy warto odblokować
 // (cel, region, kwota, poziom dofinansowania, termin), ale nie zdradzają nazwy, operatora ani linku.
@@ -39,7 +40,7 @@ export function createApp({
   });
 
   app.use(auth.loadUser);
-  const stats = createStats({ db, cfg, auth });
+  const stats = createStats({ db, cfg });
   app.use("/api/stats", stats.router);
   // Liczniki zdarzeń do panelu /admin (bez danych osobowych).
   app.post("/api/auth/verify", (_req, _res, next) => (stats.event("logowanie"), next()));
@@ -54,6 +55,7 @@ export function createApp({
   app.use("/api/auth", auth.router);
   app.use("/api/billing", billing.router);
   app.use("/api/profile", createProfile({ db, cfg, auth, stripe, log }));
+  app.use("/api/admin", createAdmin({ db, cfg, auth, catalog, mailer, loadPrograms, log }));
 
   // Wypisanie z alertów linkiem z e-maila (GET: przycisk potwierdzenia, POST: jedno kliknięcie w programie pocztowym).
   const unsubscribe = (req, res) => {

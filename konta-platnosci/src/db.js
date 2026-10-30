@@ -91,6 +91,13 @@ CREATE TABLE IF NOT EXISTS alert_reminders (
   sent_at INTEGER NOT NULL,
   PRIMARY KEY (user_id, program_id, deadline)
 );
+CREATE TABLE IF NOT EXISTS alert_log (
+  id INTEGER PRIMARY KEY,
+  user_id INTEGER NOT NULL,
+  sent_at INTEGER NOT NULL,
+  fresh INTEGER NOT NULL,
+  reminders INTEGER NOT NULL
+);
 CREATE TABLE IF NOT EXISTS meta (
   key TEXT PRIMARY KEY,
   value TEXT NOT NULL

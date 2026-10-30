@@ -169,7 +169,7 @@ footer a{color:var(--mut)}
         <span class="lbl">Powiadomienia e-mail</span>
         <h2 id="alH">Nowe nabory i terminy</h2>
         <span class="pill off" id="alPill">…</span>
-        <p id="alTxt">Raz dziennie, tylko gdy jest coś nowego: nabory pasujące do Twojego wyszukiwania i przypomnienie 14 dni przed końcem naboru z ulubionych.</p>
+        <p id="alTxt">Raz w tygodniu, w poniedziałek rano: nowe nabory pasujące do Twojego wyszukiwania i ulubione nabory, które kończą się w ciągu dwóch tygodni. Gdy nie ma nic nowego, nie piszemy.</p>
         <div class="row"><button type="button" class="btn ghost" id="alBtn" hidden></button></div>
       </section>
       <section class="card" aria-labelledby="rodoH">
@@ -302,7 +302,7 @@ footer a{color:var(--mut)}
       var on=a.enabled&&a.included;
       $("alPill").className="pill"+(on?"":" off");
       $("alPill").textContent=!a.included?"W abonamencie miesięcznym":on?"Włączone":"Wyłączone";
-      if(!a.included){$("alTxt").textContent="Przy abonamencie miesięcznym raz dziennie wysyłamy e-mail, gdy pojawi się nabór pasujący do Twojego wyszukiwania, i przypominamy 14 dni przed końcem naboru z ulubionych.";$("alBtn").hidden=true;return}
+      if(!a.included){$("alTxt").textContent="Przy abonamencie miesięcznym w każdy poniedziałek wysyłamy e-mail z nowymi naborami pasującymi do Twojego wyszukiwania i przypominamy o kończących się naborach z ulubionych.";$("alBtn").hidden=true;return}
       $("alBtn").hidden=false;$("alBtn").textContent=a.enabled?"Wyłącz powiadomienia":"Włącz powiadomienia";
       $("alBtn").onclick=function(){api("/api/profile/alerts","PUT",{enabled:!a.enabled}).then(alerts)};
     }).catch(function(){});

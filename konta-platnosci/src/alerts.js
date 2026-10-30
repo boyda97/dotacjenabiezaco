@@ -1,6 +1,7 @@
-// Alerty e-mail dla abonentów (obiecane w cenniku): raz dziennie jeden e-mail z
+// Alerty e-mail dla abonentów (obiecane w cenniku): raz w tygodniu (poniedziałek rano) jeden e-mail z
 //  - nowymi naborami pasującymi do zapisanego wyszukiwania,
-//  - przypomnieniem 14 dni przed końcem naboru z ulubionych.
+//  - naborami z ulubionych, które kończą się w ciągu 14 dni (każdy tylko raz).
+// Ustalone z Kacprem 2026-10-30: najwyżej 4–5 e-maili w miesiącu, nie codziennie.
 // Dostęp tygodniowy alertów nie obejmuje. Wypisanie: przełącznik w profilu albo link w e-mailu.
 import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import { getAccess, nowSec } from "./entitlements.js";
@@ -12,10 +13,11 @@ const MAX_NEW = 10;
 // Data i godzina w Polsce (serwer działa w UTC).
 export function warsawNow(d = new Date()) {
   const p = Object.fromEntries(
-    new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Warsaw", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hourCycle: "h23" })
+    new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Warsaw", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hourCycle: "h23", weekday: "short" })
       .formatToParts(d).map((x) => [x.type, x.value])
   );
-  return { day: `${p.year}-${p.month}-${p.day}`, hour: Number(p.hour) };
+  const weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(p.weekday); // 0 = niedziela, 1 = poniedziałek
+  return { day: `${p.year}-${p.month}-${p.day}`, hour: Number(p.hour), weekday };
 }
 
 const addDays = (day, n) => {
@@ -50,7 +52,7 @@ export function setAlertsEnabled(db, userId, enabled) {
 export function renderAlert({ appUrl, reminders, fresh, unsubscribeUrl }) {
   const lines = ["Dzień dobry,", ""];
   if (reminders.length) {
-    lines.push(reminders.length === 1 ? "zbliża się koniec naboru z Twoich ulubionych:" : "zbliżają się końce naborów z Twoich ulubionych:", "");
+    lines.push(reminders.length === 1 ? "w ciągu dwóch tygodni kończy się nabór z Twoich ulubionych:" : "w ciągu dwóch tygodni kończą się nabory z Twoich ulubionych:", "");
     for (const r of reminders) {
       lines.push(`• ${r.program.name}`, `  koniec naboru: ${plDate(r.deadline)} (za ${r.daysLeft} ${r.daysLeft === 1 ? "dzień" : "dni"})`);
       if (r.program.url) lines.push(`  ${r.program.url}`);
@@ -58,7 +60,7 @@ export function renderAlert({ appUrl, reminders, fresh, unsubscribeUrl }) {
     }
   }
   if (fresh.length) {
-    lines.push(fresh.length === 1 ? "pojawił się nowy nabór pasujący do Twojej firmy:" : `pojawiły się nowe nabory pasujące do Twojej firmy (${fresh.length}):`, "");
+    lines.push(fresh.length === 1 ? "w tym tygodniu pojawił się nowy nabór pasujący do Twojej firmy:" : `w tym tygodniu pojawiły się nowe nabory pasujące do Twojej firmy (${fresh.length}):`, "");
     for (const p of fresh) {
       const bits = [p.deadline ? `nabór do ${plDate(p.deadline)}` : "nabór ciągły", p.max ? `do ${zl(p.max)}` : "", p.level || ""].filter(Boolean);
       lines.push(`• ${p.name}`, `  ${[p.op, ...bits].filter(Boolean).join(" · ")}`);
@@ -126,6 +128,7 @@ export async function runAlerts({ db, cfg, mailer, loadPrograms, now = new Date(
       });
       const done = db.prepare("INSERT OR IGNORE INTO alert_reminders (user_id, program_id, deadline, sent_at) VALUES (?,?,?,?)");
       for (const r of reminders) done.run(u.id, r.id, r.deadline, nowSec());
+      db.prepare("INSERT INTO alert_log (user_id, sent_at, fresh, reminders) VALUES (?,?,?,?)").run(u.id, nowSec(), fresh.length, reminders.length);
       sent++;
     } catch (e) {
       log.error?.(`Alert dla użytkownika ${u.id} nieudany`, e);
@@ -134,14 +137,14 @@ export async function runAlerts({ db, cfg, mailer, loadPrograms, now = new Date(
   return sent;
 }
 
-// Uruchamia alerty raz dziennie, od cfg.alertsHour czasu polskiego.
+// Uruchamia alerty raz w tygodniu: w dniu cfg.alertsWeekday (1 = poniedziałek) od cfg.alertsHour czasu polskiego.
 export function scheduleAlerts(deps, everyMs = 15 * 60_000) {
   const { db, cfg, log = console } = deps;
   if (!cfg.alertsHour) return null;
   let running = false;
   const tick = async () => {
-    const { day, hour } = warsawNow();
-    if (running || hour < cfg.alertsHour || getMeta(db, "alerts_last_day") === day) return;
+    const { day, hour, weekday } = warsawNow();
+    if (running || weekday !== cfg.alertsWeekday || hour < cfg.alertsHour || getMeta(db, "alerts_last_day") === day) return;
     running = true;
     try {
       setMeta(db, "alerts_last_day", day);

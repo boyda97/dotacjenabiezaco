@@ -130,7 +130,7 @@ test("RODO: eksport danych i usunięcie konta (abonament anulowany, ulubione usu
   assert.equal((await (await req("GET", "/api/profile/favorites", undefined, again)).json()).favorites.length, 0);
 });
 
-test("statystyka: odsłony bez botów, unikalni, zdarzenia, panel tylko dla admina", async () => {
+test("statystyka i panel admina: odsłony bez botów, klienci, nabory, darmowy dostęp, e-maile", async () => {
   const hit = (p, ua = "Mozilla/5.0", r = "https://www.google.com/search?q=dotacje") =>
     fetch(base + "/api/stats/hit", { method: "POST", headers: { "Content-Type": "text/plain", "User-Agent": ua }, body: JSON.stringify({ p, r }) });
   assert.equal((await hit("/")).status, 204);
@@ -139,11 +139,13 @@ test("statystyka: odsłony bez botów, unikalni, zdarzenia, panel tylko dla admi
   await hit("/<script>");
   await fetch(base + "/api/programs?region=mazowieckie&form=jdg&size=micro");
 
-  assert.equal((await req("GET", "/api/stats/admin")).status, 401);
+  assert.equal((await req("GET", "/api/admin/stats")).status, 401);
   const user = await login("zwykly@firma.pl");
-  assert.equal((await req("GET", "/api/stats/admin", undefined, user)).status, 403);
+  for (const path of ["/api/admin/stats", "/api/admin/users", "/api/admin/programs", "/api/admin/alerts"])
+    assert.equal((await req("GET", path, undefined, user)).status, 403);
+  assert.equal((await req("POST", `/api/admin/users/${uid("zwykly@firma.pl")}/gift`, { days: 30 }, user)).status, 403);
   const admin = await login("szef@dotacjo.pl");
-  const s = await (await req("GET", "/api/stats/admin", undefined, admin)).json();
+  const s = await (await req("GET", "/api/admin/stats", undefined, admin)).json();
   const today = s.daily.find((d) => d.day === warsawNow().day);
   assert.equal(today.odslony, 2);
   assert.equal(today.unikalni, 1);
@@ -152,6 +154,31 @@ test("statystyka: odsłony bez botów, unikalni, zdarzenia, panel tylko dla admi
   assert.deepEqual(s.refs[0], { k: "google.com", n: 2 });
   assert.ok(s.pages.some((p) => p.k === "/dotacje/mazowieckie"));
   assert.ok(s.totals.users >= 1);
+
+  // klienci: wyszukiwanie po e-mailu i darmowy dostęp
+  const users = (await (await req("GET", "/api/admin/users?q=zwykly", undefined, admin)).json()).users;
+  assert.deepEqual(users.map((u) => u.email), ["zwykly@firma.pl"]);
+  assert.equal(users[0].access.active, false);
+  assert.equal((await req("POST", `/api/admin/users/${users[0].id}/gift`, { days: 0 }, admin)).status, 400);
+  const g = await (await req("POST", `/api/admin/users/${users[0].id}/gift`, { days: 30 }, admin)).json();
+  assert.equal(g.access.active, true);
+  assert.ok(g.access.until - Date.now() / 1000 > 29 * 86400);
+  assert.equal((await (await req("GET", "/api/me", undefined, user)).json()).access.active, true);
+
+  // nabory w bazie i dziennik e-maili
+  const pr = await (await req("GET", "/api/admin/programs", undefined, admin)).json();
+  assert.equal(pr.total, PROGRAMS.length);
+  assert.ok(pr.byStatus.open >= 1);
+  const al = await (await req("GET", "/api/admin/alerts", undefined, admin)).json();
+  assert.equal(al.schedule.weekday, 1);
+  assert.ok(al.log.some((l) => l.email === "abonent@firma.pl" && l.fresh === 1));
+  assert.equal((await (await req("POST", "/api/admin/alerts/run", {}, admin)).json()).sent, 0); // nic nowego
+});
+
+test("alerty raz w tygodniu: poniedziałek według czasu polskiego", () => {
+  assert.equal(warsawNow(new Date("2026-11-02T06:30:00Z")).weekday, 1); // pon. 7:30 w Polsce
+  assert.equal(warsawNow(new Date("2026-11-01T23:30:00Z")).weekday, 1); // już poniedziałek w Polsce
+  assert.equal(warsawNow(new Date("2026-11-02T06:30:00Z")).hour, 7);
 });
 
 test("strony województw: liczby i karty bez nazw, mapa strony, robots", async () => {
