@@ -211,11 +211,50 @@ section.block.alt{background:#F3FAF6;border-block:1px solid #dcefe3}
 .head{display:grid;gap:12px;margin-bottom:40px;max-width:680px}
 @media (max-width:700px){section.block{padding-block:60px}.head{margin-bottom:28px}}
 
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;counter-reset:s}
-@media (max-width:860px){.steps{grid-template-columns:minmax(0,1fr)}}
-.step{counter-increment:s;display:grid;gap:10px;align-content:start;padding-top:20px;border-top:2px solid var(--green)}
-.step::before{content:"Krok " counter(s);font-size:13px;font-weight:700;color:var(--green)}
-.step p{color:var(--mut);font-size:15px}
+.steps3{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+@media (max-width:860px){.steps3{grid-template-columns:minmax(0,1fr);gap:12px}}
+.steps3 li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:16px;align-items:start;padding:24px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.steps3 .num{width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font:800 22px/1 var(--font)}
+.steps3 h3{margin:4px 0 8px}
+.steps3 p{color:var(--mut);font-size:15px}
+.steps-cta{margin-top:28px}
+@media (max-width:520px){.steps-cta{width:100%}.steps3 li{padding:18px;gap:14px;grid-template-columns:40px minmax(0,1fr)}.steps3 .num{width:40px;height:40px;font-size:19px}}
+
+/* przykładowy wynik */
+.ex{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:start}
+@media (max-width:960px){.ex{grid-template-columns:minmax(0,1fr);gap:28px}}
+.excard{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--green);border-radius:18px;padding:24px;box-shadow:0 18px 40px -24px rgba(20,33,27,.25);display:grid;gap:14px}
+.ex-who{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 12px;font-size:13px;color:var(--mut);padding-bottom:14px;border-bottom:1px solid var(--line)}
+.ex-who b{color:var(--ink)}
+.ex-ok{font-weight:700;color:var(--greenT);background:var(--greenL);border-radius:99px;padding:4px 10px;white-space:nowrap}
+.excard .kind{justify-self:start;margin:0}
+.ex-title{font-size:clamp(20px,2.4vw,24px);letter-spacing:-.02em;line-height:1.2}
+.ex-op{font-size:14px;color:var(--mut);margin-top:-6px}
+.ex-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0}
+.ex-facts div{background:var(--greenL);border-radius:12px;padding:12px 14px}
+.ex-facts dt{font-size:12px;font-weight:600;color:var(--greenT)}
+.ex-facts dd{margin:4px 0 0;font-weight:800;font-size:18px;letter-spacing:-.02em;line-height:1.2;font-variant-numeric:tabular-nums}
+.ex-facts dd small{display:block;font-size:12px;font-weight:600;letter-spacing:0;margin-top:2px}
+.ex-facts .hot{background:var(--redL)}
+.ex-facts .hot dt,.ex-facts .hot small{color:var(--red)}
+@media (max-width:520px){.excard{padding:18px 16px}.ex-facts{grid-template-columns:1fr 1fr}.ex-facts .hot{grid-column:1/-1}}
+.ex-why h4{font-size:14px;font-weight:800;letter-spacing:-.01em;margin-bottom:6px}
+.ex-why ul,.ex-why ol{margin:0;padding:0;display:grid;gap:5px;font-size:14.5px}
+.ex-why ul{list-style:none}
+.ex-why ul li{display:flex;gap:9px}
+.ex-why ul.ok li::before{content:"✓";color:var(--green);font-weight:800}
+.ex-why ul.dot li::before{content:"";flex:0 0 6px;height:6px;margin-top:9px;border-radius:50%;background:var(--green)}
+.ex-steps{padding-left:20px!important}
+.ex-steps li::marker{color:var(--green);font-weight:800}
+.ex-src{font-size:12.5px;color:#46534c;padding-top:12px;border-top:1px solid var(--line)}
+.ex-side{display:grid;gap:22px;align-content:start}
+.ex-pt{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px}
+.ex-pt .ic{width:44px;height:44px;border-radius:12px;background:var(--surface);border:1px solid #cfe3d6;color:var(--green);display:grid;place-items:center;font-weight:800;font-size:17px}
+.ex-pt h3{font-size:17px;margin-bottom:4px}
+.ex-pt p{color:var(--mut);font-size:15px}
+.ex-side .btn{justify-self:start}
+@media (max-width:520px){.ex-side .btn{justify-self:stretch}}
+.ex-note{font-size:12.5px;color:var(--mut);margin-top:-8px}
 
 /* zaufanie */
 .trust{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
@@ -281,6 +320,7 @@ footer a{color:var(--mut)}
     <a class="logo" href="#top"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="160" height="50"></a>
     <nav class="main" aria-label="Główna">
       <a href="#jak">Jak to działa</a>
+      <a href="#przyklad">Przykładowy wynik</a>
       <a href="#zaufanie">Dlaczego my</a>
       <a href="#cennik">Cennik</a>
       <a href="#faq">Pytania</a>
@@ -405,17 +445,76 @@ footer a{color:var(--mut)}
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">Jak to działa</span>
-      <h2>Od danych firmy do listy terminów w minutę</h2>
+      <h2>Trzy kroki, a sprawdzanie robimy za Ciebie</h2>
     </div>
-    <div class="steps">
-      <div class="step"><h3>Podajesz dane</h3><p>NIP firmy albo, jeśli dopiero ją zakładasz, województwo i swoją sytuację zawodową.</p></div>
-      <div class="step"><h3>Dopasowujemy nabory</h3><p>Odrzucamy programy, które Cię wykluczają. Resztę układamy według terminu, najpilniejsze na górze.</p></div>
-      <div class="step"><h3>Pilnujemy terminów</h3><p>Każdy program ma kwotę, warunki i link do regulaminu. W abonamencie przypominamy 14 dni przed końcem naboru.</p></div>
+    <ol class="steps3">
+      <li><span class="num">1</span><div><h3>Podajesz kilka informacji</h3><p>NIP firmy albo, jeśli dopiero ją zakładasz, województwo i swoją sytuację. Zajmuje to około minuty.</p></div></li>
+      <li><span class="num">2</span><div><h3>Sprawdzamy warunki każdego naboru</h3><p>Porównujemy Twoje dane z regulaminami i odrzucamy programy, z których nie możesz skorzystać.</p></div></li>
+      <li><span class="num">3</span><div><h3>Dostajesz gotowy wynik</h3><p>Tylko pasujące programy, ułożone według terminu, z kwotą, warunkami i instrukcją złożenia wniosku.</p></div></li>
+    </ol>
+    <a class="btn primary steps-cta" href="#top">Sprawdź swoją firmę za darmo</a>
+  </div>
+</section>
+
+<section class="block alt" id="przyklad">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Przykładowy wynik</span>
+      <h2>Tak wygląda gotowy wynik dla firmy</h2>
+      <p class="lead">Nie dostajesz listy linków do przejrzenia. Przy każdym programie piszemy, dlaczego pasuje do Twojej firmy, ile możesz dostać, do kiedy i jak złożyć wniosek.</p>
+    </div>
+    <div class="ex">
+      <article class="excard" aria-label="Przykładowa karta programu">
+        <div class="ex-who">
+          <span>Wynik dla: <b>Stolarnia, mikrofirma</b> · Wielkopolskie · produkcja</span>
+          <span class="ex-ok">✓ Spełniasz warunki</span>
+        </div>
+        <span class="kind">dotacja bezzwrotna</span>
+        <h3 class="ex-title">Dotacja na nowe maszyny i automatyzację dla mikro i małych firm</h3>
+        <p class="ex-op">Prowadzi: urząd marszałkowski województwa wielkopolskiego</p>
+        <dl class="ex-facts">
+          <div><dt>Możesz dostać</dt><dd>do 400 tys. zł</dd></div>
+          <div><dt>Dofinansowanie</dt><dd>do 60% kosztów</dd></div>
+          <div class="hot"><dt>Termin</dt><dd><span data-ahead="23">za 23 dni</span><small>zostały 23 dni</small></dd></div>
+        </dl>
+        <div class="ex-why">
+          <h4>Dlaczego pasuje</h4>
+          <ul class="ok">
+            <li>siedziba w województwie wielkopolskim</li>
+            <li>mikrofirma, a program jest dla mikro, małych i średnich firm</li>
+            <li>produkcja nie jest na liście wykluczonych branż</li>
+          </ul>
+        </div>
+        <div class="ex-why">
+          <h4>Na co możesz wydać</h4>
+          <ul class="dot">
+            <li>maszyny i urządzenia produkcyjne</li>
+            <li>oprogramowanie do sterowania produkcją</li>
+            <li>szkolenie pracowników z obsługi</li>
+          </ul>
+        </div>
+        <div class="ex-why">
+          <h4>Jak złożyć wniosek</h4>
+          <ol class="ex-steps">
+            <li>Załóż konto w systemie naboru urzędu marszałkowskiego.</li>
+            <li>Przygotuj opis projektu i budżet z ofertami na maszyny.</li>
+            <li>Złóż wniosek z podpisem kwalifikowanym kilka dni przed terminem.</li>
+          </ol>
+        </div>
+        <p class="ex-src">Link do ogłoszenia i regulaminu u źródła · sprawdzono dziś</p>
+      </article>
+      <div class="ex-side">
+        <div class="ex-pt"><span class="ic">✓</span><div><h3>Warunki sprawdzone za Ciebie</h3><p>Pokazujemy tylko programy, w których Twoja firma spełnia podstawowe warunki. Nie musisz czytać regulaminów, żeby wiedzieć, czy warto.</p></div></div>
+        <div class="ex-pt"><span class="ic">zł</span><div><h3>Kwota i termin od razu</h3><p>Widzisz, ile możesz dostać i ile zostało czasu. Najpilniejsze nabory są na górze.</p></div></div>
+        <div class="ex-pt"><span class="ic">→</span><div><h3>Wiesz, co zrobić dalej</h3><p>Przy każdym programie jest instrukcja złożenia wniosku i link do oficjalnego ogłoszenia.</p></div></div>
+        <a class="btn primary" href="#top">Zobacz wynik dla swojej firmy</a>
+        <p class="ex-note">Przykład poglądowy. Nazwa, kwoty i termin są przykładowe, prawdziwe wyniki pochodzą z aktualnych naborów.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="block alt" id="zaufanie">
+<section class="block" id="zaufanie">
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">Dlaczego możesz nam zaufać</span>
@@ -434,7 +533,7 @@ footer a{color:var(--mut)}
   </div>
 </section>
 
-<section class="block" id="dla-kogo">
+<section class="block alt" id="dla-kogo">
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">Dla kogo</span>
@@ -467,7 +566,7 @@ footer a{color:var(--mut)}
   </div>
 </section>
 
-<section class="block alt" id="cennik">
+<section class="block" id="cennik">
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">Cennik</span>
@@ -510,7 +609,7 @@ footer a{color:var(--mut)}
   </div>
 </section>
 
-<section class="block" id="faq">
+<section class="block alt" id="faq">
   <div class="wrap">
     <div class="head"><span class="eyebrow">Pytania</span><h2>Najczęstsze pytania</h2></div>
     <div class="faq">
@@ -577,6 +676,8 @@ footer a{color:var(--mut)}
       {locked:true,type:"pozyczka",max:150000,regions:null,goals:["start"]},
       {locked:true,type:"dotacja",deadline:ahead(70),max:60000,regions:null,goals:["start"],requires:["niepelnosprawnosc"]}]}
   };
+
+  document.querySelectorAll("[data-ahead]").forEach(function(el){var t=parse(ahead(+el.dataset.ahead));el.textContent=t.getDate()+" "+["stycznia","lutego","marca","kwietnia","maja","czerwca","lipca","sierpnia","września","października","listopada","grudnia"][t.getMonth()]});
 
   var PAGE=6,view=null,shownN=PAGE,sortBy="score",onlyType="",last=null,me=null,saved={},shown={};
   var rList=document.getElementById("rList"),foot=document.getElementById("rFoot"),tools=document.getElementById("rTools"),sample=document.querySelector(".cal .sample");
