@@ -27,21 +27,42 @@
     return wrap;
   }
 
+  // Po wysłaniu e-maila można kliknąć link albo wpisać 6-cyfrowy kod. Kod jest konieczny w aplikacji
+  // na iPhonie (link z poczty otwiera się w Safari, a nie w aplikacji).
   function askEmail(next) {
     const m = modal(`<h3 style="margin:0 0 6px">Zaloguj się lub załóż konto</h3>
-      <p style="margin:0 0 12px;opacity:.75">Wyślemy Ci link do logowania – bez hasła.</p>
-      <form><input type="email" required placeholder="twoj@email.pl" autocomplete="email"
+      <p style="margin:0 0 12px;opacity:.75">Wyślemy Ci e-mail z linkiem i kodem do logowania, bez hasła.</p>
+      <form data-f="email"><input type="email" required placeholder="twoj@email.pl" autocomplete="email"
         style="width:100%;box-sizing:border-box;font:inherit;padding:10px;border:1px solid #ccc;border-radius:8px">
-      <button class="btn" style="margin-top:10px;width:100%">Wyślij link</button><p data-msg style="margin:10px 0 0"></p></form>`);
-    const form = m.querySelector("form");
+      <button class="btn primary" style="margin-top:10px;width:100%">Wyślij e-mail</button><p data-msg style="margin:10px 0 0"></p></form>
+      <form data-f="code" hidden><p style="margin:0 0 8px">Kliknij link w e-mailu albo wpisz tutaj kod z wiadomości:</p>
+      <input inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required placeholder="123456"
+        style="width:100%;box-sizing:border-box;font:inherit;font-size:22px;letter-spacing:.3em;text-align:center;padding:10px;border:1px solid #ccc;border-radius:8px">
+      <button class="btn primary" style="margin-top:10px;width:100%">Zaloguj się</button><p data-msg style="margin:10px 0 0"></p></form>`);
+    const form = m.querySelector('[data-f="email"]');
+    const codeForm = m.querySelector('[data-f="code"]');
+    let email = "";
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const msg = form.querySelector("[data-msg]");
+      email = form.querySelector("input").value;
       try {
-        await api("/api/auth/request", { email: form.querySelector("input").value, next });
-        msg.textContent = "Sprawdź skrzynkę – link jest ważny 20 minut.";
+        await api("/api/auth/request", { email, next });
+        msg.textContent = "Wysłaliśmy e-mail. Link i kod są ważne 20 minut.";
+        codeForm.hidden = false;
+        codeForm.querySelector("input").focus();
       } catch (err) {
-        msg.textContent = err.status === 429 ? "Za dużo prób, spróbuj za chwilę." : "Nie udało się wysłać linku.";
+        msg.textContent = err.status === 429 ? "Za dużo prób, spróbuj za chwilę." : "Nie udało się wysłać e-maila.";
+      }
+    });
+    codeForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const msg = codeForm.querySelector("[data-msg]");
+      try {
+        const r = await api("/api/auth/code", { email, code: codeForm.querySelector("input").value });
+        location.href = r.next || "/profil";
+      } catch (err) {
+        msg.textContent = err.status === 429 ? "Za dużo prób. Poproś o nowy e-mail za kilka minut." : "Kod jest nieprawidłowy albo wygasł.";
       }
     });
     form.querySelector("input").focus();

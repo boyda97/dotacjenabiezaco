@@ -14,7 +14,7 @@ const cfg = loadConfig({
 });
 const db = openDb(":memory:");
 const sent = [];
-const mailer = { sendLoginLink: async (email, link) => sent.push({ email, link }) };
+const mailer = { sendLoginLink: async (email, link, code) => sent.push({ email, link, code }) };
 
 // Prawdziwy klient Stripe (podpisy webhooków), z podmienionymi wywołaniami API.
 const stripe = new Stripe("sk_test_dummy");
@@ -91,6 +91,32 @@ test("link logowania zakłada konto, działa raz, GET go nie zużywa", async () 
   // GET (np. skaner poczty) tylko wyświetla stronę
   const { token: t2 } = { token: (await login("gosc@firma.pl")).token };
   assert.equal((await get("/api/auth/verify?token=" + t2)).status, 200);
+});
+
+test("kod z e-maila loguje w aplikacji, działa raz, unieważnia link i ma limit prób", async () => {
+  sent.length = 0;
+  assert.equal((await post("/api/auth/request", { email: "kod@firma.pl", next: "/panel" })).status, 200);
+  const { code, link } = sent[0];
+  assert.match(code, /^\d{6}$/);
+  const wrong = code === "000000" ? "111111" : "000000";
+  assert.equal((await post("/api/auth/code", { email: "kod@firma.pl", code: wrong })).status, 400);
+  const ok = await post("/api/auth/code", { email: "Kod@Firma.pl", code });
+  assert.equal(ok.status, 200);
+  assert.equal((await ok.json()).next, "/panel");
+  const cookie = ok.headers.get("set-cookie").split(";")[0];
+  assert.equal((await (await get("/api/me", cookie)).json()).user.email, "kod@firma.pl");
+  // ponownie ten sam kod i link z tej samej wiadomości -> odrzucone
+  assert.equal((await post("/api/auth/code", { email: "kod@firma.pl", code })).status, 400);
+  const v = await fetch(base + "/api/auth/verify", {
+    method: "POST", redirect: "manual",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "token=" + new URL(link).searchParams.get("token"),
+  });
+  assert.match(v.headers.get("location"), /login=expired/);
+  // zgadywanie: po kilku próbach blokada
+  let last;
+  for (let i = 0; i < 10; i++) last = await post("/api/auth/code", { email: "zgaduj@firma.pl", code: "123456" });
+  assert.equal(last.status, 429);
 });
 
 test("nieprawidłowy e-mail i obcy Origin są odrzucane", async () => {

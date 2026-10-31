@@ -49,6 +49,7 @@ export function createApp({
   });
   // Liczniki zdarzeń do panelu /admin (bez danych osobowych).
   app.post("/api/auth/verify", (_req, _res, next) => (stats.event("logowanie"), next()));
+  app.post("/api/auth/code", (_req, _res, next) => (stats.event("logowanie"), next()));
   app.post("/api/billing/checkout", (_req, _res, next) => (stats.event("zakup_start"), next()));
 
   const requireAccess = (req, res, next) => {
