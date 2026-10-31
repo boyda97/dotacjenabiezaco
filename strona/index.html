@@ -20,9 +20,9 @@
    Zasada: mało elementów na raz, dużo światła, każda sekcja ma jeden cel. Zaufanie budują fakty
    (oficjalne źródła, płatności Stripe, jasne zasady), nigdy wymyślone opinie czy liczby. Stały jasny wygląd. */
 :root{
-  --paper:#fbfcf8; --surface:#ffffff; --soft:#eef4ef; --greenL:#e6f5ec;
-  --ink:#14211b; --mut:#5e6d66; --line:#e2e8e2;
-  --green:#00854A; --deep:#003D2B; --accent:#08D568; --greenT:#006f3d; --green-ink:#ffffff; --red:#c23b22; --redL:#fbe9e5;
+  --paper:#fbfcf8; --surface:#ffffff; --soft:#e6eee8; --greenL:#e6f5ec;
+  --ink:#0b1611; --mut:#3f4d46; --line:#c7d2ca;
+  --green:#00773F; --deep:#003D2B; --accent:#08D568; --greenT:#005c33; --green-ink:#ffffff; --red:#c23b22; --redL:#fbe9e5;
   --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --r:14px; color-scheme:light;
 }
@@ -45,7 +45,7 @@ p{margin:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 15px/1 var(--font);padding:14px 20px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn.primary{background:var(--green);color:var(--green-ink)}
 .btn.primary:hover{background:var(--deep)}
-.btn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn.ghost{background:var(--surface);border-color:#aab8af;color:var(--ink)}
 .btn.ghost:hover{border-color:var(--mut)}
 .btn.sm{padding:10px 16px;font-size:14px}
 
@@ -80,8 +80,8 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .fld span{display:block;font-size:12px;font-weight:600;color:var(--mut)}
 .fld select,.fld input{display:block;width:100%;border:0;background:transparent;padding:2px 0 0;font:700 16px/1.4 var(--font);color:var(--ink);outline:none;text-overflow:ellipsis;cursor:pointer}
 .fld input{cursor:text}
-.fld input::placeholder{color:#a3aea8;font-weight:500}
-.fld em,.goals em{font-style:normal;font-weight:500;color:#8d9893}
+.fld input::placeholder{color:#7b8780;font-weight:500}
+.fld em,.goals em{font-style:normal;font-weight:500;color:#606d66}
 .fld.err{border-color:var(--red);box-shadow:0 0 0 3px var(--redL)}
 .goals{border:0;margin:2px 0 0;padding:0;min-width:0}
 .goals legend{font-size:13px;font-weight:600;color:var(--mut);padding:0;margin-bottom:8px}
@@ -96,7 +96,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .fld.sel select{position:absolute;inset:0;opacity:0;pointer-events:none}
 .dd{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:28px 14px 9px;font:700 16px/1.4 var(--font);color:var(--ink);text-align:left;cursor:pointer;border-radius:10px}
 .dd b{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dd b.ph{color:#8d9893;font-weight:600}
+.dd b.ph{color:#606d66;font-weight:600}
 .dd svg{flex:0 0 18px;width:18px;height:18px;color:var(--green);transition:transform .15s}
 .dd[aria-expanded=true] svg{transform:rotate(180deg)}
 .dd:focus-visible{outline:none}
@@ -147,7 +147,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .ev.hot .date{background:var(--redL);color:var(--red)}
 .ev.hot .left{color:var(--red);font-weight:600}
 .ev.lock .date{background:var(--soft);color:var(--mut)}
-.ev.lock::before{border-color:#c5cec8}
+.ev.lock::before{border-color:#97a69d}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .tag{font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--soft);color:var(--greenT)}
 .tag.cond{color:#8a5a00;background:#fbf3e2}
@@ -166,7 +166,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .freebadge{display:inline-block;font-size:11px;font-weight:700;color:var(--greenT);background:var(--greenL);border-radius:6px;padding:3px 7px;margin-bottom:5px}
 .ev .match{color:var(--ink);font-size:13px;margin-top:6px}
 .ev .match b{color:var(--greenT)}
-.ev .src{font-size:12px;color:#8d9893;margin-top:3px}
+.ev .src{font-size:12px;color:#606d66;margin-top:3px}
 .howto{margin-top:8px;font-size:13px;border:1px solid var(--line);border-radius:10px;padding:6px 12px;background:var(--surface)}
 .howto summary{cursor:pointer;font-weight:700;color:var(--greenT);padding:2px 0!important;font-size:13px}
 .howto summary::after{font-size:16px!important}
@@ -184,9 +184,9 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .acts .howto[open]{flex-basis:100%;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--surface)}
 .acts .howto[open] summary{border:0;padding:2px 0!important}
 .acts .howto[open] summary::after{content:" ▴"}
-.howto .src{font-size:12px!important;color:#8d9893!important}
+.howto .src{font-size:12px!important;color:#606d66!important}
 
-.ev .locknote{font-size:12px;color:#8d9893;margin-top:4px}
+.ev .locknote{font-size:12px;color:#606d66;margin-top:4px}
 .ev.lock h4{color:var(--ink);font-weight:700}
 .ev.free{background:linear-gradient(90deg,transparent,rgba(0,133,74,.04));}
 .date.yr b{font-size:17px}
@@ -203,7 +203,7 @@ nav.main a:hover{color:var(--ink);background:var(--soft)}
 .sources{border-block:1px solid var(--line);background:var(--surface)}
 .sources .wrap{padding-block:22px;display:flex;align-items:center;gap:12px 28px;flex-wrap:wrap}
 .sources .lbl{font-size:13px;color:var(--mut);font-weight:500}
-.sources ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;font-weight:700;color:#3e4c45}
+.sources ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;font-weight:700;color:#243029}
 
 /* sekcje */
 section.block{padding-block:88px}
@@ -252,7 +252,7 @@ section.block.alt{background:#F3FAF6;border-block:1px solid #dcefe3}
 .pay{max-width:880px;margin-top:20px;padding:18px 22px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;gap:14px 24px;flex-wrap:wrap}
 .pay .lock{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;color:var(--green)}
 .pay ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
-.pay li{font-size:13px;font-weight:700;padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--paper);color:#3e4c45}
+.pay li{font-size:13px;font-weight:700;padding:6px 10px;border-radius:7px;border:1px solid var(--line);background:var(--paper);color:#243029}
 .pay p{flex-basis:100%;font-size:13px;color:var(--mut)}
 .fine{font-size:13px;color:var(--mut);margin-top:16px;max-width:880px}
 
