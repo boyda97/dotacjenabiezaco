@@ -68,7 +68,7 @@ function page({ title, description, path, appUrl, body }) {
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"><style>${CSS}</style></head>
 <body><header><div class="wrap"><a href="/"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="140" height="44"></a><a class="btn sm" href="/#top">Sprawdź swoją firmę</a></div></header>
 <main class="wrap">${body}</main>
-<footer><div class="wrap">© ${year()} Dotacjo · <a href="/dotacje">Dotacje według województw</a> · <a href="/#cennik">Cennik</a> · <a href="/#faq">Pytania</a> · <a href="#" data-zgody hidden>Ustawienia cookies</a><br>Informacje o naborach mają charakter pomocniczy; wiążący jest regulamin operatora programu.</div></footer>
+<footer><div class="wrap">© ${year()} Dotacjo · <a href="/dotacje">Dotacje według województw</a> · <a href="/#cennik">Cennik</a> · <a href="/#faq">Pytania</a> · <a href="/regulamin">Regulamin</a> · <a href="/prywatnosc">Polityka prywatności</a> · <a href="#" data-zgody hidden>Ustawienia cookies</a><br>Informacje o naborach mają charakter pomocniczy; wiążący jest regulamin operatora programu.</div></footer>
 <script src="/zgody.js" defer></script>
 <script src="/stat.js" defer></script></body></html>`;
 }
