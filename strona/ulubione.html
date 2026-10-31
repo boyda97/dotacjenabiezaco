@@ -17,9 +17,9 @@
 /* Ulubione nabory (osobna strona, wcześniej sekcja profilu): oś terminów, etap przygotowania jednym kliknięciem,
    notatka i eksport do kalendarza. Styl jak profil i strona główna. */
 :root{
-  --paper:#fbfcf8; --surface:#ffffff; --soft:#eef4ef; --greenL:#e6f5ec;
-  --ink:#14211b; --mut:#5e6d66; --line:#e2e8e2;
-  --green:#00854A; --deep:#003D2B; --accent:#08D568; --greenT:#006f3d; --red:#c23b22; --redL:#fbe9e5; --amber:#8a5a00; --amberL:#fbf3e2;
+  --paper:#fbfcf8; --surface:#ffffff; --soft:#dce7df; --greenL:#e6f5ec;
+  --ink:#050d09; --mut:#2c3a33; --line:#a9b9ae;
+  --green:#006937; --deep:#003D2B; --accent:#08D568; --greenT:#004e2b; --red:#c23b22; --redL:#fbe9e5; --amber:#8a5a00; --amberL:#fbf3e2;
   --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
@@ -34,7 +34,7 @@ p{margin:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 14px/1 var(--font);padding:11px 16px;border-radius:10px;border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap}
 .btn.primary{background:var(--green);color:#fff}
 .btn.primary:hover{background:var(--deep)}
-.btn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn.ghost{background:var(--surface);border-color:#82958a;color:var(--ink)}
 .btn.ghost:hover{border-color:var(--mut)}
 .btn.link{background:none;border:0;padding:8px 4px;color:var(--mut);font-weight:600}
 .btn.link:hover{color:var(--ink)}
@@ -97,7 +97,7 @@ main{padding-block:40px 80px}
 .ev.hot .date{background:var(--redL);color:var(--red)}
 .ev.hot .left{color:var(--red);font-weight:600}
 .ev.done{opacity:.6}
-.ev.done::before{border-color:#c5cec8}
+.ev.done::before{border-color:#7a8b81}
 .tools{grid-column:2/-1;display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:6px}
 .tools select{font:600 13px/1 var(--font);padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
 .tools .btn{padding:7px 10px;font-size:13px}
