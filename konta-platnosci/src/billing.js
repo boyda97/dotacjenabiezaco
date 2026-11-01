@@ -67,8 +67,9 @@ export function createBilling({ db, cfg, stripe, auth, log = console }) {
         ? {
             ...common,
             mode: "payment",
-            // BLIK i Przelewy24 działają w Stripe tylko przy płatnościach jednorazowych.
-            payment_method_types: ["card", "blik", "p24"],
+            // BLIK działa w Stripe tylko przy płatnościach jednorazowych. Przelewy24 Stripe
+            // nie udostępnia dla tego konta (status „Ineligible”), więc go nie podajemy.
+            payment_method_types: ["card", "blik"],
             invoice_creation: {
               enabled: true,
               ...(cfg.invoiceFooter ? { invoice_data: { footer: cfg.invoiceFooter } } : {}),
