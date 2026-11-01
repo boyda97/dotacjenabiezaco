@@ -60,7 +60,7 @@
   "status": "open",
   "deadline": null,
   "min": null,
-  "max": 51000,
+  "max": 57000,
   "level": "do 6-krotności przeciętnego wynagrodzenia",
   "regions": null,
   "forms": [
@@ -163,7 +163,7 @@
   "status": "open",
   "deadline": null,
   "min": null,
-  "max": 51000,
+  "max": 57000,
   "level": "do 6-krotności przeciętnego wynagrodzenia",
   "regions": null,
   "forms": [
@@ -410,8 +410,8 @@
   "status": "open",
   "deadline": null,
   "min": null,
-  "max": null,
-  "level": "preferencyjne oprocentowanie",
+  "max": 5000000,
+  "level": "preferencyjne oprocentowanie · OZE do 5 mln zł, spłata do 15 lat",
   "regions": [
    "dolnoslaskie"
   ],
