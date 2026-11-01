@@ -101,6 +101,14 @@ def sector_covers(program_sector: str, company_sector: str) -> bool:
     return SUBSECTION_PARENT.get(company_sector) == program_sector
 
 
+def sector_specific(program_sectors) -> bool:
+    """Czy program jest tylko dla wybranych branż (mniej niż połowa sekcji PKD)."""
+    if not program_sectors:
+        return False
+    top = {SUBSECTION_PARENT.get(s, s) for s in program_sectors}
+    return len(top) < len([s for s in SECTORS if s not in SUBSECTION_PARENT]) / 2
+
+
 GOALS = {
     "sprzet": "maszyny, urządzenia, sprzęt",
     "budowa": "budowa, remont, adaptacja",

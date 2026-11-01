@@ -74,6 +74,17 @@ class MatchingTest(unittest.TestCase):
         self.assertFalse(score(prog(goals=["oze"]), firm(goals=["digital"]), TODAY).eligible)
         self.assertFalse(score(prog(status="closed"), f, TODAY).eligible)
 
+    def test_sector_programs_hidden_without_company_sector(self):
+        # NIP bez PKD z rejestru: dotacja dla pszczelarzy (tylko rolnictwo) nie trafia do firmy w ciemno
+        f = firm(pkd=None, sector=None)
+        self.assertFalse(score(prog(sectors=["A"]), f, TODAY).eligible)
+        self.assertFalse(score(prog(sectors=["A", "C10"]), f, TODAY).eligible)
+        self.assertTrue(score(prog(sectors=None), f, TODAY).eligible)
+        wide = [s for s in tx.SECTORS if s not in ("A", "B", "O")]
+        self.assertTrue(score(prog(sectors=wide), f, TODAY).eligible)
+        self.assertTrue(score(prog(sectors=["A"]), f, TODAY, strict=False).eligible)
+        self.assertTrue(score(prog(sectors=["A"]), firm(pkd="01.49.Z"), TODAY).eligible)
+
     def test_unknown_criteria_hidden_by_default(self):
         # strona pokazuje tylko sprawdzone dopasowania
         p = prog(regions=None, sizes=None, unknown=["regions", "sizes"])
@@ -172,8 +183,12 @@ class SourcesTest(unittest.TestCase):
         src = GovPlTableSource(name="nfos", http=FakeHttp({"harmonogram": "govpl.html"}),
                                url="https://www.gov.pl/web/nfosigw/harmonogram")
         items = {p.name: p for p in src.fetch()}
-        self.assertEqual(set(items), {"Energia dla wsi", "Program zamknięty"})
+        self.assertEqual(set(items), {"Energia dla wsi", "Program zamknięty", "Czyste Powietrze", "Bez strony"})
         self.assertEqual(items["Energia dla wsi"].url, "https://www.gov.pl/web/nfosigw/energia-dla-wsi")
+        # NFOŚiGW daje link do naboru w kolumnie "oznaczenie naboru", często opakowany przez Outlooka
+        self.assertEqual(items["Czyste Powietrze"].url, "https://czystepowietrze.gov.pl/wez-dofinansowanie/")
+        # bez linku do naboru zostaje harmonogram, nie mail koordynatora
+        self.assertEqual(items["Bez strony"].url, "https://www.gov.pl/web/nfosigw/harmonogram")
         self.assertEqual(items["Program zamknięty"].status, "closed")
 
     def test_parp_detail_labels_and_docs(self):

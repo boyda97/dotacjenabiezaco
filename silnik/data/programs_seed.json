@@ -50,7 +50,7 @@
    "doradztwo"
   ],
   "how": "Dofinansuj {szkolenia} – wybierasz usługę z Bazy Usług Rozwojowych, operator zwraca 50–80 % jej kosztu. Działa też dla samozatrudnionych.",
-  "url": "https://uslugirozwojowe.parp.gov.pl"
+  "url": "https://uslugirozwojowe.parp.gov.pl/wyszukiwarka/uslugi/szukaj"
  },
  {
   "id": "start-pup",
@@ -82,7 +82,7 @@
    "poszukujacy"
   ],
   "how": "Dotacja bezzwrotna na wyposażenie i start firmy: {sprzet}, towar na start, marketing. Trzeba być zarejestrowanym w PUP jako osoba bezrobotna (lub poszukująca pracy w określonych przypadkach) i prowadzić firmę min. 12 miesięcy. Nabory ogłasza każdy urząd osobno, zwykle kilka razy w roku.",
-  "url": "https://www.praca.gov.pl",
+  "url": "https://www.biznes.gov.pl/pl/portal/001008",
   "requires_all": [
    "bez_dg_12m"
   ]
@@ -120,7 +120,7 @@
    "kobieta"
   ],
   "how": "Projekty regionalne: szkolenie z prowadzenia firmy, dotacja na start i comiesięczne wsparcie pomostowe na ZUS przez pierwsze miesiące. Grupy docelowe zależą od projektu (np. osoby bez pracy, 30+ lub 50+, kobiety, osoby z niepełnosprawnością).",
-  "url": "https://www.funduszeeuropejskie.gov.pl",
+  "url": "https://funduszeeuropejskie.gov.pl/jak-osoby-fizyczne-korzystaja-z-funduszy-europejskich/zalozenie-firmy/",
   "requires_all": [
    "bez_dg_12m"
   ]
@@ -153,7 +153,7 @@
    "obszar_wiejski"
   ],
   "how": "Ryczałtowa premia na założenie firmy na obszarze wiejskim działania LGD (gminy wiejskie i miasta do ok. 20 tys. mieszkańców). Wysokość premii i terminy naborów ustala każda LGD.",
-  "url": "https://www.gov.pl/web/arimr"
+  "url": "https://www.gov.pl/web/rolnictwo/leader--inicjatywa-wspierajaca-aktywizacje-spolecznosci-wiejskich"
  },
  {
   "id": "start-pfron",
@@ -181,7 +181,7 @@
    "niepelnosprawnosc"
   ],
   "how": "Jednorazowe środki dla osoby z orzeczeniem o niepełnosprawności, zarejestrowanej w PUP jako bezrobotna lub poszukująca pracy (niepozostająca w zatrudnieniu). Firma musi działać min. 12 miesięcy.",
-  "url": "https://www.pfron.org.pl",
+  "url": "https://www.pfron.gov.pl/osoby-niepelnosprawne/dofinansowanie-dzialalnosci-gospodarczej/dotacja-na-rozpoczecie-dzialalnosci-gospodarczej/",
   "requires_all": [
    "bez_dg_12m"
   ]
@@ -252,7 +252,7 @@
   ],
   "how": "BGK poręcza do 60 % kredytu obrotowego lub inwestycyjnego, więc bank żąda mniej zabezpieczeń. Nie jest to wypłata pieniędzy, tylko gwarancja liczona do limitu pomocy de minimis. Wniosek składasz w swoim banku razem z wnioskiem o kredyt.",
   "apply_where": "u partnera finansującego BGK właściwego dla siedziby firmy (lista na stronie programu)",
-  "url": "https://www.bgk.pl/male-i-srednie-przedsiebiorstwa/"
+  "url": "https://www.bgk.pl/produkty/gwarancja-de-minimis/"
  },
  {
   "id": "bgk-swietokrzyskie",
