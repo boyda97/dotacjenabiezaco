@@ -4,7 +4,7 @@ Backend (Node.js 22 + Express + SQLite) obsługujący:
 
 - **Konto bez hasła**: użytkownik wpisuje e-mail, dostaje link, klik loguje go (pierwszy raz zakłada konto). Sesja w ciasteczku `httpOnly` na 30 dni.
 - **Subskrypcja miesięczna** 49 zł (plan `start`; plany Pro 149 zł i Biuro 399 zł są przygotowane na później), odnawiana automatycznie kartą, Apple Pay lub Google Pay.
-- **Dostęp tygodniowy jednorazowy** (39 zł, zakres funkcji Pro), płatny **BLIK-iem, Przelewy24 lub kartą**. Dokupienie kolejnego tygodnia przedłuża dostęp.
+- **Dostęp tygodniowy jednorazowy** (39 zł, zakres funkcji Pro), płatny **BLIK-iem lub kartą** (Przelewy24 Stripe oznaczył dla tego konta jako niedostępne). Dokupienie kolejnego tygodnia przedłuża dostęp.
 - **Blokada treści na serwerze**: bez opłaconego dostępu `/api/programs` zwraca pierwszy program w całości, a resztę bez nazwy, opisu i linku (zostaje typ, kwota i termin, do paska „N programów, łącznie X zł”). Szczegóły programu (`/api/programs/:id`) zwracają `402`.
 - **Panel klienta Stripe**: faktury, zmiana karty, zmiana planu, anulowanie (podpięte pod przyciski z zakładki „Abonament”).
 - Ceny są końcowe: sprzedawca jest zwolniony z VAT (art. 113 ust. 1), więc VAT nie jest doliczany, a faktura ma w stopce podstawę zwolnienia (`INVOICE_FOOTER`). Stripe zbiera NIP kupującego na fakturę. Po przekroczeniu limitu zwolnienia wystarczy włączyć Stripe Tax (`STRIPE_AUTOMATIC_TAX=1`) i wyczyścić stopkę.
@@ -30,7 +30,7 @@ Nazwa „Dotacjo” w mailach, produktach i na stronie logowania jest już w kod
 ## Uruchomienie (ok. 30 min)
 
 1. Załóż konto na [stripe.com](https://dashboard.stripe.com/register) (firma w Polsce, waluta PLN). Wszystko poniżej da się najpierw zrobić w **trybie testowym**.
-2. W panelu Stripe: *Settings → Payment methods* włącz **BLIK** i **Przelewy24** (karty są domyślnie). *Settings → Billing → Customer portal* włącz anulowanie, zmianę planu (Start/Pro/Biuro) i faktury.
+2. W panelu Stripe: *Settings → Payment methods* włącz **BLIK** i **Google Pay** (karty są domyślnie; Przelewy24 jest dla tego konta „Ineligible”). *Settings → Billing → Customer portal* włącz anulowanie, zmianę planu (Start/Pro/Biuro) i faktury.
 3. Na serwerze:
    ```bash
    npm install

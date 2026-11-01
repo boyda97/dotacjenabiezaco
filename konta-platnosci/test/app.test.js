@@ -114,7 +114,7 @@ test("bez dostępu: lista programów zablokowana poza pierwszym, szczegóły 402
   assert.equal((await get("/api/programs/2")).status, 402);
 });
 
-test("checkout wymaga logowania i zgód; tydzień oferuje BLIK i P24", async () => {
+test("checkout wymaga logowania i zgód; tydzień oferuje BLIK", async () => {
   assert.equal((await post("/api/billing/checkout", { product: "pro" })).status, 401);
   const { cookie } = await login("tydzien@firma.pl");
   assert.equal((await post("/api/billing/checkout", { product: "week" }, cookie)).status, 400);
@@ -123,7 +123,7 @@ test("checkout wymaga logowania i zgód; tydzień oferuje BLIK i P24", async () 
   assert.equal(r.status, 200);
   const p = created.at(-1);
   assert.equal(p.mode, "payment");
-  assert.deepEqual(p.payment_method_types, ["card", "blik", "p24"]);
+  assert.deepEqual(p.payment_method_types, ["card", "blik"]);
   assert.equal(p.metadata.product, "week");
   assert.match(p.invoice_creation.invoice_data.footer, /zwolniony z VAT/);
 

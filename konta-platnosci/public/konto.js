@@ -54,7 +54,7 @@
           <span>Akceptuję <a href="/regulamin" target="_blank">Regulamin</a> i <a href="/prywatnosc" target="_blank">Politykę prywatności</a>.</span></label>
         <label style="display:flex;gap:8px"><input type="checkbox" data-c="i">
           <span>Proszę o natychmiastowy dostęp do treści cyfrowych i przyjmuję do wiadomości, że tracę prawo odstąpienia od umowy z chwilą rozpoczęcia świadczenia.</span></label>
-        <button class="btn" style="margin-top:14px;width:100%" disabled>${product === "week" ? "Zapłać (BLIK, P24, karta)" : "Przejdź do płatności"}</button>`);
+        <button class="btn" style="margin-top:14px;width:100%" disabled>${product === "week" ? "Zapłać (BLIK lub karta)" : "Przejdź do płatności"}</button>`);
       const [t, i] = m.querySelectorAll("input");
       const b = m.querySelector("button");
       const upd = () => (b.disabled = !(t.checked && i.checked));
