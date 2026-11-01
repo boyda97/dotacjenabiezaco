@@ -106,6 +106,11 @@ def score(program: Program, profile: CompanyProfile, today: Optional[date] = Non
 
     # branża (15)
     if profile.sector is None:
+        # Program branżowy (np. tylko rolnictwo, pszczelarze, gastronomia) bez znanej branży firmy
+        # pokazalibyśmy w ciemno - klient dostałby dotacje nie dla siebie. Pomijamy go; programy
+        # otwarte dla (prawie) wszystkich branż zostają.
+        if strict and tx.sector_specific(program.sectors):
+            return fail("program tylko dla wybranych branż – podaj branżę firmy")
         pts += 7.5
         why.append(Reason("podaj branżę (PKD), by zawęzić wyniki", CHECK))
     else:

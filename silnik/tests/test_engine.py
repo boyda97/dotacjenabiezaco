@@ -74,6 +74,17 @@ class MatchingTest(unittest.TestCase):
         self.assertFalse(score(prog(goals=["oze"]), firm(goals=["digital"]), TODAY).eligible)
         self.assertFalse(score(prog(status="closed"), f, TODAY).eligible)
 
+    def test_sector_programs_hidden_without_company_sector(self):
+        # NIP bez PKD z rejestru: dotacja dla pszczelarzy (tylko rolnictwo) nie trafia do firmy w ciemno
+        f = firm(pkd=None, sector=None)
+        self.assertFalse(score(prog(sectors=["A"]), f, TODAY).eligible)
+        self.assertFalse(score(prog(sectors=["A", "C10"]), f, TODAY).eligible)
+        self.assertTrue(score(prog(sectors=None), f, TODAY).eligible)
+        wide = [s for s in tx.SECTORS if s not in ("A", "B", "O")]
+        self.assertTrue(score(prog(sectors=wide), f, TODAY).eligible)
+        self.assertTrue(score(prog(sectors=["A"]), f, TODAY, strict=False).eligible)
+        self.assertTrue(score(prog(sectors=["A"]), firm(pkd="01.49.Z"), TODAY).eligible)
+
     def test_unknown_criteria_hidden_by_default(self):
         # strona pokazuje tylko sprawdzone dopasowania
         p = prog(regions=None, sizes=None, unknown=["regions", "sizes"])
