@@ -123,7 +123,7 @@ test("checkout wymaga logowania i zgód; tydzień oferuje BLIK", async () => {
   assert.equal(r.status, 200);
   const p = created.at(-1);
   assert.equal(p.mode, "payment");
-  assert.deepEqual(p.payment_method_types, ["card", "blik"]);
+  assert.equal(p.payment_method_types, undefined);
   assert.equal(p.metadata.product, "week");
   assert.match(p.invoice_creation.invoice_data.footer, /zwolniony z VAT/);
 
