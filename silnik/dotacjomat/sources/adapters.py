@@ -22,7 +22,7 @@ from datetime import date, timedelta
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Iterator
-from urllib.parse import urljoin
+from urllib.parse import parse_qs, urljoin, urlparse
 
 from .. import taxonomy as tx
 from ..models import Program
@@ -179,6 +179,31 @@ class ParpSource(HtmlListSource):
         return [u for u, t in links if u.lower().endswith(".pdf") and re.search(r"regulamin", u + t, re.I)]
 
 
+def _unwrap(link: str) -> str:
+    """Link z Outlooka (safelinks.protection.outlook.com/?url=...) -> właściwy adres."""
+    host = urlparse(link).netloc
+    if host.endswith("safelinks.protection.outlook.com"):
+        target = parse_qs(urlparse(link).query).get("url")
+        if target:
+            return target[0]
+    return link
+
+
+def _row_link(row: dict, name_link, kind_frag: str):
+    """Link do strony naboru: z nazwy, z kolumny "oznaczenie naboru" (tak robi NFOŚiGW), albo
+    pierwszy inny link do strony w wierszu. Pomija maile koordynatorów."""
+    def ok(link):
+        if not link:
+            return None
+        link = _unwrap(link)
+        u = urlparse(link)
+        return link if u.scheme in ("http", "https") and "@" not in u.netloc else None
+
+    kind = [h for k, (_, h) in row.items() if kind_frag in k]
+    rest = [h for k, (_, h) in row.items() if kind_frag not in k and "koordyn" not in k]
+    return next((l for l in map(ok, [name_link, *kind, *rest]) if l), None)
+
+
 class GovPlTableSource(Source):
     """Harmonogramy naborów w szablonie gov.pl (NFOŚiGW, ARiMR, NCBR): tabela HTML.
     options: url, op, name_col / date_col / status_col / kind_col (fragmenty nagłówków), follow (bool)."""
@@ -198,9 +223,10 @@ class GovPlTableSource(Source):
         html = self.http.get(url)
         for table in html_tables(html, url):
             for row in table:
-                name, link = self._col(row, "name_col", "nazw")
+                name, name_link = self._col(row, "name_col", "nazw")
                 if not name:
                     continue
+                link = _row_link(row, name_link, self.options.get("kind_col", "oznacz"))
                 dates, _ = self._col(row, "date_col", "termin")
                 if not dates:
                     dates = " ".join(t for k, (t, _) in row.items() if "data" in k or "od" == k or "do" == k)
@@ -212,7 +238,8 @@ class GovPlTableSource(Source):
                         desc += "\n" + html_to_text(self.http.get(link), link)["text"][:20000]
                     except Exception as e:
                         log.warning("[%s] nie pobrano %s: %s", self.name, link, e)
-                p = Program(source=self.name, source_id=_id(name + (link or "")), name=name,
+                # id jak dotąd (nazwa + link z kolumny nazwy), żeby oceny z przeglądu nie przepadły
+                p = Program(source=self.name, source_id=_id(name + (name_link or "")), name=name,
                             url=link or url, op=self.options.get("op", ""), description=desc)
                 if re.search(r"zako[nń]cz|zamkni", status, re.I):
                     p.status = "closed"

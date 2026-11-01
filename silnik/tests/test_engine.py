@@ -183,8 +183,12 @@ class SourcesTest(unittest.TestCase):
         src = GovPlTableSource(name="nfos", http=FakeHttp({"harmonogram": "govpl.html"}),
                                url="https://www.gov.pl/web/nfosigw/harmonogram")
         items = {p.name: p for p in src.fetch()}
-        self.assertEqual(set(items), {"Energia dla wsi", "Program zamknięty"})
+        self.assertEqual(set(items), {"Energia dla wsi", "Program zamknięty", "Czyste Powietrze", "Bez strony"})
         self.assertEqual(items["Energia dla wsi"].url, "https://www.gov.pl/web/nfosigw/energia-dla-wsi")
+        # NFOŚiGW daje link do naboru w kolumnie "oznaczenie naboru", często opakowany przez Outlooka
+        self.assertEqual(items["Czyste Powietrze"].url, "https://czystepowietrze.gov.pl/wez-dofinansowanie/")
+        # bez linku do naboru zostaje harmonogram, nie mail koordynatora
+        self.assertEqual(items["Bez strony"].url, "https://www.gov.pl/web/nfosigw/harmonogram")
         self.assertEqual(items["Program zamknięty"].status, "closed")
 
     def test_parp_detail_labels_and_docs(self):
