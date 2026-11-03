@@ -237,7 +237,7 @@ class PortalFETest(unittest.TestCase):
         self.assertIn("zatrudnienie", p.goals)
         self.assertIn("LSI", p.apply_where)
 
-        it = {"url": "https://www.funduszeunijne.gov.pl/nabory/61-drogi/", "status": "planowany", "dates": ["2026-11-02", "2026-12-31"],
+        it = {"url": "https://www.funduszeunijne.gov.pl/nabory/61-drogi/", "status": "planowany", "dates": ["2099-11-02", "2099-12-31"],
               "title": "6.1 Poprawa regionalnej dostępności transportowej, Fundusze Europejskie dla Lubelskiego"}
         p = src.parse(it, (FIX / "portal_fe_detail_jst.html").read_text(encoding="utf-8"))
         self.assertEqual((p.forms, p.status, p.regions), (["jst"], "soon", ["lubelskie"]))
