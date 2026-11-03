@@ -555,11 +555,31 @@ body{background:var(--paper)}
     draw();
   });
 
+  // ---- NIP (opcjonalnie): dane z rejestru (GUS albo Biała Lista) uzupełniają województwo, formę i branżę ----
+  var nipIn=$("nip"),nipHint=$("nipHint"),W=[6,5,7,2,3,4,5,6,7],company=null;
+  function validNip(s){if(!/^\d{10}$/.test(s))return false;var sum=0;for(var i=0;i<9;i++)sum+=W[i]*+s[i];var c=sum%11;return c!==10&&c===+s[9]}
+  nipIn.addEventListener("input",function(){
+    var d=nipIn.value.replace(/\D/g,"").slice(0,10),o=d;
+    if(d.length>3)o=d.slice(0,3)+"-"+d.slice(3);if(d.length>6)o=o.slice(0,7)+"-"+d.slice(6);if(d.length>8)o=o.slice(0,10)+"-"+d.slice(8);
+    nipIn.value=o;nipHint.className="hint";nipHint.textContent="";company=null;
+    if(d.length<10)return;
+    if(!validNip(d)){nipHint.className="hint err";nipHint.textContent="Ten NIP ma błędną cyfrę kontrolną. Sprawdź, czy nie ma literówki.";return}
+    nipHint.textContent="Sprawdzam w rejestrze…";
+    fetch("/api/company?nip="+d).then(function(r){return r.json()}).then(function(j){
+      if(nipIn.value.replace(/\D/g,"")!==d)return;
+      company=j.company;
+      if(!company){nipHint.textContent="Nie znaleźliśmy tej firmy w rejestrze. Wybierz dane poniżej.";return}
+      setVal("fWoj",company.region);setVal("fForm",company.form);setVal("fSector",company.sector||"");
+      syncDD();$("fWoj").closest(".fld").classList.remove("err");
+      nipHint.className="hint ok";nipHint.textContent="✓ "+(company.name||"Firma znaleziona")+". Sprawdź dane poniżej i kliknij „Szukaj”.";
+    }).catch(function(){nipHint.textContent="Rejestr nie odpowiada. Wybierz dane poniżej."});
+  });
+
   // ---- formularze ----
   function setVal(id,v){var s=$(id);if(s&&v!=null&&[].some.call(s.options,function(o){return o.value===v}))s.value=v}
   function firmQuery(){
     var q={region:$("fWoj").value,form:$("fForm").value,size:$("fSize").value};if($("fSector").value)q.sector=$("fSector").value;if($("fGoal").value)q.goals=$("fGoal").value;
-    return [q,label($("fForm")),label($("fSize")).split(" (")[0]+" · "+label($("fWoj"))+($("fSector").value?" · "+label($("fSector")):"")+($("fGoal").value?" · "+goalLabel():"")];
+    return [q,company&&company.name||label($("fForm")),label($("fSize")).split(" (")[0]+" · "+label($("fWoj"))+($("fSector").value?" · "+label($("fSector")):"")+($("fGoal").value?" · "+goalLabel():"")];
   }
   pF.addEventListener("submit",function(e){e.preventDefault();if(needWoj($("fWoj")))return;var a=firmQuery();search(a[0],a[1],a[2]);if(innerWidth<900)document.querySelector(".main").scrollIntoView({behavior:"smooth"})});
   pS.addEventListener("submit",function(e){
