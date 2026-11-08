@@ -1970,5 +1970,308 @@
   "direct_support": false,
   "note": "sprawdzone: wnioskują tylko instytucje publiczne/NGO/wskazane podmioty",
   "name": "2.23 Ochrona przyrody i jej zasobów"
+ },
+ "nfosigw:a18ad6d555d6": {
+  "direct_support": false,
+  "note": "wnioskuje tylko IMGW",
+  "name": "Działanie: FENX.02.04 Adaptacja do zmian klimatu, zapobieganie klęskom i katastr"
+ },
+ "nfosigw:045642ab9339": {
+  "direct_support": false,
+  "note": "wnioskuje tylko IMGW",
+  "name": "Działanie: FENX.02.04 Adaptacja do zmian klimatu, zapobieganie klęskom i katastr"
+ },
+ "arimr:ace56151eead": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet"
+  ],
+  "note": "pszczelarze",
+  "name": "Warto skorzystać z wsparcia dla sektora pszczelarskiego - wnioski tylko do 27 li"
+ },
+ "arimr:4e056d4440f0": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "sectors": [
+   "A",
+   "C10",
+   "M"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "grupy operacyjne EPI",
+  "name": "Innowacje w rolnictwie, żywności i leśnictwie - trwa nabór dla Grup Operacyjnych"
+ },
+ "arimr:ed4ca5b66874": {
+  "forms": [
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A",
+   "C10"
+  ],
+  "goals": [
+   "marketing"
+  ],
+  "note": "grupy producentów w systemach jakości",
+  "name": "Nawet 680 tys. zł wsparcia dla producentów jakościowej żywności - nabór startuje"
+ },
+ "arimr:b63d80b20569": {
+  "forms": [
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A",
+   "C10"
+  ],
+  "goals": [
+   "marketing"
+  ],
+  "note": "grupy producentów, promocja żywności",
+  "name": "Do 1,75 mln zł na promocję żywności wysokiej jakości - nabór potrwa do 7 grudnia"
+ },
+ "arimr:216697dd322c": {
+  "forms": [
+   "rolne"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "note": "rolnicy",
+  "name": "Do 16 listopada trwa nabór wniosków o cztery rodzaje wsparcia dla rolników"
+ },
+ "ncbr:84cebae4ac44": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "C",
+   "J",
+   "M"
+  ],
+  "goals": [
+   "badania",
+   "ai"
+  ],
+  "note": "międzynarodowe B+R w AI",
+  "name": "Innowacje w erze sztucznej inteligencji. NCBR ogłasza konkurs INNOGLOBO AI"
+ },
+ "ncbr:50e83da2d358": {
+  "direct_support": false,
+  "note": "PCP: zamówienie publiczne, nie dotacja; termin minął 6.11.2026",
+  "name": "PCP: system grzewczo-chłodzący - nowy termin składania wniosków"
+ },
+ "portal_fe:e24431bafa2d": {
+  "direct_support": false,
+  "note": "gminy i TBS/SIM",
+  "name": "13.1 Infrastruktura dostępnych cenowo mieszkań"
+ },
+ "portal_fe:b1f19df29242": {
+  "direct_support": false,
+  "note": "tylko OWES",
+  "name": "8.3 Zwiększenie aktywności społeczno – zawodowej"
+ },
+ "portal_fe:bcd60ca860f5": {
+  "direct_support": false,
+  "note": "nabór niekonkurencyjny, podmiot z listy",
+  "name": "FERC.04.01 Wzmocnienie cyberbezpieczeństwa oraz rozwój odpornej infrastruktury p"
+ },
+ "portal_fe:ddfce73a4a0c": {
+  "direct_support": false,
+  "note": "realizatorzy szkoleń dla dorosłych",
+  "name": "14.3 Gotowość cywilna w ramach edukacji dorosłych"
+ },
+ "portal_fe:1ec4e66a7667": {
+  "direct_support": false,
+  "note": "realizatorzy szkoleń dla dorosłych",
+  "name": "14.3 Gotowość cywilna w ramach edukacji dorosłych"
+ },
+ "portal_fe:a068300e4fff": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": [
+   "J"
+  ],
+  "goals": [
+   "szkolenia",
+   "eksport"
+  ],
+  "note": "startupy IT/ICT 1-5 lat, szkolenia i misje zagraniczne (usługa PARP)",
+  "name": "FENG 2.29 Start-ups Are Us – branża IT/ICT"
+ },
+ "portal_fe:47dd08cf218c": {
+  "direct_support": false,
+  "note": "wybór realizatorów wsparcia dla firm, nie dotacja dla firmy",
+  "name": "14.1 Gotowość cywilna w ramach pracodawców i przedsiębiorców"
+ },
+ "portal_fe:ccc3f6829b6c": {
+  "direct_support": false,
+  "note": "wybór realizatorów wsparcia dla firm, nie dotacja dla firmy",
+  "name": "14.1 Gotowość cywilna w ramach pracodawców i przedsiębiorców"
+ },
+ "portal_fe:95c077b58e2e": {
+  "direct_support": false,
+  "note": "JST, parkingi P&R",
+  "name": "14.1 Transport dla bezpieczeństwa i gotowości cywilnej, Typ projektu B."
+ },
+ "portal_fe:2070ae613250": {
+  "direct_support": false,
+  "note": "podmioty lecznicze, program profilaktyki",
+  "name": "6.13 Usługi społeczne i  zdrowotne"
+ },
+ "portal_fe:a812d5ff8d58": {
+  "direct_support": false,
+  "note": "tylko Województwo Podlaskie",
+  "name": "16.1 Obronność, infrastruktura krytyczna, cyberbezpieczeństwo i odnawialne źródł"
+ },
+ "portal_fe:131254e981fd": {
+  "direct_support": false,
+  "note": "miasta",
+  "name": "1.2 Adaptacja terenów zurbanizowanych do zmian klimatu, Wsparcie systemów gospod"
+ },
+ "portal_fe:104129e082a3": {
+  "direct_support": false,
+  "note": "organy prowadzące szkoły",
+  "name": "14.2 Cyberbezpieczeństwo lub gotowość cywilna – kształcenie zawodowe [nabór Nr F"
+ },
+ "portal_fe:303ce6fcd186": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "regions": [
+   "swietokrzyskie"
+  ],
+  "sectors": [
+   "A",
+   "C10",
+   "I"
+  ],
+  "goals": [
+   "start",
+   "sprzet",
+   "goz"
+  ],
+  "note": "lokalna przedsiębiorczość w obszarze rybackiej LSR",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Świętokrzyska Rybacka L"
+ },
+ "portal_fe:82310e4f3c55": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "regions": [
+   "swietokrzyskie"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet",
+   "goz",
+   "marketing"
+  ],
+  "note": "rybacy i hodowcy ryb",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Świętokrzyska Rybacka L"
+ },
+ "portal_fe:ba773b5231c5": {
+  "direct_support": false,
+  "note": "wybór operatorów; firmy dostaną usługi później przez BUR",
+  "name": "1.3 Kadry nowoczesnej gospodarki"
+ },
+ "portal_fe:5973ba277d8f": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "regions": [
+   "slaskie"
+  ],
+  "sectors": [
+   "A",
+   "C10",
+   "I"
+  ],
+  "goals": [
+   "start",
+   "sprzet",
+   "goz"
+  ],
+  "note": "lokalna przedsiębiorczość w obszarze RLGD Jurajska Ryba",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (RLGD \"Jurajska Ryba\") C"
+ },
+ "portal_fe:feb36a1e86d7": {
+  "direct_support": false,
+  "note": "zabytki i instytucje kultury",
+  "name": "4.6 Inwestycje w kulturę i turystykę"
+ },
+ "portal_fe:e45b5de2f56f": {
+  "direct_support": false,
+  "note": "JST i wodociągi",
+  "name": "11.1 Bezpieczna gospodarka wodna"
+ },
+ "portal_fe:609843134527": {
+  "direct_support": false,
+  "note": "Białystok i Czarna Białostocka",
+  "name": "4.2 Zintegrowane terytorialnie inwestycje w edukację"
+ },
+ "portal_fe:49995d31cf25": {
+  "direct_support": false,
+  "note": "tylko IMGW",
+  "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom - Rozwijanie "
+ },
+ "portal_fe:eb0893eef1c7": {
+  "direct_support": false,
+  "note": "tylko PKP S.A.",
+  "name": "4.2 Kolej w TEN‐T, Fundusze Europejskie na Infrastrukturę, Klimat"
+ },
+ "portal_fe:e8a2036e0162": {
+  "direct_support": false,
+  "note": "tylko ULC",
+  "name": "4.3 Infrastruktura lotnicza w TEN‐T, Fundusze Europejskie na Infrastrukturę, Kli"
+ },
+ "portal_fe:88bd7b987dcc": {
+  "direct_support": false,
+  "note": "tylko IMGW",
+  "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom - Rozwój bazy"
  }
 }
