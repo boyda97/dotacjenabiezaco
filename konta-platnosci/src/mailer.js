@@ -15,13 +15,14 @@ export function createMailer(cfg, log = console) {
 
   return {
     send,
-    async sendLoginLink(email, link) {
+    async sendLoginLink(email, link, code) {
       const text =
         `Cześć!\n\nKliknij, aby zalogować się do serwisu Dotacjo:\n${link}\n\n` +
-        `Link działa ${cfg.loginTokenMinutes} minut i tylko raz. ` +
+        (code ? `Logujesz się w aplikacji na telefonie? Wpisz tam ten kod: ${code}\n\n` : "") +
+        `Link i kod działają ${cfg.loginTokenMinutes} minut i tylko raz. ` +
         `Jeśli to nie Ty prosiłeś o logowanie, zignoruj tę wiadomość.\n\nDotacjo · dotacjo.pl\n`;
       if (!cfg.resendApiKey) {
-        log.info?.(`[dev] link logowania dla ${email}: ${link}`);
+        log.info?.(`[dev] link logowania dla ${email}: ${link}${code ? ` (kod ${code})` : ""}`);
         return;
       }
       await send({ to: email, subject: "Twój link do logowania – Dotacjo", text });

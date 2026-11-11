@@ -1,21 +1,26 @@
 {
-  "name": "Dotacjo",
+  "id": "/",
+  "name": "Dotacjo – dotacje dla Twojej firmy",
   "short_name": "Dotacjo",
-  "icons": [
-    {
-      "src": "/brand/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "/brand/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
-  ],
+  "description": "Nabory dotacji, pożyczek i grantów dopasowane do Twojej firmy i ułożone według terminu.",
+  "lang": "pl",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#003D2B",
-  "background_color": "#FFFFFF",
-  "display": "standalone"
+  "background_color": "#FBFCF8",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    { "src": "/brand/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/brand/icons/maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/brand/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Wyszukiwarka dotacji", "short_name": "Szukaj", "url": "/panel", "icons": [{ "src": "/brand/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Ulubione nabory", "short_name": "Ulubione", "url": "/ulubione", "icons": [{ "src": "/brand/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Mój profil", "short_name": "Profil", "url": "/profil", "icons": [{ "src": "/brand/icons/icon-192.png", "sizes": "192x192" }] }
+  ]
 }

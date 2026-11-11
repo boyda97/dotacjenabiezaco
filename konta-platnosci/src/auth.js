@@ -1,6 +1,7 @@
-// Logowanie bez hasła: link z e-maila -> sesja w ciasteczku httpOnly.
+// Logowanie bez hasła: link z e-maila albo 6-cyfrowy kod z tego samego e-maila -> sesja w ciasteczku httpOnly.
+// Kod jest potrzebny w aplikacji na iPhonie: link z poczty otwiera Safari, które ma osobne ciasteczka.
 // Pierwsze logowanie zakłada konto (rejestracja = logowanie).
-import { createHash, randomBytes } from "node:crypto";
+import { createHash, randomBytes, randomInt } from "node:crypto";
 import { Router } from "express";
 import { nowSec } from "./entitlements.js";
 
@@ -9,6 +10,9 @@ const EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{2,}$/;
 
 const sha256 = (s) => createHash("sha256").update(s).digest("hex");
 const newToken = () => randomBytes(32).toString("base64url");
+const newCode = () => String(randomInt(0, 1e6)).padStart(6, "0");
+// Kod trzymamy w tej samej tabeli co linki, pod innym hashem (z e-mailem, żeby kody różnych osób się nie mieszały).
+const codeHash = (email, code) => sha256(`kod:${email}:${code}`);
 
 export function parseCookies(header = "") {
   const out = {};
@@ -37,6 +41,7 @@ const safeNext = (n) => (typeof n === "string" && /^\/(?!\/)[\w\-./?=&#%]*$/.tes
 export function createAuth({ db, cfg, mailer, log = console }) {
   const perEmail = rateLimiter(5, 3600);
   const perIp = rateLimiter(30, 3600);
+  const codeTries = rateLimiter(8, 900); // 6 cyfr: limit prób na adres, żeby nie dało się zgadywać
 
   function findOrCreateUser(email) {
     const existing = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
@@ -89,11 +94,13 @@ export function createAuth({ db, cfg, mailer, log = console }) {
     if (!perIp(req.ip) || !perEmail(email)) return res.status(429).json({ error: "too_many_requests" });
 
     const token = newToken();
-    db.prepare("INSERT INTO login_tokens (token_hash, email, next, expires_at) VALUES (?,?,?,?)").run(
-      sha256(token), email, safeNext(req.body?.next), nowSec() + cfg.loginTokenMinutes * 60
-    );
+    const code = newCode();
+    const insert = db.prepare("INSERT INTO login_tokens (token_hash, email, next, expires_at) VALUES (?,?,?,?)");
+    const expires = nowSec() + cfg.loginTokenMinutes * 60;
+    insert.run(sha256(token), email, safeNext(req.body?.next), expires);
+    insert.run(codeHash(email, code), email, safeNext(req.body?.next), expires);
     try {
-      await mailer.sendLoginLink(email, `${cfg.appUrl}/api/auth/verify?token=${token}`);
+      await mailer.sendLoginLink(email, `${cfg.appUrl}/api/auth/verify?token=${token}`, code);
     } catch (e) {
       log.error?.("Wysyłka e-maila nie powiodła się", e);
       return res.status(502).json({ error: "email_failed" });
@@ -120,10 +127,29 @@ export function createAuth({ db, cfg, mailer, log = console }) {
     if (!row || row.used_at || row.expires_at < nowSec()) {
       return res.redirect(303, "/?login=expired#panel");
     }
-    db.prepare("UPDATE login_tokens SET used_at = ? WHERE token_hash = ?").run(nowSec(), row.token_hash);
+    useToken(row);
     const user = findOrCreateUser(row.email);
     createSession(res, user.id);
     res.redirect(303, row.next || "/profil");
+  });
+
+  // Zużycie linku albo kodu unieważnia też drugi z pary (i starsze, nieużyte).
+  function useToken(row) {
+    db.prepare("UPDATE login_tokens SET used_at = ? WHERE email = ? AND used_at IS NULL").run(nowSec(), row.email);
+  }
+
+  // 3) Kod z e-maila wpisany na stronie (aplikacja na telefonie). Odpowiedź JSON, sesja w ciasteczku.
+  router.post("/code", (req, res) => {
+    const email = String(req.body?.email || "").trim().toLowerCase();
+    const code = String(req.body?.code || "").replace(/\D/g, "");
+    if (!EMAIL_RE.test(email) || code.length !== 6) return res.status(400).json({ error: "invalid_code" });
+    if (!codeTries(email) || !perIp(req.ip)) return res.status(429).json({ error: "too_many_requests" });
+    const row = db.prepare("SELECT * FROM login_tokens WHERE token_hash = ?").get(codeHash(email, code));
+    if (!row || row.used_at || row.expires_at < nowSec()) return res.status(400).json({ error: "invalid_code" });
+    useToken(row);
+    const user = findOrCreateUser(row.email);
+    createSession(res, user.id);
+    res.json({ ok: true, next: row.next || "/profil" });
   });
 
   router.post("/logout", (req, res) => {
