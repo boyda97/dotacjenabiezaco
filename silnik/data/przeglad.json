@@ -2273,5 +2273,83 @@
   "direct_support": false,
   "note": "tylko IMGW",
   "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom - Rozwój bazy"
+ },
+ "portal_fe:402276149277": {
+  "direct_support": false,
+  "note": "gminy i związki międzygminne",
+  "name": "Społeczne Agencje Najmu - III edycja"
+ },
+ "portal_fe:91962186d1ec": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "regions": [
+   "lubelskie",
+   "podkarpackie"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet",
+   "goz",
+   "marketing"
+  ],
+  "note": "rybacy i hodowcy ryb w obszarze RLGD Roztocze",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Rybacka Lokalna Grupa D"
+ },
+ "portal_fe:429fc8738336": {
+  "direct_support": false,
+  "note": "JST i instytucje pracy z rodziną",
+  "name": "8.8 Wsparcie rodziny i pieczy zastępczej"
+ },
+ "portal_fe:28de8aeedd63": {
+  "direct_support": false,
+  "note": "nabór niekonkurencyjny, Małopolskie Parki Zdrowia",
+  "name": "Działanie 14.2 Podniesienie poziomu cyberbezpieczeństwa w podmiotach opieki zdro"
+ },
+ "portal_fe:3b883d8237fb": {
+  "direct_support": false,
+  "note": "organizacje producentów i organizacje rybackie",
+  "name": "1.11 Ochrona środowiska naturalnego i zmniejszenie wpływu działalności rybackiej"
+ },
+ "portal_fe:240717765134": {
+  "direct_support": false,
+  "note": "JST i podmioty usług społecznych",
+  "name": "8.5 Usługi społeczne"
+ },
+ "portal_fe:87f0815db6b1": {
+  "direct_support": false,
+  "note": "JST i wodociągi",
+  "name": "Działanie 12.2 Wsparcie infrastruktury kanalizacyjnej oraz oczyszczania ścieków "
+ },
+ "portal_fe:e7492a179708": {
+  "direct_support": false,
+  "note": "JST i NGO, usługi społeczne",
+  "name": "9.8 Usługi społeczne na rzecz rodzin i osób w kryzysie bezdomności – ZIT (SCHEMA"
+ },
+ "portal_fe:5e16790e3f97": {
+  "direct_support": false,
+  "note": "RDOŚ i park narodowy",
+  "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom Renaturyzacja"
+ },
+ "portal_fe:856592986ba4": {
+  "direct_support": false,
+  "note": "tylko uczelnie publiczne",
+  "name": "8.8 Kształcenie zawodowe"
+ },
+ "portal_fe:5c88c97c1410": {
+  "direct_support": false,
+  "note": "JST i NGO, rybacka LGD",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca LGR „Mòrénka”, numer nab"
+ },
+ "portal_fe:c9d3282d57b5": {
+  "direct_support": false,
+  "note": "JST, rybacka LGD",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca  LGR „Mòrénka”, numer na"
  }
 }
