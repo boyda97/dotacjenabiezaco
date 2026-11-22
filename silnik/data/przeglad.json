@@ -2273,5 +2273,387 @@
   "direct_support": false,
   "note": "tylko IMGW",
   "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom - Rozwój bazy"
+ },
+ "portal_fe:402276149277": {
+  "direct_support": false,
+  "note": "gminy i związki międzygminne",
+  "name": "Społeczne Agencje Najmu - III edycja"
+ },
+ "portal_fe:91962186d1ec": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "regions": [
+   "lubelskie",
+   "podkarpackie"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet",
+   "goz",
+   "marketing"
+  ],
+  "note": "rybacy i hodowcy ryb w obszarze RLGD Roztocze",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca (Rybacka Lokalna Grupa D"
+ },
+ "portal_fe:429fc8738336": {
+  "direct_support": false,
+  "note": "JST i instytucje pracy z rodziną",
+  "name": "8.8 Wsparcie rodziny i pieczy zastępczej"
+ },
+ "portal_fe:28de8aeedd63": {
+  "direct_support": false,
+  "note": "nabór niekonkurencyjny, Małopolskie Parki Zdrowia",
+  "name": "Działanie 14.2 Podniesienie poziomu cyberbezpieczeństwa w podmiotach opieki zdro"
+ },
+ "portal_fe:3b883d8237fb": {
+  "direct_support": false,
+  "note": "organizacje producentów i organizacje rybackie",
+  "name": "1.11 Ochrona środowiska naturalnego i zmniejszenie wpływu działalności rybackiej"
+ },
+ "portal_fe:240717765134": {
+  "direct_support": false,
+  "note": "JST i podmioty usług społecznych",
+  "name": "8.5 Usługi społeczne"
+ },
+ "portal_fe:87f0815db6b1": {
+  "direct_support": false,
+  "note": "JST i wodociągi",
+  "name": "Działanie 12.2 Wsparcie infrastruktury kanalizacyjnej oraz oczyszczania ścieków "
+ },
+ "portal_fe:e7492a179708": {
+  "direct_support": false,
+  "note": "JST i NGO, usługi społeczne",
+  "name": "9.8 Usługi społeczne na rzecz rodzin i osób w kryzysie bezdomności – ZIT (SCHEMA"
+ },
+ "portal_fe:5e16790e3f97": {
+  "direct_support": false,
+  "note": "RDOŚ i park narodowy",
+  "name": "2.4 Adaptacja do zmian klimatu, zapobieganie klęskom i katastrofom Renaturyzacja"
+ },
+ "portal_fe:856592986ba4": {
+  "direct_support": false,
+  "note": "tylko uczelnie publiczne",
+  "name": "8.8 Kształcenie zawodowe"
+ },
+ "portal_fe:5c88c97c1410": {
+  "direct_support": false,
+  "note": "JST i NGO, rybacka LGD",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca LGR „Mòrénka”, numer nab"
+ },
+ "portal_fe:c9d3282d57b5": {
+  "direct_support": false,
+  "note": "JST, rybacka LGD",
+  "name": "3.1 Realizacja lokalnych strategii rozwoju i współpraca  LGR „Mòrénka”, numer na"
+ },
+ "nfosigw:95fd8b4ccd0a": {
+  "direct_support": false,
+  "note": "nabór niekonkurencyjny, RDOŚ i parki narodowe",
+  "name": "Działanie: FENX.02.04 Adaptacja do zmian klimatu, zapobieganie klęskom i katastr"
+ },
+ "arimr:c4bc67915516": {
+  "direct_support": false,
+  "note": "wnioskują firmy szkoleniowe, nie rolnicy",
+  "name": "Specjalistyczne szkolenia dla rolników – zapowiedź kolejnego naboru wniosków"
+ },
+ "arimr:5c34b8e21149": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet"
+  ],
+  "note": "pszczelarze",
+  "name": "Ostatnie dni na wsparcie dla pszczelarstwa – składanie wniosków tylko do 27 list"
+ },
+ "arimr:4ff4ce74303a": {
+  "forms": [
+   "rolne"
+  ],
+  "sectors": [
+   "A"
+  ],
+  "goals": [
+   "sprzet"
+  ],
+  "note": "hodowcy bydła mięsnego",
+  "name": "Nawet 7 tys. zł do zakupu buhaja - wnioski można składać tylko do 30 listopada"
+ },
+ "arimr:5c5e698ef726": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa",
+   "rolne"
+  ],
+  "sectors": [
+   "A",
+   "C10",
+   "M"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "grupy operacyjne EPI",
+  "name": "Innowacyjne projekty dla rolnictwa - nabór dla Grup Operacyjnych EPI trwa do 30 "
+ },
+ "arimr:c645490abfcf": {
+  "forms": [
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A",
+   "C10"
+  ],
+  "goals": [
+   "marketing"
+  ],
+  "note": "grupy producentów, promocja żywności",
+  "name": "147 mln zł na promocję żywności wysokiej jakości - trwa nabór wniosków o wsparci"
+ },
+ "arimr:9fb82940cd83": {
+  "direct_support": false,
+  "note": "konkurs plastyczno-fotograficzny, nie dotacja",
+  "name": "Wieś - moje miejsce na Ziemi: ruszamy z nowym konkursem plastyczno-fotograficzny"
+ },
+ "arimr:efbc1bd4ba47": {
+  "forms": [
+   "rolne",
+   "ngo"
+  ],
+  "sectors": [
+   "A",
+   "C10"
+  ],
+  "goals": [
+   "marketing"
+  ],
+  "note": "grupy producentów w systemach jakości",
+  "name": "Nawet 680 tys. zł dla producentów żywności wysokiej jakości - nabór trwa do 10 g"
+ },
+ "ncbr:5ad49a8f4c91": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small"
+  ],
+  "sectors": [
+   "C",
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "eksport",
+   "badania"
+  ],
+  "note": "akceleracja startupów technologicznych w USA",
+  "name": "NCBR-USA: nabór zgłoszeń tylko do 4 grudnia"
+ },
+ "ncbr:b26daa23a3a5": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "A",
+   "C10",
+   "M"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "międzynarodowe B+R, systemy żywnościowe",
+  "name": "Ruszył nabór na wnioski w konkursie partnerstwa FutureFoodS Call 2026: Getting E"
+ },
+ "portal_fe:a613d020c022": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": [
+   "J"
+  ],
+  "goals": [
+   "szkolenia",
+   "eksport"
+  ],
+  "note": "startupy cyberbezpieczeństwo 1-5 lat (usługa PARP)",
+  "name": "2.29 Start-ups Are Us – branża Cyberbezpieczeństwo"
+ },
+ "portal_fe:00d3e389ff57": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "sectors": [
+   "C",
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "szkolenia",
+   "eksport"
+  ],
+  "note": "startupy technologiczne 1-5 lat (usługa PARP)",
+  "name": "2.29 Startups are us"
+ },
+ "portal_fe:e9580ba0af10": {
+  "direct_support": false,
+  "note": "organizacje społeczne i partnerzy społeczni",
+  "name": "9.6 Podnoszenie potencjału partnerów społecznych i organizacji społeczeństwa oby"
+ },
+ "portal_fe:baa2b36d7d4a": {
+  "direct_support": false,
+  "note": "samorząd województwa i instytucje kultury",
+  "name": "Działanie 6.12 Wsparcie instytucji kultury [nabór nr FEKP.06.12-IZ.00-325/26]"
+ },
+ "portal_fe:913305b027db": {
+  "direct_support": false,
+  "note": "podmioty z kryterium dostępu, materiały doradztwa zawodowego",
+  "name": "KONKURS Opracowanie materiałów multimedialnych dla doradztwa zawodowego"
+ },
+ "portal_fe:e8a375c35511": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sectors": [
+   "B",
+   "C",
+   "C10",
+   "D",
+   "E",
+   "J",
+   "M",
+   "Q"
+  ],
+  "goals": [
+   "badania"
+  ],
+  "note": "B+R w konsorcjum, liderem firma",
+  "name": "Ścieżka SMART – projekty realizowane w konsorcjach, nabór FENG.01.01-IP.01-004/2"
+ },
+ "portal_fe:420aedc7653e": {
+  "direct_support": false,
+  "note": "wskazane OSP i gminy",
+  "name": "2.11 Dostosowanie do zmian klimatu, zapobieganie klęskom i katastrofom naturalny"
+ },
+ "portal_fe:08e31786fec1": {
+  "direct_support": false,
+  "note": "realizatorzy szkoleń z gotowości cywilnej",
+  "name": "18.1 Gotowość cywilna w miejscu pracy (001/26)"
+ },
+ "portal_fe:56a07025f0dd": {
+  "direct_support": false,
+  "note": "podmioty lecznicze, JST, NGO",
+  "name": "7.4 Zdrowie w pracy (001/26)"
+ },
+ "portal_fe:607265043093": {
+  "direct_support": false,
+  "note": "JST i jednostki ochrony środowiska",
+  "name": "2.7 Bioróżnorodność, typ projektu: Ochrona różnorodności biologicznej poprzez re"
+ },
+ "portal_fe:bb1b14db7bd3": {
+  "direct_support": false,
+  "note": "szkoły, CUS, instytucje kultury",
+  "name": "18.3 Gotowość cywilna mieszkańców (001/26)"
+ },
+ "portal_fe:606e410384d0": {
+  "direct_support": false,
+  "note": "JST, projekt strategiczny",
+  "name": "2.12 Ochrona bioróżnorodności (009/26)"
+ },
+ "portal_fe:e456160a615e": {
+  "direct_support": false,
+  "note": "budynki komunalne, administracja publiczna",
+  "name": "2.3 Efektywność energetyczna budynków mieszkalnych (361)"
+ },
+ "portal_fe:03f41e62f0a1": {
+  "direct_support": false,
+  "note": "nabór niekonkurencyjny, Województwo Małopolskie",
+  "name": "Działanie 14.1 Transport dla bezpieczeństwa i gotowości cywilnej, typ projektu C"
+ },
+ "portal_fe:c5b2728a09f8": {
+  "direct_support": false,
+  "note": "nabór niekonkurencyjny, ROPS Toruń",
+  "name": "8.25 Usługi wsparcia rodziny i pieczy zastępczej [nabór Nr FEKP.08.25-IZ.00-324/"
+ },
+ "portal_fe:c2ee72ca0457": {
+  "forms": [
+   "jdg",
+   "sc",
+   "zoo",
+   "sa"
+  ],
+  "sizes": [
+   "micro",
+   "small",
+   "medium"
+  ],
+  "regions": [
+   "dolnoslaskie"
+  ],
+  "sectors": [
+   "C"
+  ],
+  "goals": [
+   "sprzet",
+   "budowa",
+   "badania",
+   "ip"
+  ],
+  "note": "produkcja technologii krytycznych",
+  "name": "14.1 Technologie strategiczne dla Dolnego Śląska (546/26)"
+ },
+ "portal_fe:90965d138da1": {
+  "direct_support": false,
+  "note": "nabór niekonkurencyjny, samorząd województwa",
+  "name": "8.14 Kształcenie ogólne [nabór Nr FEKP.08.14-IZ.00-322/26]"
+ },
+ "portal_fe:7d788e7b9b9d": {
+  "direct_support": false,
+  "note": "Województwo Małopolskie i szkoły",
+  "name": "6.12 Edukacja - projekty Województwa Małopolskiego, Typ A Małopolski program wsp"
  }
 }
