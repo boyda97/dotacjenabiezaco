@@ -65,11 +65,13 @@ function page({ title, description, path, appUrl, body }) {
 <title>${esc(title)}</title><meta name="description" content="${esc(description)}"><link rel="canonical" href="${appUrl}${path}">
 <meta property="og:title" content="${esc(title)}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${appUrl}${path}"><meta property="og:type" content="website"><meta property="og:locale" content="pl_PL">
 <link rel="icon" href="/brand/icons/favicon.svg" type="image/svg+xml"><meta name="theme-color" content="#003D2B">
+<link rel="apple-touch-icon" href="/brand/icons/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><meta name="apple-mobile-web-app-title" content="Dotacjo">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"><style>${CSS}</style></head>
 <body><header><div class="wrap"><a href="/"><img src="/brand/svg/dotacjo-horizontal.svg" alt="Dotacjo" width="140" height="44"></a><a class="btn sm" href="/#top">Sprawdź swoją firmę</a></div></header>
 <main class="wrap">${body}</main>
-<footer><div class="wrap">© ${year()} Dotacjo · <a href="/dotacje">Dotacje według województw</a> · <a href="/#cennik">Cennik</a> · <a href="/#faq">Pytania</a> · <a href="/regulamin">Regulamin</a> · <a href="/prywatnosc">Polityka prywatności</a> · <a href="#" data-zgody hidden>Ustawienia cookies</a><br>Informacje o naborach mają charakter pomocniczy; wiążący jest regulamin operatora programu.</div></footer>
+<footer><div class="wrap">© ${year()} Dotacjo · <a href="/dotacje">Dotacje według województw</a> · <a href="/#cennik">Cennik</a> · <a href="/#faq">Pytania</a> · <a href="/regulamin">Regulamin</a> · <a href="/prywatnosc">Polityka prywatności</a> <a href="#" data-aplikacja hidden>· Aplikacja na telefon</a> · <a href="#" data-zgody hidden>Ustawienia cookies</a><br>Informacje o naborach mają charakter pomocniczy; wiążący jest regulamin operatora programu.</div></footer>
 <script src="/zgody.js" defer></script>
+<script src="/aplikacja.js" defer></script>
 <script src="/stat.js" defer></script></body></html>`;
 }
 
